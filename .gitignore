@@ -87,5 +87,5 @@ nb-configuration.xml
 ## General
 ##############################
 *.txt
-lib/hsperfdata_root/
+hsperfdata_root/
 output/
