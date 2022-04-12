@@ -82,3 +82,10 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+
+##############################
+## General
+##############################
+*.txt
+hsperfdata_root/
+output/
