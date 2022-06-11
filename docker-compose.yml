@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  vs-code-server:
+    build:
+      context: ./VS_CODE_DEV_SERVER
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/home/coder/project
+    container_name: vs-code-server
+    environment:
+      - PASSWORD=1234 #optional
+      #- HASHED_PASSWORD= #optional
+      - SUDO_PASSWORD=1234 #optional
+      #- SUDO_PASSWORD_HASH= #optional
+    ports:
+      - 8090:8080
