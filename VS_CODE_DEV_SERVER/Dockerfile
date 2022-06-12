@@ -13,5 +13,10 @@ RUN apt-get update && \
 ENV JAVA_HOME=/usr/lib/jvm/jdk-18
 ENV PATH=${PATH}:${JAVA_HOME}/bin
 
+# Pre-install vscode extension
+RUN code-server --install-extension redhat.java && \
+      code-server --install-extension TabNine.tabnine-vscode && \
+      code-server --install-extension donjayamanne.githistory
+
 # inherted from codercom/code-server
 ENTRYPOINT [ "dumb-init", "/usr/bin/code-server", "--bind-addr", "0.0.0.0:8080", "." ]
