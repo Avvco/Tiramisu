@@ -18,3 +18,4 @@ services:
       #- SUDO_PASSWORD_HASH= #optional
     ports:
       - 8090:8080
+      - 5555:5555
