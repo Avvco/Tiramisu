@@ -1,0 +1,43 @@
+plugins {
+	id 'org.springframework.boot' version '3.0.0-M3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'tiramisu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '18'
+
+bootJar {
+  enabled = false
+}
+
+jar {
+  enabled = true
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task buildAndReload {
+  dependsOn build
+  mustRunAfter build    // buildAndReload must run after the source files are built into class files using build task
+  doLast {
+    new File(".", "reload-trigger.txt").text = "${System.currentTimeMillis()}" // update trigger file in root folder for hot reload
+  }
+}
