@@ -12,11 +12,11 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "alvistack/ubuntu-22.04"
+  config.vm.box = "ubuntu/focal64"
 
   config.vm.hostname = "Tiramisu"
 
-  config.vm.define "Tiramisu_VM"
+  config.vm.define "TiramisuVM"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -32,8 +32,22 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 8090, host: 8090
+  # config.vm.network "forwarded_port", guest: 9000, host: 9000, host_ip: "127.0.0.1"
+
+  # 9000 sprint boot
+  config.vm.network "forwarded_port", guest: 9000, host: 9000
+
+  # 9010 hapi-fhir
+  config.vm.network "forwarded_port", guest: 9010, host: 9010
+
+  # 9999 vscode server
+  config.vm.network "forwarded_port", guest: 9999, host: 9999
+
+  # 80 nginx
+  config.vm.network "forwarded_port", guest: 80, host: 80
+
+  # 8081 php phpMyAdmin
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -54,13 +68,15 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
       #vb.gui = true
   #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+     #Customize the amount of memory on the VM:
+    vb.memory = "5120"
+  end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -70,10 +86,19 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
 
   # run only when vm iniitialize
-  config.vm.provision :shell, path: "./vagrantVmOnStartScript/installDocker.sh"
+  config.vm.provision :shell, privileged: true, path: "./vagrantVmOnStartScript/installDocker.sh"
+  config.vm.provision :shell, privileged: true, path: "./vagrantVmOnStartScript/installOtherTool.sh"
 
+  # Run first start script for each container
+  config.vm.provision :shell, privileged: true, path: "./vagrantVmOnStartScript/startupContainer.sh"
+
+  # =====
   # run every time when vm up
-  config.vm.provision :shell, path: "./vagrantVmOnStartScript/runDocker.sh", run: 'always'
+  #config.vm.provision :shell, privileged: true, path: "./vagrantVmOnStartScript/runDocker.sh", run: 'always'
+
+  
+
+
 
   # =================================================================
 end
