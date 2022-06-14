@@ -10,12 +10,12 @@ rm *.so
 
 # Start all containers
 docker-compose up -d & \
-(cd Blockchain_Frontend/laradock && docker-compose up -d nginx mysql phpmyadmin workspace)
+(cd Tiramisu_Laravel/laradock && docker-compose up -d nginx mysql phpmyadmin workspace)
 
 # Install dependencies for containers
 
 # Run first time setup for laravel
-cd /vagrant/Blockchain_Frontend/laradock
+cd /vagrant/Tiramisu_Laravel/laradock
 docker-compose exec -T workspace composer install
 docker-compose exec -T workspace php artisan key:generate
 docker-compose exec -T workspace php artisan migrate
