@@ -1,0 +1,1 @@
+docker run -it --rm -v %cd%:/tmp -w /tmp node npm install
