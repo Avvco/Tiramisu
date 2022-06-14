@@ -11,3 +11,5 @@ Here is an approach to install npm dependencies:
 ```batch
 docker run -it --rm -v %cd%:/tmp -w /tmp node npm install <your dependency>
 ```
+
+After installing new npm dependencies, you will probably need to restart the VM using `vagrant reload`.

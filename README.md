@@ -23,6 +23,27 @@ sudo /vagrant/vagrantVmOnStartScript/runDocker.sh
 
 to boot up all the docker services.
 
+## How to Restart all Docker Services Without Restart VM
+
+``` bash
+vagrant ssh
+sudo /vagrant/vagrantVmOnStartScript/runDocker.sh
+```
+
+## How to Shutdown
+
+Close the terminal you start by just close it.
+
+Don't press `ctrl+c` or `ctrl+z`.
+
+And at the project root directory
+
+```bash
+vagrant halt
+```
+
+to power off the VM
+
 ## Prerequisites
 
 You need to have:
