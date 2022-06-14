@@ -1,6 +1,45 @@
 version: '3.7'
 
 services:
+  spring-boot-reloader:
+    build:
+      context: ./Tiramisu_Spring_Boot
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/tmp
+    working_dir: /tmp
+    container_name: spring-boot-reloader
+    command: [ "./Tiramisu_Spring_Boot/buildAndReload.sh" ]
+
+  spring-boot:
+    build:
+      context: ./Tiramisu_Spring_Boot
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/tmp
+    working_dir: /tmp
+    container_name: spring-boot
+    command: [ "./Tiramisu_Spring_Boot/bootRun.sh" ]
+    depends_on:
+      - spring-boot-reloader
+    ports:
+      - 9000:8080
+      - 35729:35729
+      - 5005:5005
+
+  hapi-fhir:
+    image: "hapiproject/hapi:latest"
+    volumes:
+      - hapi-data:/data/hapi
+    container_name: hapi-fhir
+    configs:
+      - source: hapi
+        target: /data/hapi/application.yaml
+    environment:
+      SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
+    ports:
+      - "9010:8080"
+
   vs-code-server:
     build:
       context: ./VS_CODE_DEV_SERVER
