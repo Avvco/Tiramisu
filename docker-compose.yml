@@ -27,18 +27,18 @@ services:
       - 35729:35729
       - 5005:5005
 
-  hapi-fhir:
-    image: "hapiproject/hapi:latest"
-    volumes:
-      - hapi-data:/data/hapi
-    container_name: hapi-fhir
-    configs:
-      - source: hapi
-        target: /data/hapi/application.yaml
-    environment:
-      SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
-    ports:
-      - "9010:8080"
+  #hapi-fhir:
+  #  image: "hapiproject/hapi:latest"
+  #  volumes:
+  #    - hapi-data:/data/hapi
+  #  container_name: hapi-fhir
+  #  configs:
+  #    - source: hapi
+  #      target: /data/hapi/application.yaml
+  #  environment:
+  #    SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
+  #  ports:
+  #    - "9010:8080"
 
   vs-code-server:
     build:
@@ -55,7 +55,6 @@ services:
       #- HASHED_PASSWORD= #optional
       - SUDO_PASSWORD=1234 #optional
       #- SUDO_PASSWORD_HASH= #optional
-      - http_proxy=127.0.0.1:5555
     ports:
-      - 8090:8080
+      - 9999:8080
       - 5555:5555
