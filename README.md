@@ -57,12 +57,13 @@ You need to have:
 
 ### Tiramisu_Laravel
 
-- Port
-80
+- Port 80
+- URL: <http://127.0.0.1>
 
 ### phpMyAdmin
 
 - Port 8081
+- URL: <http://127.0.0.1:8081>
 - Account: default
 - Password: secret
 
@@ -75,10 +76,12 @@ You need to have:
 
 ### HAPI-FHIR
 
-- Port
-9010
+- Port 9020
+- URL: <http://127.0.0.1:9020>
+- Api Reference: <http://127.0.0.1:9020/fhir/>
 
 ### VSCode-Server
 
-- Port
-9999
+- Port 9999
+- URL: <http://127.0.0.1:9999>
+- Password: 1234

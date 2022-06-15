@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # sudo /vagrant/vagrantVmOnStartScript/runDocker.sh
+# docker ps --format '{{.Names}}'
 
 # Delete all images
 # docker rmi -f $(docker images -aq)
@@ -14,14 +15,15 @@ docker volume rm $(docker volume ls -q)
 cd /vagrant
 rm *.so
 
-# Start all containers in detached mode
-docker-compose up -d & \
-cd Tiramisu_Laravel/laradock && docker-compose up -d nginx mysql phpmyadmin workspace
+# Start Laradock containers
+cd /vagrant/Tiramisu_Laravel/laradock && docker-compose up -d nginx mysql phpmyadmin workspace
 
+# Start containers
 # Run npm with splited window
 exec tmux new-session \; \
       split-window -v \; \
-      send-keys 'cd /vagrant/Tiramisu_Laravel/laradock && docker-compose exec workspace npm run watch-poll' C-m \; \
+      send-keys 'cd /vagrant && docker-compose up' C-m \; \
       split-window -h \; \
-      send-keys 'top' C-m \; \
+      send-keys 'cd /vagrant/Tiramisu_Laravel/laradock && docker-compose exec workspace npm run watch-poll' C-m \; \
       select-pane -t 0 \; \
+
