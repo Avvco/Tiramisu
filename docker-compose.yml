@@ -32,13 +32,10 @@ services:
     volumes:
       - ./HAPI-FHIR:/data/hapi
     container_name: hapi-fhir
-    configs:
-      - source: hapi
-        target: /data/hapi/application.yaml
     environment:
       SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
     ports:
-      - 9020:9020
+      - 9020:8080
 
   vs-code-server:
     build:
