@@ -76,9 +76,9 @@ You need to have:
 
 ### HAPI-FHIR
 
-- Port 8080
-- URL: <http://127.0.0.1:8080>
-- Api Reference: <http://127.0.0.1:8080/fhir/>
+- Port 9020
+- URL: <http://127.0.0.1:9020>
+- Api Reference: <http://127.0.0.1:9020/fhir/>
 
 ### VSCode-Server
 

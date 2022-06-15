@@ -37,8 +37,8 @@ Vagrant.configure("2") do |config|
   # 9000 sprint boot
   config.vm.network "forwarded_port", guest: 9000, host: 9000
 
-  # 8080 hapi-fhir
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  # 9020 hapi-fhir
+  config.vm.network "forwarded_port", guest: 9020, host: 9020
 
   # 9999 vscode server
   config.vm.network "forwarded_port", guest: 9999, host: 9999
