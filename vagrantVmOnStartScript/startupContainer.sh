@@ -21,12 +21,12 @@ docker-compose exec -T workspace php artisan key:generate
 docker-compose exec -T workspace php artisan migrate
 docker-compose exec -T workspace php artisan db:seed
 
-docker-compose exec -T workspace rm -rf node_modules
-docker-compose exec -T workspace npm cache clean --force
+#docker-compose exec -T workspace rm -rf node_modules
+#docker-compose exec -T workspace npm cache clean --force
 
 # --no-bin-links is needed, https://github.com/laravel/homestead/issues/611
 # It will install dependencies, but bin will be missing, so we need to install it in host machine
-docker-compose exec -T workspace npm install --no-bin-links
+#docker-compose exec -T workspace npm install --no-bin-links
 
 
 # Then shutdown all running containers
