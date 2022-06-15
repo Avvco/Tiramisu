@@ -33,7 +33,7 @@ services:
       - ./HAPI-FHIR:/data/hapi
     container_name: hapi-fhir
     ports:
-      - "9020:8080"
+      - "8080:8080"
 
   vs-code-server:
     build:
