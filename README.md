@@ -17,8 +17,7 @@ vagrant up
 to boot up VM, and then
 
 ``` bash
-vagrant ssh
-sudo /vagrant/vagrantVmOnStartScript/runDocker.sh
+vagrant ssh -c "sudo /vagrant/vagrantVmOnStartScript/runDocker.sh"
 ```
 
 to boot up all the docker services.
@@ -26,8 +25,7 @@ to boot up all the docker services.
 ## How to Restart all Docker Services Without Restart VM
 
 ``` bash
-vagrant ssh
-sudo /vagrant/vagrantVmOnStartScript/runDocker.sh
+vagrant ssh -c "sudo /vagrant/vagrantVmOnStartScript/runDocker.sh"
 ```
 
 ## How to Shutdown
