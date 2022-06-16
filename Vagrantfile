@@ -1,13 +1,13 @@
-if Vagrant::Util::Platform.windows? then
-  def running_in_admin_mode?
-    (`reg query HKU\\S-1-5-19 2>&1` =~ /ERROR/).nil?
-  end
- 
-  unless running_in_admin_mode?
-    puts "This vagrant makes use of SymLinks to the host. On Windows, Administrative privileges are required to create symlinks (mklink.exe). Try again from an Administrative command prompt."
-    exit 1
-  end
-end
+#if Vagrant::Util::Platform.windows? then
+#  def running_in_admin_mode?
+#    (`reg query HKU\\S-1-5-19 2>&1` =~ /ERROR/).nil?
+#  end
+# 
+#  unless running_in_admin_mode?
+#    puts "This vagrant makes use of SymLinks to the host. On Windows, Administrative privileges are required to create symlinks (mklink.exe). Try again from an Administrative command prompt."
+#    exit 1
+#  end
+#end
 
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -73,7 +73,9 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Must synced folder with mode rsync and exclude node_modules to avoid symlinks issues from npm
+  #config.vm.synced_folder "./", "/vagrant", type: "rsync", rsync__auto: true, rsync__verbose: true,  rsync__exclude: ['node_modules/']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
