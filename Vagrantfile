@@ -1,3 +1,14 @@
+if Vagrant::Util::Platform.windows? then
+  def running_in_admin_mode?
+    (`reg query HKU\\S-1-5-19 2>&1` =~ /ERROR/).nil?
+  end
+ 
+  unless running_in_admin_mode?
+    puts "This vagrant makes use of SymLinks to the host. On Windows, Administrative privileges are required to create symlinks (mklink.exe). Try again from an Administrative command prompt."
+    exit 1
+  end
+end
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -75,6 +86,10 @@ Vagrant.configure("2") do |config|
   #
      #Customize the amount of memory on the VM:
     vb.memory = "5120"
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
   end
 
   #
