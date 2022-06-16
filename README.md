@@ -4,6 +4,8 @@
 
 ``` bash
 git clone --recursive https://github.com/Avvco/Tiramisu.git 
+cd Tiramisu
+sudo After_Clone.sh
 ```
 
 ## How to Run
@@ -11,43 +13,18 @@ git clone --recursive https://github.com/Avvco/Tiramisu.git
 At the project root directory
 
 ```bash
-vagrant up
+sudo runDocker.sh
 ```
-
-to boot up VM, and then
-
-``` bash
-vagrant ssh -c "sudo /vagrant/vagrantVmOnStartScript/runDocker.sh"
-```
-
-to boot up all the docker services.
-
-## How to Restart all Docker Services Without Restart VM
-
-``` bash
-vagrant ssh -c "sudo /vagrant/vagrantVmOnStartScript/runDocker.sh"
-```
-
-## How to Shutdown
-
-Close the terminal you start by just close it.
-
-Don't press `ctrl+c` or `ctrl+z`.
-
-And at the project root directory
-
-```bash
-vagrant halt
-```
-
-to power off the VM
 
 ## Prerequisites
 
+If you are using Windows, it is highly recommended installing the project inside VM
+
+Suggest environment is [Tiramisu_Environment](https://github.com/Avvco/Tiramisu_Environment)
+
 You need to have:
 
-- [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed
-- [Vargrant](https://www.vagrantup.com/downloads) installed
+- [Docker](https://www.docker.com/) installed
 
 ## Service
 
