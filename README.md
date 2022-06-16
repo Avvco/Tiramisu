@@ -4,8 +4,13 @@
 
 ``` bash
 git clone --recursive https://github.com/Avvco/Tiramisu.git 
+```
+
+then
+
+```bash
 cd Tiramisu
-sudo After_Clone.sh
+sudo bash After_Clone.sh
 ```
 
 ## How to Run
@@ -13,7 +18,7 @@ sudo After_Clone.sh
 At the project root directory
 
 ```bash
-sudo runDocker.sh
+sudo bash runDocker.sh
 ```
 
 ## Prerequisites
