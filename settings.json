@@ -1,5 +1,6 @@
 // vs code setting default template
 {
   "workbench.colorTheme": "Default Dark+",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "git.autofetch": true
 }
