@@ -25,7 +25,7 @@ sudo bash runDocker.sh
 
 If you are using Windows, it is highly recommended installing the project inside VM
 
-Suggest environment is [Tiramisu_Environment](https://github.com/Avvco/Tiramisu_Environment)
+The suggested environment is [Tiramisu_Environment](https://github.com/Avvco/Tiramisu_Environment)
 
 You need to have:
 
