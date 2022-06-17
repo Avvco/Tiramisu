@@ -33,7 +33,7 @@ You need to have:
 
 ## Service
 
-> Laravel Service Port range is 8xxx
+> Laravel Service Port is 80 and 8081
 
 ### Tiramisu_Laravel
 
@@ -47,21 +47,21 @@ You need to have:
 - Account: default
 - Password: secret
 
-> Back End Service Port range is 9xxx
+> Back End Service Port range is 64500 to 64550
 
 ### Tiramisu_Spring_Boot
 
 - Port
-9000
+64500
 
 ### HAPI-FHIR
 
-- Port 9020
-- URL: <http://127.0.0.1:9020>
-- Api Reference: <http://127.0.0.1:9020/fhir/>
+- Port 64501
+- URL: <http://127.0.0.1:64501>
+- Api Reference: <http://127.0.0.1:64501/fhir/>
 
 ### VSCode-Server
 
-- Port 9999
-- URL: <http://127.0.0.1:9999>
+- Port 64550
+- URL: <http://127.0.0.1:64550>
 - Password: 1234

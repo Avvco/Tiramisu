@@ -23,7 +23,7 @@ services:
     depends_on:
       - spring-boot-reloader
     ports:
-      - 9000:8080
+      - 64500:8080
       - 35729:35729
       - 5005:5005
 
@@ -35,7 +35,7 @@ services:
     environment:
       SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
     ports:
-      - 9020:8080
+      - 64501:8080
 
   vs-code-server:
     build:
@@ -53,4 +53,4 @@ services:
       - SUDO_PASSWORD=1234 #optional
       #- SUDO_PASSWORD_HASH= #optional
     ports:
-      - 9999:8080
+      - 64550:8080
