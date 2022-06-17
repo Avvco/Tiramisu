@@ -20,6 +20,7 @@ cd ..
 # Start containers
 # Run npm with splited window
 exec tmux new-session \; \
+      send-keys 'top' C-m \; \
       split-window -v \; \
       send-keys 'docker-compose up' C-m \; \
       split-window -h \; \
