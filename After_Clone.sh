@@ -16,6 +16,7 @@ docker-compose up -d & \
 # Install dependencies for containers
 
 # Run first time setup for laravel
+cd Tiramisu_Laravel/laradock
 docker-compose exec -T workspace composer install
 docker-compose exec -T workspace php artisan key:generate
 docker-compose exec -T workspace php artisan migrate

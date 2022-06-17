@@ -9,7 +9,7 @@ services:
       - ./:/tmp
     working_dir: /tmp
     container_name: spring-boot-reloader
-    command: [ "./Tiramisu_Spring_Boot/buildAndReload.sh" ]
+    command: [ "sh", "./Tiramisu_Spring_Boot/buildAndReload.sh" ]
 
   spring-boot:
     build:
@@ -19,7 +19,7 @@ services:
       - ./:/tmp
     working_dir: /tmp
     container_name: spring-boot
-    command: [ "./Tiramisu_Spring_Boot/bootRun.sh" ]
+    command: [ "sh", "./Tiramisu_Spring_Boot/bootRun.sh" ]
     depends_on:
       - spring-boot-reloader
     ports:
