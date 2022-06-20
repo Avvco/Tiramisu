@@ -15,7 +15,7 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin
 
 # Pre-install vscode extension
 RUN code-server --install-extension redhat.java && \
-      code-server --install-extension donjayamanne.githistory \
+      code-server --install-extension donjayamanne.githistory && \
       code-server --install-extension bierner.markdown-preview-github-styles
       
 
