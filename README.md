@@ -37,12 +37,17 @@ You need to have:
 
 ## Service
 
-> Laravel Service Port is 80 and 8081
+> Laravel Service Port is 80, 8081 and 64500 to 64509
 
-### Tiramisu_Laravel
+### Nginx
 
 - Port 80
 - URL: <http://127.0.0.1>
+
+### Tiramisu_Laravel
+
+- Port 64500
+- URL: <http://127.0.0.1:64500>
 
 ### phpMyAdmin
 
@@ -51,18 +56,18 @@ You need to have:
 - Account: default
 - Password: secret
 
-> Back End Service Port range is 64500 to 64550
+> Back End Service Port range is 64510 to 64550
 
 ### Tiramisu_Spring_Boot
 
 - Port
-64500
+64510
 
 ### HAPI-FHIR
 
-- Port 64501
-- URL: <http://127.0.0.1:64501>
-- Api Reference: <http://127.0.0.1:64501/fhir/>
+- Port 64511
+- URL: <http://127.0.0.1:64511>
+- Api Reference: <http://127.0.0.1:64511/fhir/>
 
 ### VSCode-Server
 
