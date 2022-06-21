@@ -21,6 +21,8 @@ At the project root directory
 sudo bash runDocker.sh
 ```
 
+---
+
 ## Prerequisites
 
 If you are using Windows, it is highly recommended installing the project inside VM
@@ -30,6 +32,8 @@ The suggested environment is [Tiramisu_Environment](https://github.com/Avvco/Tir
 You need to have:
 
 - [Docker](https://www.docker.com/) installed
+
+---
 
 ## Service
 
