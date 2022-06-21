@@ -18,10 +18,5 @@ mix.browserSync({
     open: false,
     proxy: {
         target: "nginx", // replace with your web server container
-        proxyReq: [
-            function(proxyReq) {
-                proxyReq.setHeader('HOST', '127.0.0.1:64500'); // replace with your site host and port of BrowserSync
-            }
-        ]
-    }
+    },
 })
