@@ -21,7 +21,6 @@ At the project root directory
 sudo bash runDocker.sh
 ```
 
----
 
 ## Prerequisites
 
@@ -33,7 +32,6 @@ You need to have:
 
 - [Docker](https://www.docker.com/) installed
 
----
 
 ## Service
 
