@@ -75,3 +75,31 @@ You need to have:
 - Port 64550
 - URL: <http://127.0.0.1:64550>
 - Password: 1234
+
+## Inter Container Networking
+
+In each container, you can access other containers by
+
+### Nginx
+
+``` bash
+curl http://laradock_nginx_1:80
+```
+
+### Tiramisu_Laravel
+
+``` bash
+curl http://laradock_workspace_1:3000
+```
+
+### Tiramisu_Spring_Boot
+
+``` bash
+curl http://spring-boot:8080
+```
+
+### HAPI-FHIR
+
+``` bash
+curl http://hapi-fhir:8080/fhir
+```
