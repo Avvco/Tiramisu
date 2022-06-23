@@ -16,9 +16,6 @@ docker network rm together
 # Then recreate it
 docker network create together
 
-# Move to mounted folder
-rm *.so
-
 # Start Laradock containers
 cd Tiramisu_Laravel/laradock && docker-compose up -d nginx mysql phpmyadmin workspace
 cd ..
@@ -34,8 +31,9 @@ for container in $(docker ps --format '{{.Names}}'); do
 done
 
 # Run npm with splited window
+# And get log output from docker-compose
 exec tmux new-session \; \
-      send-keys 'top' C-m \; \
+      send-keys 'docker-compose logs -f' C-m \; \
       split-window -h \; \
       send-keys 'cd Tiramisu_Laravel/laradock && docker-compose exec workspace npm run watch-poll' C-m \; \
       select-pane -t 0 \; \
