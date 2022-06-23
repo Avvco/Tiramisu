@@ -21,7 +21,6 @@ At the project root directory
 sudo bash runDocker.sh
 ```
 
-
 ## Prerequisites
 
 If you are using Windows, it is highly recommended installing the project inside VM
@@ -31,7 +30,6 @@ The suggested environment is [Tiramisu_Environment](https://github.com/Avvco/Tir
 You need to have:
 
 - [Docker](https://www.docker.com/) installed
-
 
 ## Service
 
@@ -78,25 +76,25 @@ You need to have:
 
 In each container, you can access other containers by
 
-### Nginx
+### Nginx-Container
 
 ``` bash
 curl http://laradock_nginx_1:80
 ```
 
-### Tiramisu_Laravel
+### Tiramisu_Laravel-Container
 
 ``` bash
 curl http://laradock_workspace_1:3000
 ```
 
-### Tiramisu_Spring_Boot
+### Tiramisu_Spring_Boot-Container
 
 ``` bash
 curl http://spring-boot:8080
 ```
 
-### HAPI-FHIR
+### HAPI-FHIR-Container
 
 ``` bash
 curl http://hapi-fhir:8080/fhir
