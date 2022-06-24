@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Copy and Fill .env files in Tiramisu_Laravel and laradock
-docker run -it --rm -v $PWD:/tmp -w /tmp python:3 python _After_Clone.py
-
 # First Stop all running containers
 docker stop $(docker ps -a -q)
 
