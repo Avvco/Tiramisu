@@ -33,25 +33,9 @@ You need to have:
 
 ## Service
 
-> Laravel Service Port is 80, 8081 and 64500 to 64509
+> Front End port range is 64500 to 64509
 
-### Nginx
-
-- Port 80
-- URL: <http://127.0.0.1>
-
-### Tiramisu_Laravel
-
-- Port 64500
-- URL: <http://127.0.0.1:64500>
-
-### phpMyAdmin
-
-- Port 8081
-- URL: <http://127.0.0.1:8081>
-- Server: mysql
-- Account: default
-- Password: secret
+### To Be Determined
 
 > Back End Service Port range is 64510 to 64550
 
@@ -75,18 +59,6 @@ You need to have:
 ## Inter Container Networking
 
 In each container, you can access other containers by
-
-### Nginx-Container
-
-``` bash
-curl http://laradock_nginx_1:80
-```
-
-### Tiramisu_Laravel-Container
-
-``` bash
-curl http://laradock_workspace_1:3000
-```
 
 ### Tiramisu_Spring_Boot-Container
 
