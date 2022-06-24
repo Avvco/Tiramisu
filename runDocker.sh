@@ -10,31 +10,14 @@ docker stop $(docker ps -a -q)
 docker rm -f $(docker ps -a -q)
 docker volume rm $(docker volume ls -q)
 
-# Remove predefined network
-docker network rm together
-
-# Then recreate it
-docker network create together
-
-# Start Laradock containers
-cd Tiramisu_Laravel/laradock && docker-compose up -d nginx mysql phpmyadmin workspace
-cd ..
-cd .. 
-
 # Start containers
 docker-compose up -d
-
-# Attach all container to same network
-for container in $(docker ps --format '{{.Names}}'); do 
-  docker network connect together $container
-  echo Connected $container to network together
-done
 
 # Run npm with splited window
 # And get log output from docker-compose
 exec tmux new-session \; \
-      send-keys 'docker-compose logs -f' C-m \; \
+      send-keys 'docker-compose logs spring-boot-reloader spring-boot -f' C-m \; \
       split-window -h \; \
-      send-keys 'cd Tiramisu_Laravel/laradock && docker-compose exec workspace npm run watch-poll' C-m \; \
+      send-keys 'top' C-m \; \
       select-pane -t 0 \; \
 
