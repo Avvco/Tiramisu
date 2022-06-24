@@ -6,22 +6,20 @@ services:
       context: ./Tiramisu_Spring_Boot
       dockerfile: Dockerfile
     volumes:
-      - ./:/tmp
+      - ./Tiramisu_Spring_Boot:/tmp
     working_dir: /tmp
     container_name: spring-boot-reloader
-    command: [ "sh", "./Tiramisu_Spring_Boot/buildAndReload.sh" ]
+    command: [ "bash", "./buildAndReload.sh" ]
 
   spring-boot:
     build:
       context: ./Tiramisu_Spring_Boot
       dockerfile: Dockerfile
     volumes:
-      - ./:/tmp
+      - ./Tiramisu_Spring_Boot:/tmp
     working_dir: /tmp
     container_name: spring-boot
-    command: [ "sh", "./Tiramisu_Spring_Boot/bootRun.sh" ]
-    depends_on:
-      - spring-boot-reloader
+    command: [ "bash", "./bootRun.sh" ]
     ports:
       - 64510:8080
       - 35729:35729
