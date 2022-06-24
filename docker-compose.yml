@@ -46,6 +46,8 @@ services:
       - ./:/home/coder/project
       # setting's location
       - ./.vscode-config:/root/.local/share/code-server/User
+      # gradle dependency location
+      - ./VS_CODE_DEV_SERVER/gradle_dependency:/root/.gradle/caches/modules-2/files-2.1
     container_name: vs-code-server
     environment:
       - PASSWORD=1234 #optional

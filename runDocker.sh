@@ -16,7 +16,9 @@ docker-compose up -d
 # Run npm with splited window
 # And get log output from docker-compose
 exec tmux new-session \; \
-      send-keys 'docker-compose logs spring-boot-reloader spring-boot -f' C-m \; \
+      send-keys 'docker stats' C-m \; \
+      split-window -v -p 70 \; \
+      send-keys 'docker-compose logs -f spring-boot-reloader spring-boot' C-m \; \
       split-window -h \; \
       send-keys 'top' C-m \; \
       select-pane -t 0 \; \
