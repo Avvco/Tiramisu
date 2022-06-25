@@ -54,3 +54,11 @@ services:
       #- SUDO_PASSWORD_HASH= #optional
     ports:
       - 64550:8080
+
+  Angular-server:
+    build:
+      context: /Angular
+      dockerfile: Dockerfile
+    container_name: Angular-server
+    ports:
+      -64500:8080
