@@ -63,6 +63,8 @@ services:
       - ./Hardhat:/tmp
     working_dir: /tmp
     container_name: hardhat
+    ports:
+      - 64512:8545
 
   nodejs-server:
     build:
