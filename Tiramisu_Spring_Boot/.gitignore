@@ -39,3 +39,4 @@ out/
 ### General ### 
 /cache
 *.txt
+/hsperfdata_root
