@@ -1,7 +1,12 @@
-FROM node:9.8.0-alpine
+FROM node:9.8.0-alpine as builder
+WORKDIR /usr/src/app
 
-RUN chown -R node:node /usr/local/lib/node_modules \
- && chown -R node:node /usr/local/bin
+COPY . .
 
-USER node
-RUN npm install -g @angular/cli@1.7.3
+RUN npm install
+RUN npm run build --prod
+
+FROM nginx
+COPY /usr/src/app/dist/Tiramisu /usr/share/nginx/html
+
+COPY ./nginx-angular.conf /etc/nginx/conf.d/default.conf

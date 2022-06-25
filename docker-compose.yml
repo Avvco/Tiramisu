@@ -60,13 +60,14 @@ services:
       context: ./Hardhat
       dockerfile: Dockerfile
     volumes:
-      -./Hardhat:/tmp
+      - ./Hardhat:/tmp
     working_dir: /tmp
     container_name: hardhat
 
   Angular-server:
     build:
+      context: ./Angular
       dockerfile: Dockerfile
     container_name: angular-server
     ports:
-      - 64500:8080
+      - 64500:80
