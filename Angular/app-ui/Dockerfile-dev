@@ -1,4 +1,4 @@
-FROM node:10
+FROM node
 
 WORKDIR /usr/src/app/app-ui
 
@@ -6,6 +6,6 @@ COPY package*.json ./
 
 RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
 
-EXPOSE 4201
+EXPOSE 64501
 
 CMD ["npm", "start"]

@@ -1,4 +1,4 @@
-FROM node:10
+FROM node
 
 WORKDIR /usr/src/app/api
 
@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-EXPOSE 3080
+EXPOSE 64500
 
 CMD ["npm", "run", "dev"]
 
