@@ -13,6 +13,7 @@ docker volume rm $(docker volume ls -q)
 # Start containers
 docker-compose up -d
 
+
 # Run npm with splited window
 # And get log output from docker-compose
 exec tmux new-session \; \
