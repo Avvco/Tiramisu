@@ -61,4 +61,4 @@ services:
       dockerfile: Dockerfile
     container_name: Angular-server
     ports:
-      -64500:8080
+      - 64500:8080
