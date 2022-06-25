@@ -67,10 +67,24 @@ services:
     ports:
       - 64512:8545
 
-  angular-server:
+  nodejs-server:
     build:
-      context: ./Angular
-      dockerfile: Dockerfile
-    container_name: angular-server
+      context: ./Angular/api
+      dockerfile: Dockerfile-dev
     ports:
-      - 64500:80
+      - "64500:8080"
+    container_name: node-api
+    volumes:
+       - ./api:/usr/src/app/api
+       - /usr/src/app/api/node_modules
+       
+  angular-ui:
+    build:
+      context: ./Angular/app-ui
+      dockerfile: Dockerfile-dev
+    ports:
+      - "64501:8080"
+    container_name: angular-ui
+    volumes:
+       - ./app-ui:/usr/src/app/app-ui
+       - /usr/src/app/app-ui/node_modules
