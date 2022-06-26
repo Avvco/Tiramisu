@@ -1,6 +1,9 @@
-### Node ###
-/node_modules
+node_modules
+.env
+coverage
+coverage.json
+typechain
 
-### General ### 
-/cache
-*.txt
+#Hardhat files
+cache
+artifacts
