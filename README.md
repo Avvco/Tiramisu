@@ -52,6 +52,8 @@ You need to have:
 
 ### VSCode-Server
 
+#### NOT IN USE
+
 - Port 64550
 - URL: <http://127.0.0.1:64550>
 - Password: 1234
