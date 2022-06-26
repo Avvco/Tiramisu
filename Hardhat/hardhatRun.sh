@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx hardhat node
+npx hardhat node 
