@@ -69,10 +69,10 @@ services:
 
   nodejs-server:
     build:
-      context: ./Angular/api
+      context: ./Angular_api
       dockerfile: Dockerfile-dev
     ports:
-      - "64500:8080"
+      - "3080:3080"
     container_name: node-api
     volumes:
        - ./api:/usr/src/app/api
@@ -80,10 +80,10 @@ services:
        
   angular-ui:
     build:
-      context: ./Angular/app-ui
+      context: ./Angular_app-ui
       dockerfile: Dockerfile-dev
     ports:
-      - "64501:8080"
+      - "4201:4201"
     container_name: angular-ui
     volumes:
        - ./app-ui:/usr/src/app/app-ui
