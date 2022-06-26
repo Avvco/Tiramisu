@@ -67,3 +67,14 @@ services:
     ports:
       - 64512:8545
 
+  angular-server:
+    build: 
+      context: ./Angular
+      dockerfile: Dockerfile
+    volumes:
+      - ./Angular:/tmp
+    working_dir: /tmp
+    container_name: angular-server
+    command: ["bash", "./AngularRun.sh"]
+    ports:
+     - 64500:4200
