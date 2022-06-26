@@ -2,4 +2,5 @@
 FROM node:latest
 
 # update apt-get
-RUN apt-get update
+RUN apt-get update \
+    && npm install 
