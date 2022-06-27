@@ -53,6 +53,10 @@ You need to have:
 - URL: <http://127.0.0.1:64511>
 - Api Reference: <http://127.0.0.1:64511/fhir/>
 
+### Hardhat
+- Port 64512
+- URL: <http://127.0.0.1:64512>
+
 ### VSCode-Server
 
 #### NOT IN USE
