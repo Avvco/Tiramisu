@@ -10,6 +10,9 @@ docker stop $(docker ps -a -q)
 docker rm -f $(docker ps -a -q)
 docker volume rm $(docker volume ls -q)
 
+# Remove unnecessary network 
+docker network prune -f
+
 # Start containers
 docker-compose up -d
 
@@ -21,6 +24,6 @@ exec tmux new-session \; \
       split-window -v -p 70 \; \
       send-keys 'docker-compose logs -f spring-boot-reloader spring-boot' C-m \; \
       split-window -h \; \
-      send-keys 'top' C-m \; \
+      send-keys 'docker-compose logs -f angular-server' C-m \; \
       select-pane -t 0 \; \
 

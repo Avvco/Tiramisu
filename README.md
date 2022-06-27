@@ -35,14 +35,17 @@ You need to have:
 
 > Front End port range is 64500 to 64509
 
-### To Be Determined
+### Angular
+
+- Port 64500
+- URL: <http://127.0.0.1:64500>
 
 > Back End Service Port range is 64510 to 64550
 
 ### Tiramisu_Spring_Boot
 
-- Port
-64510
+- Port 64510
+- URL: <http://127.0.0.1:64510>
 
 ### HAPI-FHIR
 

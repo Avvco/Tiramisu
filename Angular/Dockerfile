@@ -1,7 +1,6 @@
-FROM node
+FROM node:latest
 
-RUN chown -R node:node /usr/local/lib/node_modules \
- && chown -R node:node /usr/local/bin
-
-USER node
+USER root
 RUN npm install -g @angular/cli
+
+EXPOSE 4200
