@@ -55,17 +55,17 @@ services:
 #    ports:
 #      - 64550:8080
 
-#  hardhat:
-#    build:
-#      context: ./Hardhat
-#      dockerfile: Dockerfile
-#    volumes:
-#      - ./Hardhat:/tmp
-#    working_dir: /tmp
-#    container_name: hardhat
-#    command: [ "bash", "./hardhatRun.sh" ]
-#    ports:
-#      - 64512:8545
+  hardhat:
+    build:
+      context: ./Hardhat
+      dockerfile: Dockerfile
+    volumes:
+      - ./Hardhat:/tmp
+    working_dir: /tmp
+    container_name: hardhat
+    command: [ "bash", "./hardhatRun.sh" ]
+    ports:
+      - 64512:8545
 
   angular-server:
     build: 
