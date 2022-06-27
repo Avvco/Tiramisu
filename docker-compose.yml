@@ -8,6 +8,7 @@ services:
     volumes:
       - ./Tiramisu_Spring_Boot:/tmp
     working_dir: /tmp
+    restart: always
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
 
@@ -19,6 +20,7 @@ services:
       - ./Tiramisu_Spring_Boot:/tmp
     working_dir: /tmp
     container_name: spring-boot
+    restart: always
     command: [ "bash", "./bootRun.sh" ]
     ports:
       - 64510:8080
@@ -30,8 +32,9 @@ services:
     volumes:
       - ./HAPI-FHIR:/data/hapi
     container_name: hapi-fhir
+    restart: always
     environment:
-      SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
+     SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
     ports:
       - 64511:8080
       
@@ -63,6 +66,7 @@ services:
       - ./Hardhat:/tmp
     working_dir: /tmp
     container_name: hardhat
+    restart: always
     command: [ "bash", "./hardhatRun.sh" ]
     ports:
       - 64512:8545
@@ -75,6 +79,7 @@ services:
       - ./Angular:/tmp
     working_dir: /tmp
     container_name: angular-server
+    restart: always
     command: [ "bash", "./AngularRun.sh" ]
     ports:
      - 64500:4200
