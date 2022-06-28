@@ -23,5 +23,5 @@ docker stop $(docker ps -a -q)
 
 # Install dependencies for each containers
 docker run -it --rm -v $PWD/Angular:/tmp -w /tmp tiramisu_angular-server npm install
-docker run -it --rm -v $PWD/Angular:/tmp -w /tmp tiramisu_hardhat npm install
+docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp tiramisu_hardhat npm install
 echo ALL DONE
