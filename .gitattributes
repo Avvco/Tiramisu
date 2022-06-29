@@ -67,6 +67,7 @@ Dockerfile        text
 *.mdtxt           text
 *.mdtext          text
 *.txt             text
+*.docx            binary
 AUTHORS           text
 CHANGELOG         text
 CHANGES           text
