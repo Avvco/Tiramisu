@@ -10,7 +10,7 @@ then
 
 ```bash
 cd Tiramisu
-sudo bash After_Clone.sh
+sudo bash afterClone.sh
 ```
 
 ## How to Run

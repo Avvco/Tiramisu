@@ -4,7 +4,7 @@
 if [ "$(sysctl fs.inotify.max_user_watches)"!="fs.inotify.max_user_watches = 524288" ]; then
   sed -i '/fs.inotify.max_user_watches/d' /etc/sysctl.conf
   echo fs.inotify.max_user_watches = 524288 | tee -a /etc/sysctl.conf
-  sysctl -p
+  sysctl -p 
 fi
 
 # First Stop and delete all running containers
