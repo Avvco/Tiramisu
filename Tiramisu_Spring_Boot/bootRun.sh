@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gradle bootRun --project-cache-dir=/tmp/cache
+gradle bootRun --project-cache-dir=/tmp/cache1

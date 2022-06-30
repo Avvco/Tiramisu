@@ -6,8 +6,8 @@ services:
       context: ./Tiramisu_Spring_Boot
       dockerfile: Dockerfile
     volumes:
-      - ./Tiramisu_Spring_Boot:/tmp
-    working_dir: /tmp
+      - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
+    working_dir: /tmp/Tiramisu_Spring_Boot
     restart: always
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
@@ -17,8 +17,8 @@ services:
       context: ./Tiramisu_Spring_Boot
       dockerfile: Dockerfile
     volumes:
-      - ./Tiramisu_Spring_Boot:/tmp
-    working_dir: /tmp
+      - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
+    working_dir: /tmp/Tiramisu_Spring_Boot
     container_name: spring-boot
     restart: always
     command: [ "bash", "./bootRun.sh" ]
@@ -43,8 +43,8 @@ services:
       context: ./Hardhat
       dockerfile: Dockerfile
     volumes:
-      - ./Hardhat:/tmp
-    working_dir: /tmp
+      - ./Hardhat:/tmp/Hardhat
+    working_dir: /tmp/Hardhat
     container_name: hardhat
     restart: always
     command: [ "bash", "./hardhatRun.sh" ]
@@ -56,8 +56,8 @@ services:
       context: ./Angular
       dockerfile: Dockerfile
     volumes:
-      - ./Angular:/tmp
-    working_dir: /tmp
+      - ./Angular:/tmp/Angular
+    working_dir: /tmp/Angular
     container_name: angular-server
     restart: always
     command: [ "bash", "./AngularRun.sh" ]
