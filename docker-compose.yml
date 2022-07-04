@@ -30,13 +30,46 @@ services:
   hapi-fhir:
     image: "hapiproject/hapi:latest"
     volumes:
-      - ./HAPI-FHIR:/data/hapi
+      - ./HAPI-FHIR/jpaserver-starter:/data/hapi
     container_name: hapi-fhir
     restart: always
-    #environment:
-     #SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
+    environment:
+     SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
     ports:
       - 64511:8080
+
+  # Comes from https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/docker-compose.yml
+  hapi-fhir-mysql:
+    image: mysql:latest
+    container_name: hapi-fhir-mysql
+    # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
+    command: --lower_case_table_names=1
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'hapi'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    depends_on:
+      - hapi-fhir
+    volumes:
+      - ./HAPI-FHIR/mysql:/var/lib/mysql
+    ports:
+      - 64513:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: hapi-fhir-mysql-phpMyAdmin
+    restart: always
+    environment:
+      PMA_ARBITRARY: 1
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    depends_on:
+      - hapi-fhir-mysql
+    ports:
+      - 64514:80
 
   hardhat:
     build:
