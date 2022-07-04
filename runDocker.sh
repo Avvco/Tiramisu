@@ -19,7 +19,7 @@ docker-compose up -d
 
 # Get log output from docker-compose
 exec tmux new-session \; \
-      send-keys 'docker stats' C-m \; \
+      send-keys 'docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.PIDs}}"' C-m \; \
       split-window -v -p 70 \; \
       send-keys 'docker-compose logs -f spring-boot-reloader spring-boot' C-m \; \
       split-window -h \; \
