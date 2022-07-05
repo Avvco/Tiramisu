@@ -1,6 +1,18 @@
 {
   "recommendations": [
     "redhat.java",
-    "angular.ng-template"
+    "angular.ng-template",
+    "vadimcn.vscode-lldb",
+    "ms-azuretools.vscode-docker",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "felipecaputo.git-project-manager",
+    "github.copilot",
+    "eamodio.gitlens",
+    "richardwillis.vscode-gradle-extension-pack",
+    "visualstudioexptteam.vscodeintellicode",
+    "davidanson.vscode-markdownlint",
+    "pivotal.vscode-boot-dev-pack",
+    "tabnine.tabnine-vscode"
   ]
 }
