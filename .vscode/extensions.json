@@ -9,10 +9,10 @@
     "felipecaputo.git-project-manager",
     "github.copilot",
     "eamodio.gitlens",
-    "richardwillis.vscode-gradle-extension-pack",
     "visualstudioexptteam.vscodeintellicode",
     "davidanson.vscode-markdownlint",
     "pivotal.vscode-boot-dev-pack",
-    "tabnine.tabnine-vscode"
+    "tabnine.tabnine-vscode",
+    "naco-siren.gradle-language"
   ]
 }
