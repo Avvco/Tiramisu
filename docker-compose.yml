@@ -8,7 +8,7 @@ services:
     volumes:
       - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
     working_dir: /tmp/Tiramisu_Spring_Boot
-    restart: always
+    # restart: always
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
 
@@ -20,7 +20,7 @@ services:
       - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
     working_dir: /tmp/Tiramisu_Spring_Boot
     container_name: spring-boot
-    restart: always
+    # restart: always
     command: [ "bash", "./bootRun.sh" ]
     ports:
       - 64510:8080
@@ -32,7 +32,7 @@ services:
     volumes:
       - ./HAPI-FHIR/jpaserver-starter:/data/hapi
     container_name: hapi-fhir
-    restart: always
+    # restart: always
     environment:
      SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
     ports:
@@ -44,7 +44,7 @@ services:
     container_name: hapi-fhir-mysql
     # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
     command: --lower_case_table_names=1
-    restart: always
+    # restart: always
     environment:
       MYSQL_DATABASE: 'hapi'
       MYSQL_USER: 'admin'
@@ -60,7 +60,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hapi-fhir-mysql-phpMyAdmin
-    restart: always
+    # restart: always
     environment:
       PMA_ARBITRARY: 1
       MYSQL_USER: 'admin'
@@ -79,7 +79,7 @@ services:
       - ./Hardhat:/tmp/Hardhat
     working_dir: /tmp/Hardhat
     container_name: hardhat
-    restart: always
+    # restart: always
     command: [ "bash", "./hardhatRun.sh" ]
     ports:
       - 64512:8545
@@ -92,7 +92,7 @@ services:
       - ./Angular:/tmp/Angular
     working_dir: /tmp/Angular
     container_name: angular-server
-    restart: always
+    # restart: always
     command: [ "bash", "./AngularRun.sh" ]
     ports:
      - 64500:4200
