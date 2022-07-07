@@ -68,8 +68,8 @@ You need to have:
 - Port: `64514`
 - URL: <http://127.0.0.1:64514>
 - Server: `hapi-fhir-mysql`
-- Username: `root`
-- Password: `root`
+- Username: `admin`
+- Password: `admin`
 
 ### VSCode-Server
 
