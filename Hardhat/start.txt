@@ -1,0 +1,36 @@
+// To start a hardhat project:
+    1. Initial your project:
+        npm init -y
+        
+    2. Install type script:
+        npm install --save-dev ts-node
+        npm install --save-dev typescript
+
+    3. Install hardhat:
+        npm install --save-dev hardhat
+
+    4. Start hardhat project and choose the sample you want:
+        npx hardhat
+
+    5. Install some using plugins:
+        // Official recommand to use chai instead of waffle,
+        // If you already have waffle, please migrate it.
+        npm install --save-dev @nomicfoundation/hardhat-toolbox
+        npm install --save-dev @nomicfoundation/hardhat-chai-matchers
+        npm install --save-dev @nomiclabs/hardhat-ethers
+
+// User's Guidence:
+    // To compile your contract:
+        npx hardhat compile
+
+    // To test your contract:
+        npx hardhat test test/<YOUR FILE>
+
+    // To run task:
+        npx hardhat run task/<YOUR FILE>
+
+    // To deploy your contract:
+        1. Start a local node:
+            npx hardhat node
+        2. Open a new terminal:
+            npx hardhat run --network localhost scripts/<YOUR FILE>
