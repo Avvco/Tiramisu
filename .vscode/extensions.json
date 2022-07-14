@@ -13,6 +13,7 @@
     "davidanson.vscode-markdownlint",
     "pivotal.vscode-boot-dev-pack",
     "tabnine.tabnine-vscode",
-    "naco-siren.gradle-language"
+    "naco-siren.gradle-language",
+    "NomicFoundation.hardhat-solidity"
   ]
 }
