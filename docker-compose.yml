@@ -20,6 +20,8 @@ services:
       - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
     working_dir: /tmp/Tiramisu_Spring_Boot
     container_name: spring-boot
+    depends_on:
+      - spring-boot-reloader
     # restart: always
     command: [ "bash", "./bootRun.sh" ]
     ports:
@@ -28,7 +30,7 @@ services:
       - 5005:5005
 
   hapi-fhir:
-    image: "hapiproject/hapi:latest"
+    image: hapiproject/hapi:latest
     volumes:
       - ./HAPI-FHIR/jpaserver-starter:/data/hapi
     container_name: hapi-fhir
@@ -96,6 +98,22 @@ services:
     command: [ "bash", "./AngularRun.sh" ]
     ports:
      - 64500:4200
+  
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./Nginx/conf.d:/etc/nginx/conf.d
+    container_name: nginx
+    extra_hosts:
+      - "tiramisu:127.0.0.1"
+    ports:
+     - 80:80
+
+    depends_on:
+      - spring-boot
+      - angular-server
+      - hardhat
+      - phpmyadmin
 
 #  vs-code-server:
 #    build:

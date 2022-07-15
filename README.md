@@ -33,40 +33,30 @@ You need to have:
 
 ## Service
 
-> Front End port range is 64500 to 64509
-
 ### Angular
 
-- Port: `64500`
-- URL: <http://127.0.0.1:64500>
-
-> Back End Service Port range is 64510 to 64550
+- URL: <http://angular.tiramisu.localhost>
 
 ### Tiramisu_Spring_Boot
 
-- Port: `64510`
-- URL: <http://127.0.0.1:64510>
+- URL: <http://spring-boot.tiramisu.localhost>
 
 ### HAPI-FHIR
 
-- Port: `64511`
-- URL: <http://127.0.0.1:64511>
-- Api Reference: <http://127.0.0.1:64511/fhir/>
+- URL: <http://fhir.tiramisu.localhost>
+- Api Reference: <http://fhir.tiramisu.localhost/fhir>
 
 ### Hardhat
 
-- Port: `64512`
-- URL: <http://127.0.0.1:64512>
+- URL: <http://hardhat.tiramisu.localhost>
 
 ### HAPI-FHIR-MYSQL
 
-- Port: `64513`
-- URL: <http://127.0.0.1:64513>
+- URL: <http://hapi-fhir-mysql.tiramisu.localhost>
 
 ### phpMyAdmin
 
-- Port: `64514`
-- URL: <http://127.0.0.1:64514>
+- URL: <http://hapi-fhir-mysql-phpMyAdmin.tiramisu.localhost>
 - Server: `hapi-fhir-mysql`
 - Username: `admin`
 - Password: `admin`
