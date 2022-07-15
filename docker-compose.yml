@@ -8,7 +8,6 @@ services:
     volumes:
       - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
     working_dir: /tmp/Tiramisu_Spring_Boot
-    # restart: always
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
 
@@ -22,23 +21,15 @@ services:
     container_name: spring-boot
     depends_on:
       - spring-boot-reloader
-    # restart: always
     command: [ "bash", "./bootRun.sh" ]
-    ports:
-      - 64510:8080
-      - 35729:35729
-      - 5005:5005
 
   hapi-fhir:
     image: hapiproject/hapi:latest
     volumes:
       - ./HAPI-FHIR/jpaserver-starter:/data/hapi
     container_name: hapi-fhir
-    # restart: always
     environment:
      SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
-    ports:
-      - 64511:8080
 
   # Comes from https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/docker-compose.yml
   hapi-fhir-mysql:
@@ -46,7 +37,6 @@ services:
     container_name: hapi-fhir-mysql
     # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
     command: --lower_case_table_names=1
-    # restart: always
     environment:
       MYSQL_DATABASE: 'hapi'
       MYSQL_USER: 'admin'
@@ -56,13 +46,11 @@ services:
       - hapi-fhir
     volumes:
       - ./HAPI-FHIR/mysql:/var/lib/mysql
-    ports:
-      - 64513:3306
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hapi-fhir-mysql-phpMyAdmin
-    # restart: always
     environment:
       PMA_ARBITRARY: 1
       MYSQL_USER: 'admin'
@@ -70,8 +58,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'admin'
     depends_on:
       - hapi-fhir-mysql
-    ports:
-      - 64514:80
+
 
   hardhat:
     build:
@@ -81,10 +68,8 @@ services:
       - ./Hardhat:/tmp/Hardhat
     working_dir: /tmp/Hardhat
     container_name: hardhat
-    # restart: always
     command: [ "bash", "./hardhatRun.sh" ]
-    ports:
-      - 64512:8545
+
 
   angular-server:
     build: 
@@ -94,10 +79,7 @@ services:
       - ./Angular:/tmp/Angular
     working_dir: /tmp/Angular
     container_name: angular-server
-    # restart: always
     command: [ "bash", "./AngularRun.sh" ]
-    ports:
-     - 64500:4200
   
   nginx:
     image: nginx:latest
