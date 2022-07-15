@@ -61,14 +61,6 @@ You need to have:
 - Username: `admin`
 - Password: `admin`
 
-### VSCode-Server
-
-#### NOT IN USE
-
-- Port: `64550`
-- URL: <http://127.0.0.1:64550>
-- Password: `1234`
-
 ## Inter Container Networking
 
 In each container, you can access other containers by
