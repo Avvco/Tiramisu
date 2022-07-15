@@ -104,8 +104,6 @@ services:
     volumes:
       - ./Nginx/conf.d:/etc/nginx/conf.d
     container_name: nginx
-    extra_hosts:
-      - "tiramisu:127.0.0.1"
     ports:
      - 80:80
 
