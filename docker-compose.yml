@@ -82,12 +82,16 @@ services:
     command: [ "bash", "./AngularRun.sh" ]
   
   nginx:
-    image: nginx:latest
+    build: 
+      context: ./Nginx
+      dockerfile: Dockerfile
     volumes:
       - ./Nginx/conf.d:/etc/nginx/conf.d
+      - ./Nginx/ssl:/etc/nginx/ssl
     container_name: nginx
     ports:
      - 80:80
+     - 443:443
     depends_on:
       - spring-boot
       - angular-server

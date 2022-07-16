@@ -15,8 +15,8 @@ docker volume rm $(docker volume ls -q)
 # Give vagrant permission
 chown -R vagrant ./
 
-# Start containers
-docker-compose up -d
+# Start and rebuild all containers
+docker-compose up --build --force-recreate -d
 
 # Then shutdown all running containers again
 docker stop $(docker ps -a -q)
