@@ -7,13 +7,9 @@ import "../node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.s
 
 // This is the main building block for smart contracts.
 
-contract Merkle {
+contract Merkle is Ownable{
 
     bytes32 merkleRoot;
-
-    constructor() public Ownable(){
-        
-    }
     
     function setSaleMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
         merkleRoot = _merkleRoot;
