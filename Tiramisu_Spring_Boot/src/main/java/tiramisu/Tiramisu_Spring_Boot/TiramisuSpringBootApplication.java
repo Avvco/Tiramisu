@@ -1,21 +1,24 @@
 package tiramisu.Tiramisu_Spring_Boot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@RestController
+@ComponentScan(basePackages = { "tiramisu.Tiramisu_Spring_Boot", "tiramisu.Request_Controller"} )
 public class TiramisuSpringBootApplication {
 
+  private static final Logger log = LoggerFactory.getLogger(TiramisuSpringBootApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(TiramisuSpringBootApplication.class, args);
-	}
 
-  @RequestMapping("/")
-	public String hello() {
-		return "999999";
+    log.info(
+      "\n----------------------------------------------------------------------\n\t" + 
+      "Application '{}' is running!\n" + 
+      "----------------------------------------------------------------------",
+      TiramisuSpringBootApplication.class.getSimpleName()
+    );
 	}
-
 }
