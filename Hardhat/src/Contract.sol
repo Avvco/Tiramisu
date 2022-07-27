@@ -11,7 +11,7 @@ contract Merkle is Ownable{
 
     bytes32 merkleRoot;
     
-    function setSaleMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+    function setMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
         merkleRoot = _merkleRoot;
     }
 
@@ -20,6 +20,10 @@ contract Merkle is Ownable{
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, _accountID));
         require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Invalid user.");
 
-        return true;
+        if(MerkleProof.verify(_merkleProof, merkleRoot, leaf)){
+            return true;
+        } else{
+            return false;
+        }
     } 
 }
