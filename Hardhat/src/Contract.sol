@@ -18,8 +18,6 @@ contract Merkle is Ownable{
     function isWhitelist(bytes32[] calldata _merkleProof, bytes32 _accountID) public view returns(bool) {
 
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, _accountID));
-        require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Invalid user.");
-
         if(MerkleProof.verify(_merkleProof, merkleRoot, leaf)){
             return true;
         } else{
