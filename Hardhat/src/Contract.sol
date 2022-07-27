@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.9;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/cryptography/MerkleProof.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 // This is the main building block for smart contracts.
 
@@ -11,6 +11,9 @@ contract Merkle {
 
     bytes32 merkleRoot;
 
+    constructor() {
+    }
+    
     function setSaleMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
         merkleRoot = _merkleRoot;
     }
