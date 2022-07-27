@@ -45,7 +45,7 @@ services:
     depends_on:
       - hapi-fhir
     volumes:
-      - ./HAPI-FHIR/mysql:/var/lib/mysql
+      - /mysql:/var/lib/mysql
 
 
   phpmyadmin:
