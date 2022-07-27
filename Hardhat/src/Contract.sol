@@ -11,10 +11,11 @@ contract Merkle {
 
     bytes32 merkleRoot;
 
-    constructor() {
+    constructor() public Ownable(){
+        
     }
     
-    function setSaleMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
+    function setSaleMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
         merkleRoot = _merkleRoot;
     }
 
