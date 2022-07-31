@@ -21,11 +21,11 @@ rm -rf /mysql
 # Start and rebuild all containers
 docker-compose up --build --force-recreate -d
 
+# Install dependencies for each containers
+docker-compose exec hardhat npm install --legacy-peer-deps
+docker-compose exec angular-server npm install
+
 # Then shutdown all running containers again
 docker stop $(docker ps -a -q)
-
-# Install dependencies for each containers
-docker run -it --rm -v $PWD/Angular:/tmp -w /tmp tiramisu_angular-server npm install
-docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp tiramisu_hardhat npm install --legacy-peer-deps
 
 echo ALL DONE
