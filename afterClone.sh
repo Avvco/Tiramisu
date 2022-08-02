@@ -12,10 +12,12 @@ docker stop $(docker ps -a -q)
 docker rm -f $(docker ps -a -q)
 docker volume rm $(docker volume ls -q)
 
-# Give vagrant permission
-chown -R vagrant ./
+# Change directory owner to current user
+printf "\n===== Change the owner of \"$PWD\" to \"$(logname)\" =====\nDONE\n"
+chown -R $(logname) $PWD
 
-# Delete mysql related files
+# Delete MySQL-related files
+printf "\n===== Delete MySQL-related files =====\nDONE\n\n"
 rm -rf /mysql
 
 # Start and rebuild all containers
@@ -25,8 +27,12 @@ docker-compose up --build --force-recreate -d
 docker stop $(docker ps -a -q)
 
 # Install dependencies for each containers
+printf "\n===== Installing dependencies ... =====\n"
 docker run -it --rm -v $PWD/Angular:/tmp -w /tmp node npm install
 docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp node npm install --legacy-peer-deps
 
+# Delete MySQL-related files again to prevent potential incomplete initialization caused by docker-compose up above
+printf "\n===== Delete MySQL-related files again =====\nDONE\n"
+rm -rf /mysql
 
-echo ALL DONE
+printf "\n===== ALL DONE =====\n\n"
