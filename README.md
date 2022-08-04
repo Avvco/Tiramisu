@@ -45,7 +45,7 @@ You need to have:
 
 - URL: <http://angular.tiramisu.localhost>
 
-### Tiramisu_Spring_Boot
+### Spring-Boot
 
 - URL: <http://spring-boot.tiramisu.localhost>
 
@@ -73,7 +73,7 @@ You need to have:
 
 In each container, you can access other containers by
 
-### Tiramisu_Spring_Boot-Container
+### Spring-Boot-Container
 
 ``` bash
 curl http://spring-boot:8080
