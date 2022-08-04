@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "tiramisu.Tiramisu_Spring_Boot", "tiramisu.Request_Controller"} )
+@ComponentScan(basePackages = { "tiramisu.Tiramisu", "tiramisu.Request_Controller"} )
 public class TiramisuSpringBootApplication {
 
   private static final Logger log = LoggerFactory.getLogger(TiramisuSpringBootApplication.class);
