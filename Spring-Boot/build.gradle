@@ -28,6 +28,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+  // https://mvnrepository.com/artifact/org.web3j/core
+  implementation group: 'org.web3j', name: 'core', version: '4.9.4'
 }
 
 tasks.named('test') {

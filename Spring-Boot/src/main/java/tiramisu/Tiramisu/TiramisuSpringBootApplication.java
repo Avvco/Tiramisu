@@ -1,4 +1,4 @@
-package tiramisu.Tiramisu_Spring_Boot;
+package tiramisu.Tiramisu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = { "tiramisu.Tiramisu", "tiramisu.Request_Controller"} )
 public class TiramisuSpringBootApplication {
 
-  private static final Logger log = LoggerFactory.getLogger(TiramisuSpringBootApplication.class);
+  public static final Logger log = LoggerFactory.getLogger(TiramisuSpringBootApplication.class);
+
 	public static void main(String[] args) {
-		SpringApplication.run(TiramisuSpringBootApplication.class, args);
+		SpringApplication.run(TiramisuSpringBootApplication.class, args);    
 
     log.info(
       "\n----------------------------------------------------------------------\n\t" + 

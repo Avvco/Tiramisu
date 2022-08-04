@@ -40,3 +40,6 @@ out/
 /cache
 *.txt
 /hsperfdata_root
+
+### Special ###
+application.properties

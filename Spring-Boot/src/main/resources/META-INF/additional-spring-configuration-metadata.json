@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "blockchain.dev.contract.address",
+    "type": "java.lang.String",
+    "description": "A description for 'blockchain.dev.contract.address'"
+  },
+  {
+    "name": "blockchain.dev.contract.node-url",
+    "type": "java.lang.String",
+    "description": "A description for 'blockchain.dev.contract.node-url'"
+  },
+  {
+    "name": "blockchain.dev.account.private-key",
+    "type": "java.lang.String",
+    "description": "A description for 'blockchain.dev.account.private-key'"
+  }
+]}
