@@ -1,6 +1,7 @@
 {
   "java.configuration.updateBuildConfiguration": "automatic",
   "markdownlint.ignore": [
-    "*.example"
+    "*.example",
+    ".env"
   ]
 }
