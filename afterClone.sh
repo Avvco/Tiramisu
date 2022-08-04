@@ -15,9 +15,9 @@ docker volume rm $(docker volume ls -q)
 
 # Check if .env exist
 printf "\n===== Checking .env file =====\n"
-if [[ ! -f "./.env" ]]; then
-  echo Please fill the .env file first.
-  cp .env.example .env
+if [[ ! -f "./ENV/.env" ]]; then
+  echo Please fill the .env file inside ./ENV first.
+  cp ./ENV/.env.example ./ENV/.env
   exit 1
 fi
 
@@ -28,7 +28,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
   # Check if any environment variables are missing
   if [[ ! -n "${envArray[3]}" ]]; then
-    echo \"${envArray[1]}\" is not set in .env file !!
+    echo \"${envArray[1]}\" is not set in ./ENV/.env  !!
     exit 1
   else
     # Put every env's location inside the array
@@ -36,11 +36,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
       env_files+=("${envArray[0]}")
     fi
   fi
-done < ./.env
+done < ./ENV/.env
 
 # Remove preexisting .env files
 for i in "${env_files[@]}" do
-  rm -f $i
+    rm -f $i
 done
 
 # Fill the environment files with the environment variables
@@ -48,7 +48,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
     envArray=($line)
     echo ${envArray[1]}${envArray[2]}${envArray[3]} >> ${envArray[0]}
-done < ./.env
+done < ./ENV/.env
 printf "DONE\n\n"
 
 # Change directory owner to current user
