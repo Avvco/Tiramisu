@@ -13,6 +13,14 @@ cd Tiramisu
 sudo bash afterClone.sh
 ```
 
+and you will be ask to fill the `.env` file. After that, run
+
+```bash
+sudo bash afterClone.sh
+```
+
+again.
+
 ## How to Run
 
 At the project root directory

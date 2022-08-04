@@ -1,5 +1,2 @@
-/.vscode-config
-/hsperfdata_root
-/cache
-*.so
+.env
 ~$*
