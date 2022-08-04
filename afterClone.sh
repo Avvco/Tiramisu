@@ -39,7 +39,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 done < ./ENV/.env
 
 # Remove preexisting .env files
-for i in "${env_files[@]}" do
+for i in "${env_files[@]}"; do
     rm -f $i
 done
 
