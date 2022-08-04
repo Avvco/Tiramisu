@@ -3,21 +3,21 @@ version: '3.7'
 services:
   spring-boot-reloader:
     build:
-      context: ./Tiramisu_Spring_Boot
+      context: ./Spring-Boot
       dockerfile: Dockerfile
     volumes:
-      - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
-    working_dir: /tmp/Tiramisu_Spring_Boot
+      - ./Spring-Boot:/tmp/Spring-Boot
+    working_dir: /tmp/Spring-Boot
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
 
   spring-boot:
     build:
-      context: ./Tiramisu_Spring_Boot
+      context: ./Spring-Boot
       dockerfile: Dockerfile
     volumes:
-      - ./Tiramisu_Spring_Boot:/tmp/Tiramisu_Spring_Boot
-    working_dir: /tmp/Tiramisu_Spring_Boot
+      - ./Spring-Boot:/tmp/Spring-Boot
+    working_dir: /tmp/Spring-Boot
     container_name: spring-boot
     depends_on:
       - spring-boot-reloader
