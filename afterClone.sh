@@ -40,14 +40,14 @@ done < ./ENV/.env
 
 # Remove preexisting .env files
 for i in "${env_files[@]}"; do
-    rm -f $i
+  rm -f $i
 done
 
 # Fill the environment files with the environment variables
 while IFS= read -r line || [[ -n "$line" ]]; do
-    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
-    envArray=($line)
-    echo ${envArray[1]}${envArray[2]}${envArray[3]} >> ${envArray[0]}
+  [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+  envArray=($line)
+  echo ${envArray[1]}${envArray[2]}${envArray[3]} >> ${envArray[0]}
 done < ./ENV/.env
 printf "DONE\n\n"
 
