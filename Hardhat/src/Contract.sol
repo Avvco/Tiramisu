@@ -1,62 +1,60 @@
 // SPDX-License-Identifier: MIT
-// The line above is recommended and let you define the license of your contract
-// Solidity files have to start with this pragma.
-// It will be used by the Solidity compiler to validate its version.
+
 pragma solidity ^0.8.9;
 
+contract IdentityAuthentication{
+  mapping(address => mapping(uint256 => uint256)) attribute;
 
-// This is the main building block for smart contracts.
-contract Token {
-    // Some string type variables to identify the token.
-    // The `public` modifier makes a variable readable from outside the contract.
-    string public name = "My Hardhat Token";
-    string public symbol = "MBT";
 
-    // The fixed amount of tokens stored in an unsigned integer type variable.
-    uint256 public totalSupply = 1000000;
+  constructor(){
 
-    // An address type variable is used to store ethereum accounts.
-    address public owner;
+    
 
-    // A mapping is a key/value map. Here we store each account balance.
-    mapping(address => uint256) balances;
+  function encode(uint256 _personID, uint256 _recordID, uint256 _birthday, bytes32 _key) public returns (bool){
 
-    /**
-     * Contract initialization.
-     *
-     * The `constructor` is executed only once when the contract is created.
-     */
-    constructor(address _owner) {
-        // The totalSupply is assigned to transaction sender, which is the account
-        // that is deploying the contract.
-        balances[_owner] = totalSupply;
-        owner = _owner;
+    uint256 coef0 = uint256(_key);
+    uint256 coef1 = random() % 100;
+    uint256 coef2 = random() % 100;
+
+    uint256 _personIDHash = uint256(keccak256(abi.encode(_personID)));
+    uint256 _recordIDHash = uint256(keccak256(abi.encode(_recordID)));
+    uint256 _birthdayHash = uint256(keccak256(abi.encode(_birthday)));
+    uint256 _addressHash  = uint256(keccak256(abi.encode(msg.sender)));
+
+    attribute[msg.sender][_personIDHash] = encodePolynomial(coef0, coef1, coef2, _personIDHash);
+    attribute[msg.sender][_recordIDHash] = encodePolynomial(coef0, coef1, coef2, _recordIDHash);
+    attribute[msg.sender][_birthdayHash] = encodePolynomial(coef0, coef1, coef2, _birthdayHash);
+    attribute[msg.sender][_addressHash] = encodePolynomial(coef0, coef1, coef2, _addressHash);
+
+    return true;
+  }
+
+  function decode(uint256 _personID, uint256 _recordID, uint256 _birthday) public view returns(bytes32) {
+
+    uint256 _personIDHash = uint256(keccak256(abi.encode(_personID)));
+    uint256 _recordIDHash = uint256(keccak256(abi.encode(_recordID)));
+    uint256 _birthdayHash = uint256(keccak256(abi.encode(_birthday)));
+
+    uint _personIDVal = attribute[msg.sender][_personIDHash];
+    uint _recordIDVal = attribute[msg.sender][_recordIDHash];
+    uint _birthdayVal = attribute[msg.sender][_birthdayHash];
+
+    uint _key = decodePolynomial(_personIDVal, _personIDHash, _recordIDHash, _birthdayHash) + 
+                decodePolynomial(_recordIDVal, _recordIDHash, _personIDHash, _birthdayHash) + 
+                decodePolynomial(_birthdayVal, _birthdayHash, _personIDHash, _recordIDHash);
+
+      return bytes32(_key);
     }
 
-    /**
-     * A function to transfer tokens.
-     *
-     * The `external` modifier makes a function *only* callable from outside
-     * the contract.
-     */
-    function transfer(address to, uint256 amount) external {
-        // Check if the transaction sender has enough tokens.
-        // If `require`'s first argument evaluates to `false` then the
-        // transaction will revert.
-        require(balances[msg.sender] >= amount, "Not enough tokens");
+  function random() private view returns (uint) {
+    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
+  } 
 
-        // Transfer the amount.
-        balances[msg.sender] -= amount;
-        balances[to] += amount;
-    }
+  function encodePolynomial(uint256 _coef0, uint256 _coef1, uint256 _coef2, uint256 _variable) private pure returns (uint) {
+    return _coef0 + _coef1 * _variable + _coef2 * _variable * _variable;
+  } 
 
-    /**
-     * Read only function to retrieve the token balance of a given account.
-     *
-     * The `view` modifier indicates that it doesn't modify the contract's
-     * state, which allows us to call it without executing a transaction.
-     */
-    function balanceOf(address account) external view returns (uint256) {
-        return balances[account];
-    }
+  function decodePolynomial(uint256 _y, uint256 _x1, uint256 _x2, uint256 _x3) private pure returns (uint) {
+    return _y * _x2 * _x3 / (_x1 - _x2) * (_x1 - _x3);
+  } 
 }
