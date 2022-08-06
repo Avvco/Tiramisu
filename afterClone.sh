@@ -18,6 +18,7 @@ printf "\n===== Checking .env file =====\n"
 if [[ ! -f "./ENV/.env" ]]; then
   echo Please fill the .env file inside ./ENV first.
   cp ./ENV/.env.example ./ENV/.env
+  chown -R $(logname) ./ENV/.env
   exit 1
 fi
 
