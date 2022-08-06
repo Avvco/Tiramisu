@@ -5,12 +5,9 @@ pragma solidity ^0.8.9;
 contract IdentityAuthentication{
   mapping(address => mapping(uint256 => uint256)) attribute;
 
+  constructor() {}
 
-  constructor(){
-
-    
-
-  function encode(uint256 _personID, uint256 _recordID, uint256 _birthday, bytes32 _key) public returns (bool){
+  function encode(uint256 _personID, uint256 _recordID, uint256 _birthday, uint256 _key) public returns (bool){
 
     uint256 coef0 = uint256(_key);
     uint256 coef1 = random() % 100;
@@ -29,7 +26,7 @@ contract IdentityAuthentication{
     return true;
   }
 
-  function decode(uint256 _personID, uint256 _recordID, uint256 _birthday) public view returns(bytes32) {
+  function decode(uint256 _personID, uint256 _recordID, uint256 _birthday) public view returns(uint256) {
 
     uint256 _personIDHash = uint256(keccak256(abi.encode(_personID)));
     uint256 _recordIDHash = uint256(keccak256(abi.encode(_recordID)));
@@ -43,7 +40,7 @@ contract IdentityAuthentication{
                 decodePolynomial(_recordIDVal, _recordIDHash, _personIDHash, _birthdayHash) + 
                 decodePolynomial(_birthdayVal, _birthdayHash, _personIDHash, _recordIDHash);
 
-      return bytes32(_key);
+      return _key;
     }
 
   function random() private view returns (uint) {
