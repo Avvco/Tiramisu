@@ -26,21 +26,14 @@ export function node_url(networkName: string): string {
   return uri;
 }
 
-export function getMnemonic(networkName?: string): string {
-  if (networkName) {
-    const mnemonic = process.env['MNEMONIC_' + networkName.toUpperCase()];
-    if (mnemonic && mnemonic !== '') {
-      return mnemonic;
-    }
-  }
-
-  const mnemonic = process.env.MNEMONIC;
-  if (!mnemonic || mnemonic === '') {
+export function getPrivateKey(networkName?: string): string {
+  const privateKey = process.env.MNEMONIC;
+  if (!privateKey || privateKey === '') {
     return 'test test test test test test test test test test test junk';
   }
-  return mnemonic;
+  return privateKey;
 }
 
 export function accounts(networkName?: string): {mnemonic: string} {
-  return {mnemonic: getMnemonic(networkName)};
+  return {mnemonic: getPrivateKey(networkName)};
 }
