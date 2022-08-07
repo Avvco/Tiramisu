@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -31,6 +32,10 @@ dependencies {
 
   // https://mvnrepository.com/artifact/org.web3j/core
   implementation group: 'org.web3j', name: 'core', version: '4.9.4'
+
+  // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+  implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
+
 }
 
 tasks.named('test') {

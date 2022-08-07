@@ -1,4 +1,4 @@
-package tiramisu.Tiramisu;
+package tiramisu.Service;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -30,6 +30,8 @@ import org.web3j.tx.Transfer;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.tx.response.PollingTransactionReceiptProcessor;
 import org.web3j.tx.response.TransactionReceiptProcessor;
+
+import tiramisu.Tiramisu.TiramisuSpringBootApplication;
 
 
 @Service
@@ -170,7 +172,7 @@ public class BlockChain_Client {
     try {
       txReceipt = receiptProcessor.waitForTransactionReceipt(txHash);
     } catch (IOException | TransactionException e) {
-      e.printStackTrace();
+      e.printStackTrace(); 
     }
     String result = "Function \""+ function.getName() + "\" done in TransactionHash \"" + txReceipt.getTransactionHash() + "\", with " + txReceipt.getGasUsed() + " gas used.";
     TiramisuSpringBootApplication.log.info(result);

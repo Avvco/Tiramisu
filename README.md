@@ -65,7 +65,16 @@ You need to have:
 ### phpMyAdmin
 
 - URL: <http://hapi-fhir-mysql-phpMyAdmin.tiramisu.localhost>
+
+#### For HAPI-FHIR
+
 - Server: `hapi-fhir-mysql`
+- Username: `admin`
+- Password: `admin`
+
+#### For Spring-Boot
+
+- Server: `spring-boot-mysql`
 - Username: `admin`
 - Password: `admin`
 

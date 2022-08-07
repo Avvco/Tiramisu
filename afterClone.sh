@@ -57,9 +57,9 @@ printf "\n===== Change the owner of \"$PWD\" to \"$(logname)\" =====\n"
 chown -R $(logname) $PWD
 printf "DONE\n\n"
 
-# Delete MySQL-related files
+# Delete DataBase-related files
 printf "\n===== Delete MySQL-related files =====\n"
-rm -rf /mysql
+rm -rf /db
 printf "DONE\n\n"
 
 
@@ -74,9 +74,9 @@ printf "\n===== Installing dependencies ... =====\n"
 docker run -it --rm -v $PWD/Angular:/tmp -w /tmp node npm install
 docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp node npm install --legacy-peer-deps
 
-# Delete MySQL-related files again to prevent potential incomplete initialization caused by docker-compose up above
+# Delete DataBase-related files again to prevent potential incomplete initialization caused by docker-compose up above
 printf "\n===== Delete MySQL-related files again =====\n"
-rm -rf /mysql
+rm -rf /db
 printf "DONE\n\n"
 
 printf "\n===== ALL DONE =====\n\n"

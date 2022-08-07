@@ -23,6 +23,22 @@ services:
       - spring-boot-reloader
     command: [ "bash", "./bootRun.sh" ]
 
+  # Comes from https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/docker-compose.yml
+  spring-boot-mysql:
+    image: mysql:latest
+    container_name: spring-boot-mysql
+    # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
+    command: --lower_case_table_names=1
+    environment:
+      MYSQL_DATABASE: 'spring'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    depends_on:
+      - spring-boot
+    volumes:
+      - /db/spring-boot-mysql:/var/lib/mysql
+
   hapi-fhir:
     image: hapiproject/hapi:latest
     volumes:
@@ -45,7 +61,7 @@ services:
     depends_on:
       - hapi-fhir
     volumes:
-      - /mysql:/var/lib/mysql
+      - /db/hapi-fhir-mysql:/var/lib/mysql
 
 
   phpmyadmin:
@@ -58,6 +74,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'admin'
     depends_on:
       - hapi-fhir-mysql
+      - spring-boot-mysql
 
 
   hardhat:
@@ -93,7 +110,6 @@ services:
      - 80:80
      - 443:443
     depends_on:
-      - spring-boot
       - angular-server
       - hardhat
       - phpmyadmin
