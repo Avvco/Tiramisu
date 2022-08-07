@@ -3,55 +3,49 @@
 pragma solidity ^0.8.9;
 
 contract IdentityAuthentication{
-  mapping(address => mapping(uint256 => uint256)) attribute;
 
-  constructor() {}
+  mapping(address => mapping(int256 => int256)) attribute;
 
-  function encode(uint256 _personID, uint256 _recordID, uint256 _birthday, uint256 _key) public returns (bool){
+  constructor() payable {}
 
-    uint256 coef0 = uint256(_key);
-    uint256 coef1 = random() % 100;
-    uint256 coef2 = random() % 100;
+  function encode(int256 _personID, int256 _recordID, int256 _birthday, int256 _key) public payable returns (bool){
 
-    uint256 _personIDHash = uint256(keccak256(abi.encode(_personID)));
-    uint256 _recordIDHash = uint256(keccak256(abi.encode(_recordID)));
-    uint256 _birthdayHash = uint256(keccak256(abi.encode(_birthday)));
-    uint256 _addressHash  = uint256(keccak256(abi.encode(msg.sender)));
+    int256 coef0 = _key;
+    int256 coef1 = random();
+    int256 coef2 = random();
 
-    attribute[msg.sender][_personIDHash] = encodePolynomial(coef0, coef1, coef2, _personIDHash);
-    attribute[msg.sender][_recordIDHash] = encodePolynomial(coef0, coef1, coef2, _recordIDHash);
-    attribute[msg.sender][_birthdayHash] = encodePolynomial(coef0, coef1, coef2, _birthdayHash);
-    attribute[msg.sender][_addressHash] = encodePolynomial(coef0, coef1, coef2, _addressHash);
+    attribute[msg.sender][_personID] = encodePolynomial(coef0, coef1, coef2, _personID);
+    attribute[msg.sender][_recordID] = encodePolynomial(coef0, coef1, coef2, _recordID);
+    attribute[msg.sender][_birthday] = encodePolynomial(coef0, coef1, coef2, _birthday);
 
     return true;
   }
 
-  function decode(uint256 _personID, uint256 _recordID, uint256 _birthday) public view returns(uint256) {
+  function decode(int256 _personID, int256 _recordID, int256 _birthday) public payable returns(int256) {
 
-    uint256 _personIDHash = uint256(keccak256(abi.encode(_personID)));
-    uint256 _recordIDHash = uint256(keccak256(abi.encode(_recordID)));
-    uint256 _birthdayHash = uint256(keccak256(abi.encode(_birthday)));
+    int256 personIDVal = getAttributeVal(_personID);
+    int256 recordIDVal = getAttributeVal(_recordID);
+    int256 birthdayVal = getAttributeVal(_birthday);
 
-    uint _personIDVal = attribute[msg.sender][_personIDHash];
-    uint _recordIDVal = attribute[msg.sender][_recordIDHash];
-    uint _birthdayVal = attribute[msg.sender][_birthdayHash];
+    int256 key = decodePolynomial(personIDVal, _personID, _recordID, _birthday) +
+                 decodePolynomial(recordIDVal, _recordID, _personID, _birthday) +
+                 decodePolynomial(birthdayVal, _birthday, _personID, _recordID);
+    return key;
+  }
 
-    uint _key = decodePolynomial(_personIDVal, _personIDHash, _recordIDHash, _birthdayHash) + 
-                decodePolynomial(_recordIDVal, _recordIDHash, _personIDHash, _birthdayHash) + 
-                decodePolynomial(_birthdayVal, _birthdayHash, _personIDHash, _recordIDHash);
+  function getAttributeVal(int256 _attrName) private view returns (int256){
+    return attribute[msg.sender][_attrName];
+  }
 
-      return _key;
-    }
-
-  function random() private view returns (uint) {
-    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
+  function random() private view returns (int256) {
+    return int256(uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % 256);
   } 
 
-  function encodePolynomial(uint256 _coef0, uint256 _coef1, uint256 _coef2, uint256 _variable) private pure returns (uint) {
+  function encodePolynomial(int256 _coef0, int256 _coef1, int256 _coef2, int256 _variable) private pure returns (int256) {
     return _coef0 + _coef1 * _variable + _coef2 * _variable * _variable;
   } 
 
-  function decodePolynomial(uint256 _y, uint256 _x1, uint256 _x2, uint256 _x3) private pure returns (uint) {
-    return _y * _x2 * _x3 / (_x1 - _x2) * (_x1 - _x3);
+  function decodePolynomial(int256 _y, int256 _x1, int256 _x2, int256 _x3) private pure returns (int256) {
+    return _y * _x2 * _x3 / ((_x1 - _x2) * (_x1 - _x3));
   } 
-}
+} 
