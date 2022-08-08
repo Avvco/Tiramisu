@@ -58,10 +58,6 @@ You need to have:
 
 - URL: <http://hardhat.tiramisu.localhost>
 
-### HAPI-FHIR-MYSQL
-
-- URL: <http://hapi-fhir-mysql.tiramisu.localhost>
-
 ### phpMyAdmin
 
 - URL: <http://hapi-fhir-mysql-phpMyAdmin.tiramisu.localhost>
