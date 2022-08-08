@@ -32,6 +32,7 @@ RUN set -o errexit -o nounset \
         mercurial \
         openssh-client \
         subversion \
+        jq \
     && rm --recursive --force /var/lib/apt/lists/* \
     \
     && echo "Testing VCSes" \
@@ -41,14 +42,11 @@ RUN set -o errexit -o nounset \
     && which hg \
     && which svn
 
-ENV GRADLE_VERSION 7.4.2
-ARG GRADLE_DOWNLOAD_SHA256=29e49b10984e585d8118b7d0bc452f944e386458df27371b49b4ac1dec4b7fda
-RUN set -o errexit -o nounset \
+
+RUN GRADLE_VERSION=$(curl -s https://services.gradle.org/versions/current | jq -r '.version') \
+    && set -o errexit -o nounset \
     && echo "Downloading Gradle" \
     && wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    \
-    && echo "Checking download hash" \
-    && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
     \
     && echo "Installing Gradle" \
     && unzip gradle.zip \
