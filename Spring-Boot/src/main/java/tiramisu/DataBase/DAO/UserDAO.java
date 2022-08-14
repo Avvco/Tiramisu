@@ -1,10 +1,11 @@
 package tiramisu.DataBase.DAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class UserDAO {
-  @Autowired
-	UserRepository userRepository;
+import tiramisu.DataBase.DTO.User;
+
+@Repository
+public interface UserDAO extends JpaRepository<User, Integer> {
+
 }
