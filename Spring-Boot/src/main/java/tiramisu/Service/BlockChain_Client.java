@@ -31,10 +31,11 @@ import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.tx.response.PollingTransactionReceiptProcessor;
 import org.web3j.tx.response.TransactionReceiptProcessor;
 
-import tiramisu.Tiramisu.TiramisuSpringBootApplication;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class BlockChain_Client {
 
   @Value("${blockchain.dev.contract.address}")
@@ -57,13 +58,13 @@ public class BlockChain_Client {
   public <T> T QueryContract() {
 
     // Connect to the node
-    TiramisuSpringBootApplication.log.info("Connecting to Node ...");
+    log.info("Connecting to Node ...");
     Web3j web3j = Web3j.build(new HttpService(NODE_URL));
-    TiramisuSpringBootApplication.log.info("Successfuly connected to Node via: " + NODE_URL);
+    log.info("Successfuly connected to Node via: " + NODE_URL);
 
     // Load an account
     Credentials credentials = Credentials.create(PRIVATE_KEY);
-    TiramisuSpringBootApplication.log.info("Loaded account: " + credentials.getAddress());
+    log.info("Loaded account: " + credentials.getAddress());
 
     // Get nonce
     EthGetTransactionCount ethGetTransactionCount = null;
@@ -75,7 +76,7 @@ public class BlockChain_Client {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Get nonce failed");
     }
     BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-    TiramisuSpringBootApplication.log.info("Loaded nonce: " + nonce);
+    log.info("Loaded nonce: " + nonce);
 
     // Build function
     // https://github.com/gjeanmart/stackexchange/blob/master/72889-how-to-create-a-rawtransaction-for-contract-interaction-web3j/Web3j/src/main/java/me/gjeanmart/stackoverflow/web3j/Main.java
@@ -86,7 +87,7 @@ public class BlockChain_Client {
 
     String encodedFunction = FunctionEncoder.encode(function);
 
-    TiramisuSpringBootApplication.log.info("EncodedFunction: " + encodedFunction);
+    log.info("EncodedFunction: " + encodedFunction);
 
     // Send transaction
     org.web3j.protocol.core.methods.response.EthCall response = null;
@@ -107,7 +108,7 @@ public class BlockChain_Client {
     List<Type> value = FunctionReturnDecoder.decode(
              response.getValue(), function.getOutputParameters());
                  
-    TiramisuSpringBootApplication.log.info("DecodedFunction: " + value.get(0).getValue());
+    log.info("DecodedFunction: " + value.get(0).getValue());
     return (T) value.get(0).getValue().toString();
   }
 
@@ -118,13 +119,13 @@ public class BlockChain_Client {
   public String ModifyContract() {
 
     // Connect to the node
-    TiramisuSpringBootApplication.log.info("Connecting to Node ...");
+    log.info("Connecting to Node ...");
     Web3j web3j = Web3j.build(new HttpService(NODE_URL));
-    TiramisuSpringBootApplication.log.info("Successfuly connected to Node via: " + NODE_URL);
+    log.info("Successfuly connected to Node via: " + NODE_URL);
 
     // Load an account
     Credentials credentials = Credentials.create(PRIVATE_KEY);
-    TiramisuSpringBootApplication.log.info("Loaded account: " + credentials.getAddress());
+    log.info("Loaded account: " + credentials.getAddress());
 
 
 
@@ -135,7 +136,7 @@ public class BlockChain_Client {
 
     String encodedFunction = FunctionEncoder.encode(function);
 
-    TiramisuSpringBootApplication.log.info("EncodedFunction: " + encodedFunction);
+    log.info("EncodedFunction: " + encodedFunction);
 
     TransactionManager txManager = new RawTransactionManager(web3j, credentials);
 
@@ -144,7 +145,7 @@ public class BlockChain_Client {
     BigInteger gasPrice;
     try {
       gasPrice = transfer.requestCurrentGasPrice();
-      TiramisuSpringBootApplication.log.info("Gas Price: " + gasPrice);
+      log.info("Gas Price: " + gasPrice);
     } catch (IOException e) {
       e.printStackTrace();
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to get gas price.");
@@ -175,7 +176,7 @@ public class BlockChain_Client {
       e.printStackTrace(); 
     }
     String result = "Function \""+ function.getName() + "\" done in TransactionHash \"" + txReceipt.getTransactionHash() + "\", with " + txReceipt.getGasUsed() + " gas used.";
-    TiramisuSpringBootApplication.log.info(result);
+    log.info(result);
     return result;
   }
 }
