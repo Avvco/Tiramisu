@@ -6,28 +6,28 @@ contract IdentityAuthentication{
 
   mapping(address => mapping(int256 => int256)) attribute;
 
-  constructor() payable {}
+  constructor() {}
 
-  function encode(int256 _personID, int256 _recordID, int256 _birthday, int256 _key) public payable returns (int256, int256, int256){
+  function encode(int256 _attr0, int256 _attr1, int256 _attr2, int256 _key) public payable returns (int256, int256, int256){
 
-    int256 coef0 = _key;
-    int256 coef1 = random();
-    int256 coef2 = random();
+    int256 _coef0 = _key;
+    int256 _coef1 = random();
+    int256 _coef2 = random();
 
-    int256 _personIDVal = encodePolynomial(coef0, coef1, coef2, _personID);
-    int256 _recordIDVal = encodePolynomial(coef0, coef1, coef2, _recordID);
-    int256 _birthdayVal = encodePolynomial(coef0, coef1, coef2, _birthday);
+    int256 _attrVal0 = encodePolynomial(_coef0, _coef1, _coef2, _attr0);
+    int256 _attrVal1 = encodePolynomial(_coef0, _coef1, _coef2, _attr1);
+    int256 _attrVal2 = encodePolynomial(_coef0, _coef1, _coef2, _attr2);
 
-    return (_personIDVal, _recordIDVal, _birthdayVal);
+    return (_attrVal0, _attrVal1, _attrVal2);
   }
 
-  function decode(int256 _personID, int256 _recordID, int256 _birthday,
-                  int256 _personIDVal, int256 _recordIDVal, int256 _birthdayVal) public payable returns(int256) {
+  function decode(int256 _attr0, int256 _attr1, int256 _attr2,
+                  int256 _attrVal0, int256 _attrVal1, int256 _attrVal2) public payable returns(int256) {
 
-    int256 key = decodePolynomial(_personIDVal, _personID, _recordID, _birthday) +
-                 decodePolynomial(_recordIDVal, _recordID, _personID, _birthday) +
-                 decodePolynomial(_birthdayVal, _birthday, _personID, _recordID);
-    return key;
+    int256 _key = decodePolynomial(_attrVal0, _attr0, _attr1, _attr2) +
+                  decodePolynomial(_attrVal1, _attr1, _attr0, _attr2) +
+                  decodePolynomial(_attrVal2, _attr2, _attr0, _attr1);
+    return _key;
   }
 
   function random() private view returns (int256) {
