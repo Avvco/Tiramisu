@@ -14,6 +14,7 @@
     "pivotal.vscode-boot-dev-pack",
     "tabnine.tabnine-vscode",
     "naco-siren.gradle-language",
-    "NomicFoundation.hardhat-solidity"
+    "nomicfoundation.hardhat-solidity",
+    "vscjava.vscode-lombok"
   ]
 }
