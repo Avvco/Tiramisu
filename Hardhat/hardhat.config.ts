@@ -1,16 +1,16 @@
 import {HardhatUserConfig} from 'hardhat/types';
 import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
-import {node_url, accounts} from './utils/network';
+import 'dotenv/config';
 
 const config: HardhatUserConfig = {
   solidity: {
     version: '0.8.9',
   },
   networks: {
-    rinkeby: {
-      url: node_url('rinkeby'),
-      accounts: accounts('rinkeby'),
+    goerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.API_KEY}`,
+      accounts: [`${process.env.PRIVATE_KEY}`]
     },
   },
   namedAccounts: {

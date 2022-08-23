@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 import tiramisu.DataBase.DAO.UserDAO;
 
+
 @Service
 public class UserService {
   @Autowired
-  private UserDAO userDAO;
+  UserDAO userDAO;
 }
