@@ -50,11 +50,16 @@
 
 }
 
-.rg_center {
+.rg_right {
     /*border: 1px solid red;*/
-    float: left;
+    overflow: auto;
     width: 500px;
 
+}
+
+.login_a{
+    font-size: medium;
+    margin: 15px;
 }
 
 .td_left {
