@@ -16,7 +16,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  
+
   h1,
   h2,
   h3,
@@ -278,11 +278,13 @@
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
+  <!--
   <img    width="40"
     alt="Angular Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
   />
-  <span style="text-align:center; font-size: 22px;">haven't decided icon</span>
+  -->
+  <span style="text-align:center; font-size: 22px; margin-left: 20px;">FHIR </span>
   <div class="spacer"></div>
 </div>
 
@@ -314,12 +316,18 @@
   -->
   <div class="login_frame">
     <div class="rg_left">
-      <p>註冊帳號</p>
-      <p>USER REGISTER</p>
+      <p>登入帳號</p>
+      <p>USER LOGIN</p>
     </div>
     <div class="rg_right">
       <form method="post" action="">
         <table>
+          <tr>
+            <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
+            <td class="td_right"><input type="radio" value="1" name="identitybox" />個人
+              <input type="radio" value="2" name="identitybox" />醫護人員
+            </td>
+          </tr>
           <tr>
             <td class="td_left"><label for="username">Username</label></td>
             <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入用戶名"></td>
@@ -329,14 +337,20 @@
             <td class="td_right"><input type="password" name="password" id="password" placeholder="請輸入密碼"></td>
           </tr>
           <tr>
-            <td colspan="2" align="center"><input type="submit" id="sty_sub" value="註冊"></td>
-        </tr>
+            <td class="td_left"><label for="email">Email</label></td>
+            <td class="td_right"><input type="email" name="email" id="email" placeholder="請輸入email"></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><input type="submit" id="sty_sub" value="登入"> <a style="margin-left: 10px;">忘記密碼？</a></td>
+          </tr>
         </table>
       </form>
     </div>
+    <!--
     <div class="login_a">
       <a>已有帳號？</a>
     </div>
+    -->
   </div>
   <!--
   <div class="card-container">

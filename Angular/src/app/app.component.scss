@@ -24,14 +24,25 @@
 
 .login_frame {
     width: 700px;
-    height: 200px;
+    height: 250px;
     padding: 13px;
     background-color: rgba(223, 195, 176, 0.678);
     border-radius: 10px;
     text-align: left;
     margin: auto;
 }
-
+.title {
+    text-align: center;
+}
+p#title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    font-family: 標楷體;
+    font-size:x-large;
+}
 .rg_left {
     float: left;
     margin: 15px;
@@ -53,7 +64,7 @@
 .rg_right {
     /*border: 1px solid red;*/
     overflow: auto;
-    width: 500px;
+    width: 550px;
 
 }
 
@@ -63,17 +74,30 @@
 }
 
 .td_left {
-    font-size: medium;
-    width: 100px;
+    font-size: large;
+    font-family: 標楷體;
+    width: 150px;
     text-align: right;
     height: 35px;
 }
 
 .td_right {
-    font-size: medium;
-    padding-left: 50px;
+    font-size: large;
+    font-family: 標楷體;
+    padding-left: 15px;
+    width: 150px;
+    text-align: left;
+    height: 35px;
 }
 
+.td_right2 {
+    font-size: large;
+    font-family: 標楷體;
+    padding-left: 15px;
+    width: 150px;
+    text-align: right;
+    height: 35px;
+}
 #sty_sub {
     width: 100px;
     height: 40px;
