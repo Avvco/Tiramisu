@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./Spring-Boot:/tmp/Spring-Boot
+      - /gradle_dependency:/root/.gradle/caches/modules-2/files-2.1
     working_dir: /tmp/Spring-Boot
     container_name: spring-boot-reloader
     command: [ "bash", "./buildAndReload.sh" ]
@@ -17,6 +18,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./Spring-Boot:/tmp/Spring-Boot
+      - /gradle_dependency:/root/.gradle/caches/modules-2/files-2.1
     working_dir: /tmp/Spring-Boot
     container_name: spring-boot
     depends_on:
