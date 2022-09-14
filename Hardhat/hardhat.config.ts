@@ -8,10 +8,10 @@ const config: HardhatUserConfig = {
     version: '0.8.9',
   },
   networks: {
-    goerli: {
+  /*  goerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${process.env.API_KEY}`,
       accounts: [`${process.env.PRIVATE_KEY}`]
-    },
+    },*/
   },
   namedAccounts: {
     deployer: 0,
