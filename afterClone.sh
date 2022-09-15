@@ -28,8 +28,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   envArray=($line)
 
   # Check if any environment variables are missing
-  if [[ ! -n "${envArray[3]}" ]]; then
-    echo \"${envArray[1]}\" is not set in ./ENV/.env  !!
+  if [[ "=" == "${envArray[-1]}" ]]; then
+    unset 'envArray[${#envArray[@]}-1]'
+    echo \"${envArray[@]:1}\" is not set in ./ENV/.env !!
     exit 1
   else
     # Put every env's location inside the array
@@ -48,7 +49,7 @@ done
 while IFS= read -r line || [[ -n "$line" ]]; do
   [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
   envArray=($line)
-  echo ${envArray[1]}${envArray[2]}${envArray[3]} >> ${envArray[0]}
+  echo ${envArray[@]:1} >> ${envArray[0]}
 done < ./ENV/.env
 printf "DONE\n\n"
 
