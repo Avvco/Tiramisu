@@ -298,6 +298,13 @@
   -->
     <span style="text-align:center; font-size: 22px; margin-left: 20px;">填寫病歷 </span>
     <div class="spacer"></div>
+    <div class="search">
+      <form name="record" (ngSubmit)="testRecord()">
+        <td class="td_left">病歷號</td>
+        <td class="td_right"> <input type="text"></td>
+        <td class="td_right"> <button type="submit">搜索</button></td>
+      </form>
+    </div>
   </div>
 
   <div class="content" role="main">
@@ -306,39 +313,55 @@
       <div class="title">
         <p id="title">初診病患基本資料卡</p>
       </div>
-      <form method="post" action="">
+      <form (ngForm)="addRecord()">
         <table>
           <tr>
             <td class="td_left">初診日期</td>
-            <td class="td_right"><input type="date" value="2022-09-12"></td>
+            <td class="td_right">
+              <input type="date" name="firstDate" [(ngModel)]="firstDate" value="2022-09-12">
+            </td>
             <td class="td_right2">病歷號</td>
-            <td class="td_right"><input type="text" placeholder="請輸入病歷號"></td>
+            <td class="td_right">
+              <input type="text" name="firstDate" [(ngModel)]="recordId" firstDateplaceholder="請輸入病歷號">
+            </td>
           </tr>
           <tr>
             <td class="td_left">姓名</td>
-            <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入姓名"></td>
+            <td class="td_right">
+              <input type="text" name="patientName" [(ngModel)]="patientName" placeholder="請輸入姓名" value="">
+            </td>
             <td class="td_right2">出生日期</td>
-            <td class="td_right"><input type="date" value="2022-09-12"></td>
+            <td class="td_right">
+              <input type="date" name="birthDate" [(ngModel)]="birthDate" value="2022-09-12">
+            </td>
             <td class="td_left">性別</td>
             <td class="td_right">
-              <input type="radio" value="1" name="subscribe" />女
-              <input type="radio" value="2" name="subscribe" />男
+              <input type="radio" name="gender" [(ngModel)]="gender" value="1" />女
+              <input type="radio" name="gender" [(ngModel)]="gender" value="2" />男
             </td>
           </tr>
           <tr>
             <td class="td_left">身分證號碼</td>
-            <td class="td_right"><input type="text" placeholder="請輸入身分證號碼"></td>
+            <td class="td_right">
+              <input type="text" name="personId" [(ngModel)]="personId" placeholder="請輸入身分證號碼">
+            </td>
             <td class="td_right2">聯絡電話</td>
-            <td class="td_right"><input type="text" placeholder="請輸入聯絡電話"></td>
+            <td class="td_right">
+              <input type="text" name="contactPhone" [(ngModel)]="contactPhone" placeholder="請輸入聯絡電話">
+            </td>
             <td class="td_left">行動電話</td>
-            <td class="td_right"><input type="text" placeholder="請輸入行動電話"></td>
+            <td class="td_right">
+              <input type="text" name="actionPhone" [(ngModel)]="actionPhone" placeholder="請輸入行動電話">
+            </td>
           </tr>
           <tr>
             <td class="td_left">職業</td>
-            <td class="td_right"><input type="text" placeholder="請輸入職業"></td>
+            <td class="td_right">
+              <input type="text" name="profession" [(ngModel)]="profession" placeholder="請輸入職業">
+            </td>
             <td class="td_left">婚姻</td>
             <td class="td_right">
-              <select name="marriage">
+              <select name="marriage" [(ngModel)]="marriage">
                 <option value="未婚">未婚</option>
                 <option value="已婚">已婚</option>
                 <option value="離婚">離婚</option>
@@ -349,7 +372,7 @@
           <tr>
             <td class="td_left">血型</td>
             <td class="td_right">
-              <select name="blood">
+              <select name="blood" [(ngModel)]="blood">
                 <option value="A">A型</option>
                 <option value="B">B型</option>
                 <option value="AB">AB型</option>
@@ -359,36 +382,44 @@
             </td>
             <td class="td_left">藥物過敏史</td>
             <td class="td_right">
-              <input type="text" placeholder="若無則輸入無" />
+              <input type="text" name="drugAllergy" [(ngModel)]="drugAllergy" placeholder="若無則輸入無" />
             </td>
           </tr>
           <tr>
             <td class="td_left">通訊住址</td>
-            <td class="td_right"><input type="textarea" placeholder="請輸入通訊住址"></td>
+            <td class="td_right">
+              <input type="textarea" name="contactAddress" [(ngModel)]="contactAddress" placeholder="請輸入通訊住址">
+            </td>
             <td class="td_left">免費電子健康報</td>
             <td class="td_right">
-              <input type="radio" value="1" name="subscribe" />願意
-              <input type="radio" value="2" name="subscribe" />不願意
+              <input type="radio" name="freePaper" [(ngModel)]="freePaper" value="1" />願意
+              <input type="radio" name="freePaper" [(ngModel)]="freePaper" value="2" />不願意
             </td>
           </tr>
           <tr>
             <td class="td_left">收到本院簡訊</td>
             <td class="td_right">
-              <input type="radio" value="1" name="letter" />同意
-              <input type="radio" value="2" name="letter" />不同意
+              <input type="radio" name="newsletter" [(ngModel)]="newsletter" value="1" />同意
+              <input type="radio" name="newsletter" [(ngModel)]="newsletter" value="2" />不同意
             </td>
             <td class="td_left">電子信箱</td>
             <td class="td_right">
-              <input type="textarea" placeholder="請輸入電子信箱">
+              <input type="textarea" name="emailAddress" [(ngModel)]="emailAddress" placeholder="請輸入電子信箱">
             </td>
           </tr>
           <tr>
             <td class="td_left">緊急聯絡人</td>
-            <td class="td_right"><input type="text" placeholder="請輸入姓名"></td>
+            <td class="td_right">
+              <input type="text" name="emergencyContact" [(ngModel)]="emergencyContact" placeholder="請輸入姓名">
+            </td>
             <td class="td_left">與病患之關係</td>
-            <td class="td_right"><input type="text" placeholder="請輸入關係"></td>
+            <td class="td_right">
+              <input type="text" name="relationship" [(ngModel)]="relationship" placeholder="請輸入關係">
+            </td>
             <td class="td_left">聯絡電話</td>
-            <td class="td_right"><input type="text" placeholder="請輸入聯絡電話"></td>
+            <td class="td_right">
+              <input type="text" name="emergencyContactPhone" [(ngModel)]="emergencyContactPhone" placeholder="請輸入聯絡電話">
+            </td>
           </tr>
         </table>
       </form>
@@ -422,6 +453,9 @@
             <td class="td_right"><input type="text" placeholder="請輸入幾支/天(若無請填無)"></td>
           </tr>
         </table>
+        <p>
+          <button type="submit">上傳</button>
+        </p>
       </form>
     </div>
 

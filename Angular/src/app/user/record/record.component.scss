@@ -11,6 +11,15 @@
     font-weight: 650;
 }
 
+.search {
+    position: absolute;
+    align-items: right;
+    top: 18px;
+    right: 0px;
+    font-weight: 500;
+    font-size: large;
+}
+
 .content {
     display: flex;
     margin: 82px auto 32px;
