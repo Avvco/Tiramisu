@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
 
-import { ShareModule } from '../share/share.module';
 import { RecordComponent } from './record/record.component';
+import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { RecordComponent } from './record/record.component';
   imports: [
     CommonModule,
     UserRoutingModule,
-    ShareModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

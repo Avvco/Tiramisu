@@ -1,6 +1,6 @@
-<mat-toolbar [style.background]="(login$ | async) ? '#2B2223' : '#86756B'" class="navbar">
-    <a mat-button routerLink="/" style="color: black;">哈哈我是新的首頁</a>
+<div [style.background]="(login$ | async) ? '#86756B' : '#C6D0AD'" class="navbar">
+    <a button routerLink="/" style="color: rgb(255, 255, 255);">哈哈我是新的首頁</a>
     <span class="to-right"></span>
-    <a mat-button *ngIf="!(login$ | async)" routerLink="/user/login">會員登入</a>
-    <a mat-button *ngIf="login$ | async" (click)="logout()">會員登出</a>
-</mat-toolbar>
+    <a button *ngIf="!(login$ | async)" routerLink="/user/login">會員登入</a>
+    <a button *ngIf="login$ | async" (click)="logout()">會員登出</a>
+</div>
