@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +8,4 @@ import {
 })
 export class AppComponent {
   title = 'Angular';
-  
 }
