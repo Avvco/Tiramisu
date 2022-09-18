@@ -26,6 +26,21 @@ export class HealthRecord {
 	relationship: string;
 	emergencyContactPhone: string;
 
+	height: string;
+	weight: string;
+	BMI: string;
+
+	waistline: string;
+	pressure: string;
+	pulse: string;
+
+	weightchange: string;
+	cigarette: string;
+
+	betel: string;
+	alcohol: string;
+	sport: string;
+
 	constructor(
 		firstDate: string, recordId: string,
 		patientName: string, birthDate: string, gender: string,
@@ -34,7 +49,12 @@ export class HealthRecord {
 		blood: string, drugAllergy: string,
 		contactAddress: string, freePaper: string,
 		newsletter: string, emailAddress: string,
-		emergencyContact: string, relationship: string, emergencyContactPhone: string,) {
+		emergencyContact: string, relationship: string,
+		emergencyContactPhone: string, 
+		height: string, weight: string, BMI: string,
+		waistline: string, pressure: string, pulse: string,
+		weightchange: string, cigarette:string, 
+		betel: string, alcohol: string, sport: string) {
 
 		this.firstDate = firstDate;
 		this.recordId = recordId;
@@ -62,5 +82,20 @@ export class HealthRecord {
 		this.emergencyContact = emergencyContact;
 		this.relationship = relationship;
 		this.emergencyContactPhone = emergencyContactPhone;
+
+		this.height = height;
+		this.weight = weight;
+		this.BMI = BMI;
+
+		this.waistline = waistline;
+		this.pressure = pressure;
+		this.pulse = pulse;
+
+		this.weightchange = weightchange;
+		this.cigarette = cigarette;
+
+		this.betel = betel;
+		this.alcohol = alcohol;
+		this.sport = sport;
 	}
 }

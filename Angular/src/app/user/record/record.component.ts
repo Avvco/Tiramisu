@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HealthRecord } from './health-record';
-
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
-
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
@@ -47,6 +39,21 @@ export class RecordComponent implements OnInit {
   relationship = '';
   emergencyContactPhone = '';
 
+  height = '';
+  weight = '';
+  BMI = '';
+
+  waistline = '';
+  pressure = '';
+  pulse = '';
+
+  weightchange = '';
+  cigarette = '';
+
+  betel = '';
+  alcohol = '';
+  sport = '';
+
   addRecord(): void {
     const record = new HealthRecord(
      this.firstDate, this.recordId,
@@ -56,7 +63,11 @@ export class RecordComponent implements OnInit {
      this.blood, this.drugAllergy,
      this.contactAddress, this.freePaper,
      this.newsletter, this.emailAddress,
-     this.emergencyContact, this.relationship, this.emergencyContactPhone
+     this.emergencyContact, this.relationship, this.emergencyContactPhone,
+     this.height, this.weight, this.BMI,
+     this.waistline, this.pressure, this.pulse,
+     this.weightchange, this.cigarette, 
+     this.betel, this.alcohol, this.sport,
    );
    console.log(record);
   }
