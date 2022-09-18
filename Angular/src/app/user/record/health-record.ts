@@ -2,6 +2,7 @@ export class HealthRecord {
 	firstDate: string;
 	recordId: string;
 
+	firstname: string;
 	patientName: string;
 	birthDate: string;
 	gender: string;
@@ -9,6 +10,8 @@ export class HealthRecord {
 	personId: string;
 	contactPhone: string;
 	actionPhone: string;
+	address: string;
+	valid: string;
 
 	profession: string;
 	marriage: string;
@@ -43,8 +46,8 @@ export class HealthRecord {
 
 	constructor(
 		firstDate: string, recordId: string,
-		patientName: string, birthDate: string, gender: string,
-		personId: string, contactPhone: string, actionPhone: string,
+		firstname: string, patientName: string, birthDate: string, gender: string,
+		personId: string, contactPhone: string, actionPhone: string, address: string, valid:string,
 		profession: string, marriage: string,
 		blood: string, drugAllergy: string,
 		contactAddress: string, freePaper: string,
@@ -59,6 +62,7 @@ export class HealthRecord {
 		this.firstDate = firstDate;
 		this.recordId = recordId;
 
+		this.firstname = firstname;
 		this.patientName = patientName;
 		this.birthDate = birthDate;
 		this.gender = gender;
@@ -66,6 +70,8 @@ export class HealthRecord {
 		this.personId = personId;
 		this.contactPhone = contactPhone;
 		this.actionPhone = actionPhone;
+		this.address = address;
+		this.valid = valid;
 
 		this.profession = profession;
 		this.marriage = marriage;

@@ -19,6 +19,7 @@ export class RecordComponent implements OnInit {
   firstDate = '';
   recordId = '';
 
+  firstname = '';
   patientName = '';
   birthDate = '';
   gender = '';
@@ -26,6 +27,8 @@ export class RecordComponent implements OnInit {
   personId = '';
   contactPhone = '';
   actionPhone = '';
+  address = '';
+  valid = '';
 
   profession = '';
   marriage = '';
@@ -61,8 +64,8 @@ export class RecordComponent implements OnInit {
   addRecord(): void {
     const record = new HealthRecord(
       this.firstDate, this.recordId,
-      this.patientName, this.birthDate, this.gender,
-      this.personId, this.contactPhone, this.actionPhone,
+      this.firstname, this.patientName, this.birthDate, this.gender,
+      this.personId, this.contactPhone, this.actionPhone, this.address, this.valid,
       this.profession, this.marriage,
       this.blood, this.drugAllergy,
       this.contactAddress, this.freePaper,
@@ -89,10 +92,7 @@ export class RecordComponent implements OnInit {
         var data = JSON.parse(this.responseText);
         console.log(data);
     }
-<<<<<<< HEAD
     
-=======
->>>>>>> 844387e3c5b0d085299cfe3fcd62cc199e1b74c8
   }
 
 }
