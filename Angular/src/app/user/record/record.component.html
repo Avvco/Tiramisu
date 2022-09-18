@@ -146,7 +146,7 @@
     <span style="text-align:center; font-size: 22px; margin-left: 20px;">填寫病歷 </span>
     <div class="spacer"></div>
     <div class="search">
-      <form name="record" (ngSubmit)="testRecord()">
+      <form name="record" (ngSubmit)="getRecord()">
         <td class="td_left">病歷號</td>
         <td class="td_right"> <input type="text"></td>
         <td class="td_right"> <button type="submit">搜索</button></td>
@@ -160,7 +160,7 @@
       <div class="title">
         <p id="title">初診病患基本資料卡</p>
       </div>
-      <form (ngForm)="addRecord()">
+      <form (ngSubmit)="addRecord()">
         <table>
           <!--
           <tr>
@@ -178,7 +178,7 @@
             <td class="td_left">姓名</td>
             <td class="td_right">
               <input type="text" name="firstname" [(ngModel)]="firstname" autocomplete="on" placeholder="請輸入姓" value="">
-              <input type="text" name="patientName" [(ngModel)]="patientName" autocomplete="on" placeholder="請輸入名"
+              <input type="text" name="patientName" [(ngModel)]="lastname" autocomplete="on" placeholder="請輸入名"
                 value="">
             </td>
             <td class="td_left">性別</td>
@@ -206,14 +206,14 @@
           -->
             <td class="td_left">聯絡地址</td>
             <td class="td_right">
-              <input style="width: 250px" type="textarea" name="address" [(ngModel)]="address" placeholder="請輸入聯絡地址">
+              <input style="width: 250px" type="textarea" name="contactAddress" [(ngModel)]="contactAddress" placeholder="請輸入聯絡地址">
             </td>
           </tr>
           <tr>
             <td class="td_left">資料有效狀態</td>
             <td class="td_right">
-              <input type="radio" name="valid" [(ngModel)]="valid" value="1" />Yes
-              <input type="radio" name="valid" [(ngModel)]="valid" value="2" />No
+              <input type="radio" name="active" [(ngModel)]="active" value="true" />Yes
+              <input type="radio" name="active" [(ngModel)]="active" value="false" />No
             </td>
             <td class="td_left">出生日期</td>
             <td class="td_right">
