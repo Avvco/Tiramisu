@@ -24,11 +24,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import tiramisu.Service.Permission_Control_Service;
 
 @RestController
 @CrossOrigin()
+@Slf4j
 public class Request_Controller {
 
   private static final String FHIR_BASE_URL = "http://hapi-fhir:8080/fhir";
@@ -45,11 +47,13 @@ public class Request_Controller {
 
   @GetMapping("/forward_to_fhir/**")
   public Mono<String> forwardedGet(@RequestHeader Map<String, String> headers, ServerHttpRequest serverHttpRequest) {
-    return Mono.just("OK")
-                .flatMap(t -> {
+    return Mono.just(serverHttpRequest)
+                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
+                .flatMap(url -> {
                   if(Permission_Control_Service.permissionControl()) {
+                    log.info("Received \"GET\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.get()
-                    .uri(FHIR_BASE_URL + getForwardUrl(serverHttpRequest))
+                    .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .retrieve()
                     .bodyToMono(String.class);
@@ -61,11 +65,13 @@ public class Request_Controller {
 
   @DeleteMapping("/forward_to_fhir/**")
   public Mono<String> forwardedDelete(@RequestHeader Map<String, String> headers, ServerHttpRequest serverHttpRequest) {
-    return Mono.just("OK")
-                .flatMap(t -> {
+    return Mono.just(serverHttpRequest)
+                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
+                .flatMap(url -> {
                   if(Permission_Control_Service.permissionControl()) {
+                    log.info("Received \"DELETE\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.delete()
-                    .uri(FHIR_BASE_URL + getForwardUrl(serverHttpRequest))
+                    .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .retrieve()
                     .bodyToMono(String.class);
@@ -77,11 +83,13 @@ public class Request_Controller {
 
   @PostMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPost(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
-    return Mono.just("OK")
-                .flatMap(t -> {
+    return Mono.just(serverHttpRequest)
+                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
+                .flatMap(url -> {
                   if(Permission_Control_Service.permissionControl()) {
+                    log.info("Received \"POST\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.post()
-                    .uri(FHIR_BASE_URL + getForwardUrl(serverHttpRequest))
+                    .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
                     .retrieve()
@@ -94,11 +102,13 @@ public class Request_Controller {
 
   @PutMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPut(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
-    return Mono.just("OK")
-                .flatMap(t -> {
+    return Mono.just(serverHttpRequest)
+                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
+                .flatMap(url -> {
                   if(Permission_Control_Service.permissionControl()) {
+                    log.info("Received \"PUT\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.put()
-                    .uri(FHIR_BASE_URL + getForwardUrl(serverHttpRequest))
+                    .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
                     .retrieve()
@@ -111,11 +121,13 @@ public class Request_Controller {
 
   @PatchMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPatch(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
-    return Mono.just("OK")
-                .flatMap(t -> {
+    return Mono.just(serverHttpRequest)
+                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
+                .flatMap(url -> {
                   if(Permission_Control_Service.permissionControl()) {
+                    log.info("Received \"PATCH\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.patch()
-                    .uri(FHIR_BASE_URL + getForwardUrl(serverHttpRequest))
+                    .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
                     .retrieve()
