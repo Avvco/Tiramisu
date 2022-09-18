@@ -78,7 +78,9 @@ export class RecordComponent implements OnInit {
 
   testRecord(): void {
     console.log("Enter test mode");
-    
+
+    (document.getElementsByName('patientName')[0] as HTMLInputElement).value="123";
+
     var dataUrl= "https://spring-boot.tiramisu.localhost/forward_to_fhir/metadata";
     var xhr = new XMLHttpRequest();
     xhr.open('GET',dataUrl, true);
@@ -87,7 +89,10 @@ export class RecordComponent implements OnInit {
         var data = JSON.parse(this.responseText);
         console.log(data);
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> 844387e3c5b0d085299cfe3fcd62cc199e1b74c8
   }
 
 }
