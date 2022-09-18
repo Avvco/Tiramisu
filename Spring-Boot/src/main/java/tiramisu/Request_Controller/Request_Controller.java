@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -27,6 +28,7 @@ import reactor.core.publisher.Mono;
 import tiramisu.Service.Permission_Control_Service;
 
 @RestController
+@CrossOrigin()
 public class Request_Controller {
 
   private static final String FHIR_BASE_URL = "http://hapi-fhir:8080/fhir";
