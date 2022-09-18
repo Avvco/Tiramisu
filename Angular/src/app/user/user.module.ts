@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 
 import { RecordComponent } from './record/record.component';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    
   ]
 })
 export class UserModule { }
