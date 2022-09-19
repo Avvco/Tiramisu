@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 import tiramisu.Service.Permission_Control_Service;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin
 @Slf4j
 public class Request_Controller {
 
@@ -55,8 +55,14 @@ public class Request_Controller {
                     return webClient.get()
                     .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .retrieve()
-                    .bodyToMono(String.class);
+                    .exchangeToMono(responseHandler -> {
+                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                      if (responseHandler.statusCode().is2xxSuccessful()) {
+                        return responseHandler.bodyToMono(String.class);
+                      } else {
+                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                      }
+                    });
                   }else {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
@@ -73,8 +79,14 @@ public class Request_Controller {
                     return webClient.delete()
                     .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .retrieve()
-                    .bodyToMono(String.class);
+                    .exchangeToMono(responseHandler -> {
+                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                      if (responseHandler.statusCode().is2xxSuccessful()) {
+                        return responseHandler.bodyToMono(String.class);
+                      } else {
+                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                      }
+                    });
                   }else {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
@@ -92,8 +104,14 @@ public class Request_Controller {
                     .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .retrieve()
-                    .bodyToMono(String.class);
+                    .exchangeToMono(responseHandler -> {
+                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                      if (responseHandler.statusCode().is2xxSuccessful()) {
+                        return responseHandler.bodyToMono(String.class);
+                      } else {
+                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                      }
+                    });
                   }else {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
@@ -111,8 +129,14 @@ public class Request_Controller {
                     .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .retrieve()
-                    .bodyToMono(String.class);
+                    .exchangeToMono(responseHandler -> {
+                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                      if (responseHandler.statusCode().is2xxSuccessful()) {
+                        return responseHandler.bodyToMono(String.class);
+                      } else {
+                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                      }
+                    });
                   }else {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
@@ -130,8 +154,14 @@ public class Request_Controller {
                     .uri(url)
                     .headers(httpHeaders -> httpHeaders.setAll(headers))
                     .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .retrieve()
-                    .bodyToMono(String.class);
+                    .exchangeToMono(responseHandler -> {
+                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                      if (responseHandler.statusCode().is2xxSuccessful()) {
+                        return responseHandler.bodyToMono(String.class);
+                      } else {
+                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                      }
+                    });
                   }else {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
