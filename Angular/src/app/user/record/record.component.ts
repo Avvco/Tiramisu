@@ -89,6 +89,7 @@ export class RecordComponent implements OnInit {
     var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
     var data = JSON.stringify(record);
     xhr.send(data);
   }
