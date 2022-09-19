@@ -3,6 +3,7 @@ import { HealthRecord } from './health-record';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-record',
@@ -74,7 +75,7 @@ export class RecordComponent implements OnInit {
 
   addRecord(): void {
     console.log("addRecord");
-    var flag = this.active=="true"?true:false;
+    /*var flag = this.active=="true"?true:false;
     const record = new HealthRecord(
       this.recordId,
       this.firstname, this.lastname,
@@ -83,14 +84,38 @@ export class RecordComponent implements OnInit {
       flag, this.birthDate
     );
 
-    console.log(record);
-    console.log(flag);
+    console.log(record);*/
+
+    /*var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', dataUrl, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    var data = JSON.stringify(record);
+    xhr.send(data);*/
+
+    /*const axios = require('axios');
+    const util = require('util');
+    const payload = require('./payload.json');
+    const dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
+    
+    axios.post(`dataUrl`, payload)
+      .then(res => {
+        console.log("傳送成功" + util.inspect(res.data, {depth: null}));
+      }).catch(err => {
+        console.log("發生錯誤" + util.inspect(err, {
+          depth: null
+        }));
+      });*/
+    
+    var jsonData = $('#form').serializeArray();
+    var jsonString = JSON.stringify(jsonData);
+    console.log(jsonString);s
 
     var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
     xhr.setRequestHeader('Content-type', 'application/json');
-    var data = JSON.stringify(record);
+    var data = JSON.stringify(jsonData);
     xhr.send(data);
   }
 
