@@ -1,5 +1,5 @@
 export class HealthRecord {
-	firstDate: string;
+	/*firstDate: string;
 	recordId: string;
 
 	firstname: string;
@@ -42,10 +42,22 @@ export class HealthRecord {
 
 	betel: string;
 	alcohol: string;
-	sport: string;
+	sport: string;*/
+	recordId: string;
+
+	firstname: string;
+	lastname: string;
+
+	gender: string;
+
+	contactPhone: string;
+	contactAddress: string;
+
+	active: boolean;
+	birthDate: string;
 
 	constructor(
-		firstDate: string, recordId: string,
+		/*firstDate: string, recordId: string,
 		firstname: string, patientName: string, birthDate: string, gender: string,
 		personId: string, contactPhone: string, actionPhone: string, address: string, valid:string,
 		profession: string, marriage: string,
@@ -57,9 +69,15 @@ export class HealthRecord {
 		height: string, weight: string, BMI: string,
 		waistline: string, pressure: string, pulse: string,
 		weightchange: string, cigarette:string, 
-		betel: string, alcohol: string, sport: string) {
+		betel: string, alcohol: string, sport: string*/
+		recordId: string,
+		firstname: string, lastname: string,
+		gender: string,
+		contactPhone: string, contactAddress: string,
+		active: boolean,
+		birthDate: string) {
 
-		this.firstDate = firstDate;
+		/*this.firstDate = firstDate;
 		this.recordId = recordId;
 
 		this.firstname = firstname;
@@ -102,6 +120,14 @@ export class HealthRecord {
 
 		this.betel = betel;
 		this.alcohol = alcohol;
-		this.sport = sport;
+		this.sport = sport;*/
+		this.recordId = recordId;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.gender = gender;
+		this.contactPhone = contactPhone;
+		this.contactAddress = contactAddress;
+		this.active = active;
+		this.birthDate = birthDate;
 	}
 }
