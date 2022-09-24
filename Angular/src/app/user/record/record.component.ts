@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 })
 export class RecordComponent implements OnInit {
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -62,7 +62,7 @@ export class RecordComponent implements OnInit {
   sport = '';
 
   addRecord(): void {
-    const record = new HealthRecord(
+    /*const record = new HealthRecord(
       this.firstDate, this.recordId,
       this.firstname, this.patientName, this.birthDate, this.gender,
       this.personId, this.contactPhone, this.actionPhone, this.address, this.valid,
@@ -77,6 +77,8 @@ export class RecordComponent implements OnInit {
       this.betel, this.alcohol, this.sport,
     );
     console.log(record);
+    */
+    
   }
 
   testRecord(): void {
