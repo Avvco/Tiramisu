@@ -19,49 +19,50 @@ export class RecordComponent implements OnInit {
   }
 
   record = new FormGroup({
-    recourceType: new FormControl('Patient'),
+    resourceType: new FormControl('Patient'),
 
     name: new FormGroup({
       use: new FormControl('official'),
-      text: new FormControl(''),
-      family: new FormControl(''),
-      given: new FormControl('')
+      text: new FormControl('王大明'),
+      family: new FormControl('王'),
+      given: new FormControl('大明')
     }),
 
-    gender: new FormControl(''),
+    gender: new FormControl('male'),
 
     telecom: new FormGroup({
-      system: new FormControl('official'),
-      value: new FormControl(''),
+      system: new FormControl('phone'),
+      value: new FormControl('0912345678'),
       use: new FormControl('mobile')
     }),
 
     address: new FormGroup({
       use: new FormControl('home'),
       type: new FormControl('physical'),
-      text: new FormControl(''),
-      line: new FormControl(''),
-      city: new FormControl(''),
-      district: new FormControl(''),
-      postalCode: new FormControl(''),
-      country: new FormControl('')
+      text: new FormControl('高雄市小港區大馬路999號'),
+      line: new FormControl('大馬路999號'),
+      city: new FormControl('高雄市'),
+      district: new FormControl('小港區'),
+      postalCode: new FormControl('812'),
+      country: new FormControl('TW')
     }),
     
-    active: new FormControl(''),
+    active: new FormControl('true'),
 
-    birthDate: new FormControl('')
+    birthDate: new FormControl('1995-01-01')
   });
 
   addRecord(): void {
     console.log("addRecord");
     
-    console.log(this.record.value);
-
     var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
     xhr.setRequestHeader('Content-type', 'application/json');
     var data = JSON.stringify(this.record.value);
+
+    console.log(data);
+
     xhr.send(data);
   }
 
