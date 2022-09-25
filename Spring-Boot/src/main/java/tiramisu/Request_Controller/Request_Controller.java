@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 import tiramisu.Service.Permission_Control_Service;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("https://angular.tiramisu.localhost/")
 @Slf4j
 public class Request_Controller {
 
