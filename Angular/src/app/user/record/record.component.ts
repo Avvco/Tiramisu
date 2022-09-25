@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HealthRecord } from './health-record';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
+import { FormGroup, FormControl } from '@angular/forms';
 
 import * as $ from 'jquery';
 
@@ -16,106 +17,51 @@ export class RecordComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  /*
-    firstDate = '';
-    recordId = '';
-  
-    firstname = '';
-    patientName = '';
-    birthDate = '';
-    gender = '';
-  
-    personId = '';
-    contactPhone = '';
-    actionPhone = '';
-    address = '';
-    valid = '';
-  
-    profession = '';
-    marriage = '';
-  
-    blood = '';
-    drugAllergy = '';
-  
-    contactAddress = '';
-    freePaper = '';
-  
-    newsletter = '';
-    emailAddress = '';
-  
-    emergencyContact = '';
-    relationship = '';
-    emergencyContactPhone = '';
-  
-    height = '';
-    weight = '';
-    BMI = '';
-  
-    waistline = '';
-    pressure = '';
-    pulse = '';
-  
-    weightchange = '';
-    cigarette = '';
-  
-    betel = '';
-    alcohol = '';
-    sport = '';
-  */
-  recordId = '';
-  firstname = '';
-  lastname = '';
-  gender = '';
 
-  contactPhone = '';
-  contactAddress = '';
+  record = new FormGroup({
+    recourceType: new FormControl('Patient'),
 
-  active = '';
-  birthDate = '';
+    name: new FormGroup({
+      use: new FormControl('official'),
+      text: new FormControl(''),
+      family: new FormControl(''),
+      given: new FormControl('')
+    }),
+
+    gender: new FormControl(''),
+
+    telecom: new FormGroup({
+      system: new FormControl('official'),
+      value: new FormControl(''),
+      use: new FormControl('mobile')
+    }),
+
+    address: new FormGroup({
+      use: new FormControl('home'),
+      type: new FormControl('physical'),
+      text: new FormControl(''),
+      line: new FormControl(''),
+      city: new FormControl(''),
+      district: new FormControl(''),
+      postalCode: new FormControl(''),
+      country: new FormControl('')
+    }),
+    
+    active: new FormControl(''),
+
+    birthDate: new FormControl('')
+  });
 
   addRecord(): void {
     console.log("addRecord");
-    /*var flag = this.active=="true"?true:false;
-    const record = new HealthRecord(
-      this.recordId,
-      this.firstname, this.lastname,
-      this.gender,
-      this.contactPhone, this.contactAddress,
-      flag, this.birthDate
-    );
-
-    console.log(record);*/
-
-    /*var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', dataUrl, true);
-    xhr.setRequestHeader('Content-type', 'application/json');
-    var data = JSON.stringify(record);
-    xhr.send(data);*/
-
-    /*const axios = require('axios');
-    const util = require('util');
-    const payload = require('./payload.json');
-    const dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     
-    axios.post(`dataUrl`, payload)
-      .then(res => {
-        console.log("傳送成功" + util.inspect(res.data, {depth: null}));
-      }).catch(err => {
-        console.log("發生錯誤" + util.inspect(err, {
-          depth: null
-        }));
-      });*/
-    
-    var jsonData = $('#form').serializeArray();
-    var jsonString = JSON.stringify(jsonData);
-    console.log(jsonString);s
+    console.log(this.record.value);
 
     var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
     xhr.setRequestHeader('Content-type', 'application/json');
-    var data = JSON.stringify(jsonData);
+    var data = JSON.stringify(this.record.value);
     xhr.send(data);
   }
 

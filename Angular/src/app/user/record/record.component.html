@@ -160,7 +160,7 @@
       <div class="title">
         <p id="title">初診病患基本資料卡</p>
       </div>
-      <form id="form" (ngSubmit)="addRecord()">
+      <form [formGroup]="record" (ngSubmit)="addRecord()">
         <table>
           <!--
           <tr>
@@ -168,24 +168,30 @@
             <td class="td_right">
               <input type="date" name="firstDate" [(ngModel)]="firstDate" value="2022-09-12">
             </td>
-            </tr>
-             -->
+          </tr>
+          -->
+
           <tr>
             <td class="td_right2">病歷號</td>
             <td class="td_right">
               <input type="text" name="recordId" placeholder="請輸入病歷號">
             </td>
+            
             <td class="td_left">姓名</td>
             <td class="td_right">
-              <input type="text" name="name.family" autocomplete="on" placeholder="請輸入姓" value="">
-              <input type="text" name="name.given" autocomplete="on" placeholder="請輸入名" value="">
+              <div formGroupName="name">
+                <input type="text" id="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓" value="">
+                <input type="text" id="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名" value="">
+              </div>
             </td>
+
             <td class="td_left">性別</td>
             <td class="td_right">
-              <input type="radio" name="gender" value="1" />女
-              <input type="radio" name="gender" value="2" />男
+              <input type="radio" id="gender" formControlName="gender" value="female" />女
+              <input type="radio" id="gender" formControlName="gender" value="male" />男
             </td>
           </tr>
+
           <tr>
             <!--
             <td class="td_left">身分證號碼</td>
@@ -193,30 +199,33 @@
               <input type="text" name="personId" [(ngModel)]="personId" placeholder="請輸入身分證號碼">
             </td>
             -->
+
             <td class="td_left">聯絡電話</td>
             <td class="td_right">
-              <input type="text" name="telecom" placeholder="請輸入聯絡電話">
+              <div formGroupName="telecom">
+                <input type="text" id="telecom-value" formControlName="value" autocomplete="on" placeholder="請輸入聯絡電話" value="">
+              </div>
             </td>
-          <!--
+
+            <!--
             <td class="td_right2">出生日期</td>
             <td class="td_right">
               <input type="date" name="birthDate" [(ngModel)]="birthDate" value="2022-09-12">
             </td>
-          -->
+            -->
+
             <td class="td_left">聯絡地址</td>
             <td class="td_right">
-              <input style="width: 250px" type="textarea" name="address" placeholder="請輸入聯絡地址">
+              <div formGroupName="address">
+                <input type="text" id="address-city" formControlName="city" placeholder="請輸入聯絡地址">
+              </div>
             </td>
           </tr>
+
           <tr>
-            <td class="td_left">資料有效狀態</td>
-            <td class="td_right">
-              <input type="radio" name="active" value="true" />Yes
-              <input type="radio" name="active" value="false" />No
-            </td>
             <td class="td_left">出生日期</td>
             <td class="td_right">
-              <input type="date" name="birthDate" value="2022-09-12">
+              <input type="date" id="birthDate" formControlName="birthDate" value="2022-09-12">
             </td>
           </tr>
           <!--
