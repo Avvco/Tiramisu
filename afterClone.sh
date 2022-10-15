@@ -80,4 +80,11 @@ printf "\n===== Delete MySQL-related files again =====\n"
 rm -rf /db
 printf "DONE\n\n"
 
+# Delete gradle build cache
+printf "\n===== Delete Gradle-related files again =====\n"
+rm -rf ./Spring-Boot/.gradle
+rm -rf ./Spring-Boot/build
+rm -rf ./Spring-Boot/bin
+printf "DONE\n\n"
+
 printf "\n===== ALL DONE =====\n\n"
