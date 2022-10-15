@@ -174,7 +174,9 @@
           <tr>
             <td class="td_right2">病歷號</td>
             <td class="td_right">
-              <input type="text" name="recordId" placeholder="請輸入病歷號">
+              <div formGroupName="identifier">
+                <input type="text" id="identifier-value" formControlName="value" placeholder="請輸入病歷號">
+              </div>
             </td>
             
             <td class="td_left">姓名</td>

@@ -21,35 +21,39 @@ export class RecordComponent implements OnInit {
   record = new FormGroup({
     resourceType: new FormControl('Patient'),
 
-    name: new FormGroup({
+    identifier: new FormGroup({
       use: new FormControl('official'),
-      text: new FormControl('王大明'),
-      family: new FormControl('王'),
-      given: new FormControl('大明')
+      type: new FormControl('Student ID'),
+      value: new FormControl('')
     }),
 
-    gender: new FormControl('male'),
+    name: new FormGroup({
+      use: new FormControl('official'),
+      family: new FormControl(''),
+      given: new FormControl('')
+    }),
+
+    gender: new FormControl(''),
 
     telecom: new FormGroup({
       system: new FormControl('phone'),
-      value: new FormControl('0912345678'),
-      use: new FormControl('mobile')
+      use: new FormControl('mobile'),
+      value: new FormControl('')
     }),
 
     address: new FormGroup({
       use: new FormControl('home'),
       type: new FormControl('physical'),
-      text: new FormControl('高雄市小港區大馬路999號'),
-      line: new FormControl('大馬路999號'),
-      city: new FormControl('高雄市'),
+      city: new FormControl(''),
       district: new FormControl('小港區'),
+      line: new FormControl('大馬路999號'),
       postalCode: new FormControl('812'),
       country: new FormControl('TW')
     }),
     
     active: new FormControl('true'),
 
-    birthDate: new FormControl('1995-01-01')
+    birthDate: new FormControl('')
   });
 
   addRecord(): void {
