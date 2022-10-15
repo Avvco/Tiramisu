@@ -178,9 +178,10 @@ public class Request_Controller {
     JsonNode tree = null;
     try {
       tree = OBJECT_MAPPER.readTree(body);
+      return tree.toString();
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }
-    return tree.toString();
+    return null;
   }
 }

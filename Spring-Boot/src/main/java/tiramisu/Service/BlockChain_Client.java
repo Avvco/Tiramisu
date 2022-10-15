@@ -36,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@SuppressWarnings({"unchecked", "rawtypes", "null"})
 public class BlockChain_Client {
 
   @Value("${blockchain.dev.contract.address}")
@@ -54,7 +55,6 @@ public class BlockChain_Client {
    * @return
    * @see https://docs.web3j.io/4.8.7/transactions/transactions_and_smart_contracts/#querying-the-state-of-a-smart-contract
    */
-  @SuppressWarnings({"unchecked", "rawtypes"})
   public <T> T QueryContract() {
 
     // Connect to the node
@@ -116,6 +116,7 @@ public class BlockChain_Client {
    * Modify the state of the smart contract, require gas fee
    * @see https://ethereum.stackexchange.com/questions/72889/how-to-create-a-rawtransaction-for-contract-interaction-web3j
    */
+
   public String ModifyContract() {
 
     // Connect to the node
