@@ -84,6 +84,35 @@ export class RecordComponent implements OnInit {
     xhr.onload = function () {
       var data = JSON.parse(this.responseText);
       console.log(data);
+
+      console.log(data.entry[0].resource.identifier[0].value);
+
+      console.log(data.entry[0].resource.identifier[0].value);
+      (document.getElementsByName('identifier-value')[0] as HTMLInputElement).value=data.entry[0].resource.identifier[0].value;
+    
+      console.log(data.entry[0].resource.name[0].family);
+      (document.getElementsByName('name-family')[0] as HTMLInputElement).value=data.entry[0].resource.name[0].family;
+      
+      console.log(data.entry[0].resource.name[0].given);
+      (document.getElementsByName('name-given')[0] as HTMLInputElement).value=data.entry[0].resource.name[0].given;
+
+      console.log(data.entry[0].resource.gender);
+      if(data.entry[0].resource.gender == "male"){
+        (document.getElementsByName('gender-male')[0] as HTMLInputElement).checked=true;
+      }
+      else{
+        (document.getElementsByName('gender-female')[0] as HTMLInputElement).checked=true;
+      }
+
+      console.log(data.entry[0].resource.telecom[0].value);
+      (document.getElementsByName('telecom-value')[0] as HTMLInputElement).value=data.entry[0].resource.telecom[0].value;
+
+      console.log(data.entry[0].resource.address[0].city);
+      (document.getElementsByName('address-city')[0] as HTMLInputElement).value=data.entry[0].resource.address[0].city;
+
+      console.log(data.entry[0].resource.birthDate);
+      (document.getElementsByName('birthDate')[0] as HTMLInputElement).value=data.entry[0].resource.birthDate;
+
     }
   }
 
