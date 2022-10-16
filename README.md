@@ -60,7 +60,7 @@ You need to have:
 
 ### phpMyAdmin
 
-- URL: <http://hapi-fhir-mysql-phpMyAdmin.tiramisu.localhost>
+- URL: <http://phpMyAdmin.tiramisu.localhost>
 
 #### For HAPI-FHIR
 
