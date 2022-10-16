@@ -68,7 +68,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: hapi-fhir-mysql-phpMyAdmin
+    container_name: phpMyAdmin
     environment:
       PMA_ARBITRARY: 1
       MYSQL_USER: 'admin'
