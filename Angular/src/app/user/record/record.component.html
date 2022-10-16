@@ -146,9 +146,11 @@
     <span style="text-align:center; font-size: 22px; margin-left: 20px;">填寫病歷 </span>
     <div class="spacer"></div>
     <div class="search">
-      <form name="record" (ngSubmit)="getRecord()">
+      <form name="search" (ngSubmit)="getRecord()">
         <td class="td_left">病歷號</td>
-        <td class="td_right"> <input type="text"></td>
+        <td class="td_right">
+          <input tpye="text" id="search-value" name="search-value" formControlName="value" placeholder="請輸入病歷號">
+        </td>
         <td class="td_right"> <button type="submit">搜索</button></td>
       </form>
     </div>
