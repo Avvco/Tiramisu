@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gradle buildAndReload --continuous -x test
+gradle buildAndReload --continuous -x test -i
