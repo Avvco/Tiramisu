@@ -71,11 +71,13 @@ export class RecordComponent implements OnInit {
   }
 
   getRecord(): void {
-    console.log("getRecord");
-
     //(document.getElementsByName('patientName')[0] as HTMLInputElement).value="123";
 
-    var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
+    console.log("getRecord");
+    var searchVal = (document.getElementsByName('search-value')[0] as HTMLInputElement).value;
+
+    var requestUrl = "https://fhir.tiramisu.localhost/fhir/Patient?identifier=";
+    var dataUrl = requestUrl + searchVal;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', dataUrl, true);
     xhr.send();
