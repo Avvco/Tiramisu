@@ -6,10 +6,9 @@ plugins {
 
 group = 'tiramisu'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '18'
 
 bootJar {
-  enabled = false
+  enabled = true
 }
 
 jar {
