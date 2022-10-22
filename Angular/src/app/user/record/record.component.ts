@@ -74,44 +74,45 @@ export class RecordComponent implements OnInit {
     //(document.getElementsByName('patientName')[0] as HTMLInputElement).value="123";
 
     console.log("getRecord");
-    var searchVal = (document.getElementsByName('search-value')[0] as HTMLInputElement).value;
+    var searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
-    var requestUrl = "https://fhir.tiramisu.localhost/fhir/Patient?identifier=";
-    var dataUrl = requestUrl + searchVal;
+    var requestUrl = "https://spring-boot.tiramisu.localhost/fhir/Patient?identifier=";
+    var dataUrl = requestUrl + searchVal;    
     var xhr = new XMLHttpRequest();
     xhr.open('GET', dataUrl, true);
     xhr.send();
-    xhr.onload = function () {
+    
+    xhr.onload = function () {      
       var data = JSON.parse(this.responseText);
       console.log(data);
 
       console.log(data.entry[0].resource.identifier[0].value);
 
       console.log(data.entry[0].resource.identifier[0].value);
-      (document.getElementsByName('identifier-value')[0] as HTMLInputElement).value=data.entry[0].resource.identifier[0].value;
+      (document.getElementById('identifier-value') as HTMLInputElement).value=data.entry[0].resource.identifier[0].value;
     
       console.log(data.entry[0].resource.name[0].family);
-      (document.getElementsByName('name-family')[0] as HTMLInputElement).value=data.entry[0].resource.name[0].family;
+      (document.getElementById('name-family') as HTMLInputElement).value=data.entry[0].resource.name[0].family;
       
       console.log(data.entry[0].resource.name[0].given);
-      (document.getElementsByName('name-given')[0] as HTMLInputElement).value=data.entry[0].resource.name[0].given;
+      (document.getElementById('name-given') as HTMLInputElement).value=data.entry[0].resource.name[0].given;
 
       console.log(data.entry[0].resource.gender);
       if(data.entry[0].resource.gender == "male"){
-        (document.getElementsByName('gender-male')[0] as HTMLInputElement).checked=true;
+        (document.getElementById('gender-male') as HTMLInputElement).checked=true;
       }
       else{
-        (document.getElementsByName('gender-female')[0] as HTMLInputElement).checked=true;
+        (document.getElementById('gender-female') as HTMLInputElement).checked=true;
       }
 
       console.log(data.entry[0].resource.telecom[0].value);
-      (document.getElementsByName('telecom-value')[0] as HTMLInputElement).value=data.entry[0].resource.telecom[0].value;
+      (document.getElementById('telecom-value') as HTMLInputElement).value=data.entry[0].resource.telecom[0].value;
 
       console.log(data.entry[0].resource.address[0].city);
-      (document.getElementsByName('address-city')[0] as HTMLInputElement).value=data.entry[0].resource.address[0].city;
+      (document.getElementById('address-city') as HTMLInputElement).value=data.entry[0].resource.address[0].city;
 
       console.log(data.entry[0].resource.birthDate);
-      (document.getElementsByName('birthDate')[0] as HTMLInputElement).value=data.entry[0].resource.birthDate;
+      (document.getElementById('birthDate') as HTMLInputElement).value=data.entry[0].resource.birthDate;
 
     }
   }

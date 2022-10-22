@@ -149,7 +149,7 @@
       <form name="search" (ngSubmit)="getRecord()">
         <td class="td_left">病歷號</td>
         <td class="td_right">
-          <input tpye="text" id="search-value" name="search-value" formControlName="value" placeholder="請輸入病歷號">
+            <input tpye="text" id="search-value" placeholder="請輸入病歷號">
         </td>
         <td class="td_right"> <button type="submit">搜索</button></td>
       </form>
@@ -177,22 +177,22 @@
             <td class="td_right2">病歷號</td>
             <td class="td_right">
               <div formGroupName="identifier">
-                <input type="text" id="identifier-value" name="identifier-value" formControlName="value" placeholder="請輸入病歷號">
+                <input type="text" id="identifier-value" formControlName="value" placeholder="請輸入病歷號">
               </div>
             </td>
             
             <td class="td_left">姓名</td>
             <td class="td_right">
               <div formGroupName="name">
-                <input type="text" id="name-family" name="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓" value="">
-                <input type="text" id="name-given" name="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名" value="">
+                <input type="text" id="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓" value="">
+                <input type="text" id="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名" value="">
               </div>
             </td>
 
             <td class="td_left">性別</td>
             <td class="td_right">
-              <input type="radio" id="gender" name="gender-female" formControlName="gender" value="female" />女
-              <input type="radio" id="gender" name="gender-male" formControlName="gender" value="male" />男
+              <input type="radio" id="gender-female" formControlName="gender" value="female" />女
+              <input type="radio" id="gender-male" formControlName="gender" value="male" />男
             </td>
           </tr>
 
@@ -207,7 +207,7 @@
             <td class="td_left">聯絡電話</td>
             <td class="td_right">
               <div formGroupName="telecom">
-                <input type="text" id="telecom-value" name="telecom-value" formControlName="value" autocomplete="on" placeholder="請輸入聯絡電話" value="">
+                <input type="text" id="telecom-value" formControlName="value" autocomplete="on" placeholder="請輸入聯絡電話" value="">
               </div>
             </td>
 
@@ -221,7 +221,7 @@
             <td class="td_left">聯絡地址</td>
             <td class="td_right">
               <div formGroupName="address">
-                <input type="text" id="address-city" name="address-city" formControlName="city" placeholder="請輸入聯絡地址">
+                <input type="text" id="address-city" formControlName="city" placeholder="請輸入聯絡地址">
               </div>
             </td>
           </tr>
@@ -229,7 +229,7 @@
           <tr>
             <td class="td_left">出生日期</td>
             <td class="td_right">
-              <input type="date" id="birthDate" name="birthDate" formControlName="birthDate" value="2022-09-12">
+              <input type="date" id="birthDate" formControlName="birthDate" value="2022-09-12">
             </td>
           </tr>
           <!--
