@@ -76,17 +76,18 @@ export class RecordComponent implements OnInit {
     console.log("getRecord");
     var searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
-    var requestUrl = "https://spring-boot.tiramisu.localhost/fhir/Patient?identifier=";
-    var dataUrl = requestUrl + searchVal;    
+    var requestUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient?identifier=";
+    var dataUrl = requestUrl + searchVal;
+
+    console.log(dataUrl);
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', dataUrl, true);
     xhr.send();
     
     xhr.onload = function () {      
       var data = JSON.parse(this.responseText);
-      console.log(data);
-
-      console.log(data.entry[0].resource.identifier[0].value);
+      
 
       console.log(data.entry[0].resource.identifier[0].value);
       (document.getElementById('identifier-value') as HTMLInputElement).value=data.entry[0].resource.identifier[0].value;
@@ -113,7 +114,6 @@ export class RecordComponent implements OnInit {
 
       console.log(data.entry[0].resource.birthDate);
       (document.getElementById('birthDate') as HTMLInputElement).value=data.entry[0].resource.birthDate;
-
     }
   }
 
