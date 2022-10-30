@@ -107,6 +107,7 @@ services:
     volumes:
       - ./Nginx/conf.d:/etc/nginx/conf.d
       - ./Nginx/ssl:/etc/nginx/ssl
+      - ./Nginx/error_page:/etc/nginx/html/error_page
     container_name: nginx
     ports:
      - 80:80
