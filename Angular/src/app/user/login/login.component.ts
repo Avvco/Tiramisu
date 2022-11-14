@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
+  login$: Observable<boolean> | undefined;
   constructor(private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.pattern('^[a-zA-Z0-9-_]{5,20}')],
       email: ['']
     })
+    this.login$ = of(true);
   }
   get identitybox() { return this.loginForm.get('identitybox');}
   get username() { return this.loginForm.get('username'); }
@@ -27,4 +31,7 @@ export class LoginComponent implements OnInit {
   submit() {
     this.router.navigate(['/user/record']);
   }
+  logout() {
+    this.login$ = of(false);
+}
 }

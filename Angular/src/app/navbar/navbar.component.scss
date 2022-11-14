@@ -1,10 +1,29 @@
 .navbar {
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    color: #422719;
+    height: 60px;
+    display: flex;
+    font-weight: 650;
+    font-size: large;
+    align-items: center;
+    color: #24160e;
+}
+
+.home{
+    font-size: x-large;
+    color: #ffcdb0;
+    background-size: cover;
+    padding-left: 3%;
 }
 
 .to-right {
     flex: 1 1 auto;
+}
+
+.login{
+    font-size: larger;
+    color: #f8d4d4;
+    padding-right: 3%;
 }

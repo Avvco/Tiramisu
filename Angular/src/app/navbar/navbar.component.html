@@ -1,6 +1,6 @@
-<div [style.background]="(login$ | async) ? '#86756B' : '#C6D0AD'" class="navbar">
-    <a button routerLink="/" style="color: rgb(255, 255, 255);">哈哈我是新的首頁</a>
+<div [style.background]="(login$ | async) ? '#492b20' : '#A49380'" class="navbar">
+    <a button routerLink="/" class="home">首頁</a>
     <span class="to-right"></span>
-    <a button *ngIf="!(login$ | async)" routerLink="/user/login">會員登入</a>
-    <a button *ngIf="login$ | async" (click)="logout()">會員登出</a>
+    <a button *ngIf="(login$ | async)" routerLink="/user/login" class="login">會員登入</a>
+    <a button *ngIf="!(login$ | async)" (click)="logout()">會員登出</a>
 </div>
