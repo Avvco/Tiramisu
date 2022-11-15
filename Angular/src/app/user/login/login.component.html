@@ -7,162 +7,173 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <style>
-    :host {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 14px;
-      color: #333;
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+  footer {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+  }
+
+  footer a {
+    display: flex;
+    align-items: center;
+  }
+
+
+  /* Responsive Styles */
+  @media screen and (max-width: 767px) {
+
+    .card-container>*:not(.circle-link),
+    .terminal {
+      width: 100%;
     }
-  
-  
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+
+    .card:not(.highlight-card) {
+      height: 16px;
       margin: 8px 0;
     }
-  
-    p {
-      margin: 0;
+
+    .card.highlight-card span {
+      margin-left: 72px;
     }
-  
-    .spacer {
-      flex: 1;
+
+    svg#rocket-smoke {
+      right: 120px;
+      transform: rotate(-5deg);
     }
-  
-  
-    .toolbar img {
-      margin: 0 16px;
+  }
+
+  @media screen and (max-width: 575px) {
+    svg#rocket-smoke {
+      display: none;
+      visibility: hidden;
     }
-  
-    .content {
-      display: flex;
-      margin: 82px auto 32px;
-      padding: 0 16px;
-      max-width: 960px;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    a,
-    a:visited,
-    a:hover {
-      color: #1976d2;
-      text-decoration: none;
-    }
-  
-    a:hover {
-      color: #125699;
-    }
-    footer {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      line-height: 20px;
-    }
-  
-    footer a {
-      display: flex;
-      align-items: center;
-    }
-  
-  
-    /* Responsive Styles */
-    @media screen and (max-width: 767px) {
-  
-      .card-container>*:not(.circle-link),
-      .terminal {
-        width: 100%;
-      }
-  
-      .card:not(.highlight-card) {
-        height: 16px;
-        margin: 8px 0;
-      }
-  
-      .card.highlight-card span {
-        margin-left: 72px;
-      }
-  
-      svg#rocket-smoke {
-        right: 120px;
-        transform: rotate(-5deg);
-      }
-    }
-  
-    @media screen and (max-width: 575px) {
-      svg#rocket-smoke {
-        display: none;
-        visibility: hidden;
-      }
-    }
-  </style>
-  
-  <!-- Toolbar -->
-  <div class="toolbar" role="banner">
-    <!--
+  }
+</style>
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <!--
     <img    width="40"
       alt="Angular Logo"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
     />
     -->
-    <span style="text-align:center; font-size: 28px; margin-left: 20px;">FHIR </span>
-    <span class="to-right"></span>
-    <a button *ngIf="(login$ | async)" (click)="logout()" style="padding-right: 3%; font-size:large;">會員登出</a>
-  </div>
-  
-  <div class="content" role="main">
-    <div class="login_frame">
-      <div class="rg_left">
-        <p>登入帳號</p>
-        <p>USER LOGIN</p>
-      </div>
-      <div class="rg_right">
-        <form method="post" action="" [formGroup]="loginForm">
-          <table>
-            <tr>
-              <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
-              <td class="td_right"><input type="radio" value="1" name="identitybox" />個人
-                <input type="radio" value="2" name="identitybox" />醫護人員
-              </td>
-            </tr>
-            <tr>
-              <td class="td_left"><label for="username">Username</label></td>
-              <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入用戶名"></td>
-            </tr>
-            <tr>
-              <td class="td_left"><label for="password">Password</label></td>
-              <td class="td_right"><input type="password" name="password" id="password" placeholder="請輸入密碼"></td>
-            </tr>
-            <tr>
-              <td class="td_left"><label for="email">Email</label></td>
-              <td class="td_right"><input type="email" name="email" id="email" placeholder="請輸入email"></td>
-            </tr>
-            <tr>
-              <td colspan="2" align="center"><button type="submit" class="btn btn-default" (click)="submit()">Login</button> <a style="margin-left: 10px;">忘記密碼？</a></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-      <!--
+  <span style="text-align:center; font-size: 28px; margin-left: 20px;">FHIR </span>
+  <span class="to-right"></span>
+  <a button *ngIf="(login$ | async)" (click)="logout()" routerLink="../home"
+    style="padding-right: 3%; font-size:large;">會員登出</a>
+</div>
+
+<div class="content" role="main">
+  <div class="login_frame">
+    <div class="rg_left">
+      <p>登入帳號</p>
+      <p>USER LOGIN</p>
+    </div>
+    <div class="rg_right">
+      <form method="post" action="" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
+        <table>
+          <tr>
+            <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
+            <td class="td_right"><input type="radio" value="1" name="identitybox" formControlName="identitybox"/>個人
+              <input type="radio" value="2" name="identitybox" formControlName="identitybox"/>醫護人員
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left"><label for="username">Username</label></td>
+            <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入用戶名"
+                formControlName="username"></td>
+            <!-- <div *ngIf="loginForm.username.invalid && (username.dirty && username.touched)">
+              <mat-error *ngIf="username.errors.required">請輸入使用者名稱</mat-error>
+              <mat-error *ngIf="username.errors.pattern">請輸入至少五個字母，數字</mat-error>
+            </div>
+            -->
+          </tr>
+          <tr>
+            <td class="td_left"><label for="password">Password</label></td>
+            <td class="td_right"><input type="password" name="password" id="password" placeholder="請輸入密碼"
+              formControlName="password"></td>
+          </tr>
+          <tr>
+            <td class="td_left"><label for="email">Email</label></td>
+            <td class="td_right"><input type="email" name="email" id="email" placeholder="請輸入email"
+              formControlName="email"></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><button type="submit" class="btn btn-default"
+                >Login</button> <a style="margin-left: 10px;">忘記密碼？</a></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--
       <div class="login_a">
         <a>已有帳號？</a>
       </div>
       -->
-    </div>
-    
   </div>
-  
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-  <!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-  
-  <router-outlet></router-outlet>
+
+</div>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<router-outlet></router-outlet>
