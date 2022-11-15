@@ -5,7 +5,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 // This is the main building block for smart contracts.
-contract TamperResistance is Ownable{
+contract RecordVerification is Ownable{
 
   bytes32 merkleRoot;
 
@@ -14,20 +14,20 @@ contract TamperResistance is Ownable{
     merkleRoot = _merkleRoot;
   }
 
+  // This contract is inherit by "Ownable", so have no constructor.
+  function getMerkleRoot() public onlyOwner view returns(bytes32) {
+    return merkleRoot;
+  }
+
   // signer is people who change this data
   // timestamp is  the time when change this record
-  function getMerkle(bytes32 _signer, bytes32 _timestamp) public pure returns(bytes32) {
-      bytes32 _merkle = keccak256(abi.encodePacked(_signer, _timestamp));
+  function getMerkle(bytes32 record) public pure returns(bytes32) {
+      bytes32 _merkle = keccak256(abi.encode(record));
       return _merkle;
   } 
 
-  function isTamper(bytes32[] calldata _merkleProof, bytes32 _signer, bytes32 _timestamp) public view returns(bool) {
-    bytes32 leaf = keccak256(abi.encodePacked(_signer, _timestamp));
-
-    if(MerkleProof.verify(_merkleProof, merkleRoot, leaf)){
-      return false;
-    } else{
-      return true;
-    }
+  function isValid(bytes32[] calldata merkleProof, bytes32 record) public view returns(bool) {
+    bytes32 _leaf = keccak256(abi.encode(record));
+    return MerkleProof.verify(merkleProof, merkleRoot, _leaf);
   } 
 }
