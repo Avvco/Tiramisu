@@ -17,21 +17,25 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      identitybox: [1],
-      username: ['', Validators.pattern('^[a-zA-Z0-9-_]{5,20}')],
-      password: ['', Validators.pattern('^[a-zA-Z0-9-_]{5,20}')],
-      email: ['']
+      identitybox: ['', Validators.required],
+      username: ['', Validators.required], 
+      password: ['', Validators.required], //, Validators.pattern('^[a-zA-Z0-9-_]{5,20}')
+      email: ['', [Validators.required, Validators.email]]
     })
     this.login$ = of(true);
   }
-  get identitybox() { return this.loginForm.get('identitybox');}
+  get identitybox() { return this.loginForm.get('identitybox'); }
   get username() { return this.loginForm.get('username'); }
   get password() { return this.loginForm.get('password'); }
   get email() { return this.loginForm.get('email') }
   submit() {
-    this.router.navigate(['/user/record']);
+    if (this.loginForm.valid) {
+      console.log("success");
+      this.router.navigate(['/user/record']);
+    }
+    console.log("died");
   }
   logout() {
     this.login$ = of(false);
-}
+  }
 }
