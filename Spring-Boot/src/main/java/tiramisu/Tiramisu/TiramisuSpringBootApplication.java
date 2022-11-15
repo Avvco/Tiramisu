@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @EnableJpaRepositories("tiramisu.DataBase.DAO")
 @Slf4j
 public class TiramisuSpringBootApplication {
+
+  public static final String CORS = "https://angular.tiramisu.localhost/";
   
 	public static void main(String[] args) {
 		SpringApplication.run(TiramisuSpringBootApplication.class, args);    
