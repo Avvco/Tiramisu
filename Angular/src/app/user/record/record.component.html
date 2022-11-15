@@ -144,16 +144,19 @@
   />
   -->
     <span style="text-align:center; font-size: 22px; margin-left: 20px;">填寫病歷 </span>
-    <div class="spacer"></div>
+    <span class="to-right"></span>
     <div class="search">
       <form name="search" (ngSubmit)="getRecord()">
         <td class="td_left">病歷號</td>
         <td class="td_right">
-            <input tpye="text" id="search-value" placeholder="請輸入病歷號">
+          <input tpye="text" id="search-value" placeholder="請輸入病歷號">
         </td>
         <td class="td_right"> <button type="submit">搜索</button></td>
+        <td class="logout"> <a button *ngIf="(login$ | async)" (click)="logout()" routerLink="../home"
+            style="font-size:large;">會員登出</a></td>
       </form>
     </div>
+
   </div>
 
   <div class="content" role="main">
@@ -180,12 +183,14 @@
                 <input type="text" id="identifier-value" formControlName="value" placeholder="請輸入病歷號">
               </div>
             </td>
-            
+
             <td class="td_left">姓名</td>
             <td class="td_right">
               <div formGroupName="name">
-                <input type="text" id="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓" value="">
-                <input type="text" id="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名" value="">
+                <input type="text" id="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓"
+                  value="">
+                <input type="text" id="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名"
+                  value="">
               </div>
             </td>
 
@@ -207,7 +212,8 @@
             <td class="td_left">聯絡電話</td>
             <td class="td_right">
               <div formGroupName="telecom">
-                <input type="text" id="telecom-value" formControlName="value" autocomplete="on" placeholder="請輸入聯絡電話" value="">
+                <input type="text" id="telecom-value" formControlName="value" autocomplete="on" placeholder="請輸入聯絡電話"
+                  value="">
               </div>
             </td>
 

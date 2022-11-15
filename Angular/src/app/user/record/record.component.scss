@@ -20,6 +20,10 @@
     font-size: large;
 }
 
+.to-right {
+    flex: 1 1 auto;
+}
+
 .content {
     display: flex;
     margin: 82px auto 32px;
@@ -80,6 +84,13 @@ p#title {
 .login_a{
     font-size: medium;
     margin: 15px;
+}
+
+.logout{
+    font-size: large;
+    text-align: left;
+    padding-left: 3%;
+    width: 100px;
 }
 
 .td_left {

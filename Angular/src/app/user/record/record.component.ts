@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormSetter } from './using/form-setter';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from "rxjs";
+import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
 
@@ -13,8 +13,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class RecordComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
-
+  login$: Observable<boolean> | undefined;
   ngOnInit(): void {
+    this.login$ = of(true);
   }
 
   record = new FormGroup({
@@ -89,5 +90,7 @@ export class RecordComponent implements OnInit {
       setter.setForm();
     }
   }
-
+  logout() {
+    this.login$ = of(false);
+  }
 }
