@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RecordComponent } from './record/record.component';
+import { RegisterComponent } from './register/register.component';
 import { AppComponent } from '../app.component';
 import { HomeComponent } from '../home/home.component';
 
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'record', component: RecordComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'home', component: HomeComponent}
 
     ]

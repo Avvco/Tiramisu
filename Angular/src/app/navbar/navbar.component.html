@@ -2,5 +2,6 @@
     <a button routerLink="/" class="home">首頁</a>
     <span class="to-right"></span>
     <a button *ngIf="(login$ | async)" routerLink="/user/login" class="login">會員登入</a>
+    <a button *ngIf="(login$ | async)" routerLink="/user/register" class="login">會員註冊</a>
     <a button *ngIf="!(login$ | async)" (click)="logout()">會員登出</a>
 </div>
