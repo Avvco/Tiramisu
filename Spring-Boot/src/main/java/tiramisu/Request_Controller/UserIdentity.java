@@ -3,7 +3,6 @@ package tiramisu.Request_Controller;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -20,15 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import tiramisu.DataBase.DAO.UserDAO;
 import tiramisu.DataBase.DAO.User_AuthorizationDAO;
 import tiramisu.DataBase.DTO.User;
 import tiramisu.DataBase.DTO.User_Authorization;
-import tiramisu.Request_Controller.RequestTemplate.Login_Form;
-import tiramisu.Request_Controller.RequestTemplate.Register_Form;
+import tiramisu.Request_Controller.RequestTemplate.Login_Json;
+import tiramisu.Request_Controller.RequestTemplate.Register_Json;
 import tiramisu.Request_Controller.ResponseTemplate.Login_Response;
 import tiramisu.Tiramisu.TiramisuSpringBootApplication;
 
@@ -43,24 +41,29 @@ public class UserIdentity {
   @Autowired
   private User_AuthorizationDAO uaDAO;
 
-  @PostMapping("/register")
-  public Mono<ResponseEntity<Object>> register(@RequestBody Register_Form form) {
+  @Autowired
+  private Common common;
 
-    if(form.getType().equals("0")) {
-      log.info("Registering a health worker " + form.getUserName());
-    } else if(form.getType().equals("1")) {
-      log.info("Registering a user " + form.getUserName());
+  @PostMapping("/register")
+  public Mono<ResponseEntity<Object>> register(@RequestBody Register_Json json) {
+
+    common.jsonValidator(Register_Json.class, json);
+
+    if(json.getType().equals("0")) {
+      log.info("Registering a health worker " + json.getUserName());
+    } else if(json.getType().equals("1")) {
+      log.info("Registering a user " + json.getUserName());
     } else {
       log.error("Invalid user type ");
       return Mono.just(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     User user = new User();
-    user.setUserName(form.getUserName());
+    user.setUserName(json.getUserName());
     //user.setIdNumber(form.getIdNumber());
-    user.setEmail(form.getEmail());
-    user.setType(form.getType());
-    user.setHashedPassword(DigestUtils.sha256Hex(form.getPassword()));
+    user.setEmail(json.getEmail());
+    user.setType(json.getType());
+    user.setHashedPassword(DigestUtils.sha256Hex(json.getPassword()));
     
     userDAO.save(user);
     
@@ -68,9 +71,11 @@ public class UserIdentity {
   } 
 
   @PostMapping("/login")
-  public Mono<ResponseEntity<Object>> login(@RequestBody Login_Form form) throws NoSuchAlgorithmException {
+  public Mono<ResponseEntity<Object>> login(@RequestBody Login_Json json) throws NoSuchAlgorithmException {
 
-    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(form.getUserName(), form.getEmail(), form.getType());
+    common.jsonValidator(Login_Json.class, json);
+
+    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), json.getType());
 
     // user not found in database
     if(foundUser.size() == 0) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
@@ -78,7 +83,7 @@ public class UserIdentity {
 
     User _user = foundUser.get(0);
 
-    if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(form.getPassword()))) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(json.getPassword()))) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 
     log.info("User " + _user.getUserName() + " logged in.");
 
@@ -90,7 +95,7 @@ public class UserIdentity {
         User_Authorization _ua = foundUa.get(0);
         if(_ua.getExpireTime().isAfter(Instant.now())) {
           // user has an active authorization
-          extendAuthorization(_ua);
+          common.extendAuthorization(_ua);
           return Mono.just(ResponseEntity.status(HttpStatus.OK).body(new Login_Response(_ua.getUserAuthorizationId(), _ua.getToken(), _ua.getExpireTime())));
         }
         uaDAO.delete(_ua);
@@ -112,7 +117,7 @@ public class UserIdentity {
     uaDAO.save(ua);
     _user.setUserAuthorization(ua);
     userDAO.save(_user);
-    extendAuthorization(ua);
+    common.extendAuthorization(ua);
     return Mono.just(ResponseEntity.ok(new Login_Response(ua.getUserAuthorizationId(), ua.getToken(), ua.getExpireTime())));
   }
 
@@ -129,12 +134,6 @@ public class UserIdentity {
     return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
   } 
 
-  public void extendAuthorization(User_Authorization ua) {
-    Instant instantNow = Instant.now();
-    Instant instantExpire = instantNow.plus(5, ChronoUnit.MINUTES);
-    ua.setExpireTime(instantExpire);
-    uaDAO.save(ua);
-  }
 
   @Bean
   @Scheduled(fixedDelay=600000)

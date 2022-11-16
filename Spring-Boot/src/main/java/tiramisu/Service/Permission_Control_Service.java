@@ -21,7 +21,7 @@ import tiramisu.DataBase.DAO.UserDAO;
 import tiramisu.DataBase.DAO.User_AuthorizationDAO;
 import tiramisu.DataBase.DTO.User;
 import tiramisu.DataBase.DTO.User_Authorization;
-import tiramisu.Request_Controller.UserIdentity;
+import tiramisu.Request_Controller.Common;
 
 @Service
 @Slf4j
@@ -34,7 +34,7 @@ public class Permission_Control_Service {
   private User_AuthorizationDAO uaDAO;
 
   @Autowired
-  private UserIdentity userIdentity;
+  private Common common;
 
   private PermissionTableList permissionList = new PermissionTableList();
   
@@ -56,7 +56,7 @@ public class Permission_Control_Service {
       User_Authorization _ua = foundUa.get(0);
       if(_ua.getExpireTime().isAfter(Instant.now())) {
         // user has an active authorization
-        userIdentity.extendAuthorization(_ua);
+        common.extendAuthorization(_ua);
         List<User> foundUser = userDAO.findByUserAuthorization(_ua);
         user = foundUser.get(0);
       } else {
