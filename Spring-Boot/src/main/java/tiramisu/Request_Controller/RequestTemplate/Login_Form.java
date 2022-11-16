@@ -11,7 +11,7 @@ public class Login_Form {
   
   private String userName;
 
-  private String idNumber;
+  private String email;
 
   private String password;
 

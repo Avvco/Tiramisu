@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +44,7 @@ public class UserIdentity {
   private User_AuthorizationDAO uaDAO;
 
   @PostMapping("/register")
-  public Mono<ResponseEntity<Object>> register(@Valid Register_Form form) {
+  public Mono<ResponseEntity<Object>> register(@RequestBody Register_Form form) {
 
     if(form.getType().equals("0")) {
       log.info("Registering a health worker " + form.getUserName());
@@ -56,7 +57,7 @@ public class UserIdentity {
 
     User user = new User();
     user.setUserName(form.getUserName());
-    user.setIdNumber(form.getIdNumber());
+    //user.setIdNumber(form.getIdNumber());
     user.setEmail(form.getEmail());
     user.setType(form.getType());
     user.setHashedPassword(DigestUtils.sha256Hex(form.getPassword()));
@@ -67,9 +68,9 @@ public class UserIdentity {
   } 
 
   @PostMapping("/login")
-  public Mono<ResponseEntity<Object>> login(Login_Form form) throws NoSuchAlgorithmException {
+  public Mono<ResponseEntity<Object>> login(@RequestBody Login_Form form) throws NoSuchAlgorithmException {
 
-    List<User> foundUser = userDAO.findByUserNameAndIdNumberAndType(form.getUserName(), form.getIdNumber(), form.getType());
+    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(form.getUserName(), form.getEmail(), form.getType());
 
     // user not found in database
     if(foundUser.size() == 0) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
@@ -98,7 +99,8 @@ public class UserIdentity {
     
     // calculate new hash
     String _p1 = String.valueOf(Math.abs(SecureRandom.getInstanceStrong().nextLong()));
-    _p1 = _p1 + _user.getUserName() + _user.getIdNumber();
+    //_p1 = _p1 + _user.getUserName() + _user.getIdNumber();
+    _p1 = _p1 + _user.getUserName();
     
     String sha256hex = DigestUtils.sha256Hex(_p1);
 

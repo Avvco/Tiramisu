@@ -12,6 +12,6 @@ import tiramisu.DataBase.DTO.User_Authorization;
 
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
-  List<User> findByUserNameAndIdNumberAndType(String userName, String idNumber, String type);
+  List<User> findByUserNameAndEmailAndType(String userName, String idNumber, String type);
   List<User> findByUserAuthorization(User_Authorization userAuthorization);
 }

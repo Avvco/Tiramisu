@@ -117,7 +117,7 @@
 <div class="content" role="main">
   <div class="register_frame">
     <div class="rg_left">
-      <p>登入帳號</p>
+      <p>註冊帳號</p>
       <p>USER REGISTER</p>
     </div>
     <div class="rg_right">
@@ -125,23 +125,22 @@
         <table>
           <tr>
             <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
-            <td class="td_right"><input type="radio" value="1" name="identitybox" formControlName="identitybox"/>個人
-              <input type="radio" value="2" name="identitybox" formControlName="identitybox"/>醫護人員
+            <td class="td_right"><input type="radio" value="1" name="type" formControlName="type"/>個人
+              <input type="radio" value="0" name="type" formControlName="type"/>醫護人員
             </td>
           </tr>
           <tr>
             <td class="td_left"><label for="username">Username</label></td>
-            <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入用戶名"
-                formControlName="username"></td>
+            <td class="td_right"><input type="text" name="userName" id="userName" formControlName="userName" placeholder="請輸入用戶名"></td>
           </tr>
           <tr>
             <td class="td_left"><label for="password">Password</label></td>
-            <td class="td_right"><input type="password" name="password" id="password" placeholder="請輸入密碼"
+            <td class="td_right"><input type="password" name="password" id="password" formControlName="password" placeholder="請輸入密碼"
               formControlName="password"></td>
           </tr>
           <tr>
             <td class="td_left"><label for="email">Email</label></td>
-            <td class="td_right"><input type="email" name="email" id="email" placeholder="請輸入email"
+            <td class="td_right"><input type="email" name="email" id="email" formControlName="email" placeholder="請輸入email"
               formControlName="email"></td>
           </tr>
           <tr>
