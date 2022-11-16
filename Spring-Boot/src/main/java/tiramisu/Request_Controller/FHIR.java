@@ -52,123 +52,133 @@ public class FHIR {
   @GetMapping("/forward_to_fhir/**")
   public Mono<String> forwardedGet(@RequestHeader Map<String, String> headers, ServerHttpRequest serverHttpRequest) {
     return Mono.just(serverHttpRequest)
-                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
-                .flatMap(url -> {
-                  if(pcs.pre_permissionControl(headers, "GET", url)) {
-                    log.info("Received \"GET\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
-                    return webClient.get()
-                    .uri(url)
-                    .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .exchangeToMono(responseHandler -> {
-                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
-                      if (responseHandler.statusCode().is2xxSuccessful()) {
-                        return responseHandler.bodyToMono(String.class);
-                      } else {
-                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
-                      }
-                    });
-                  }else {
+                .flatMap(req -> {
+                  String url = getForwardUrl(req);
+                  if(!pcs.pre_permissionControl(headers, "GET", url)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
+                  return Mono.just(FHIR_BASE_URL + url);
+                })
+                .flatMap(url -> {
+                  log.info("Received \"GET\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
+                  return webClient.get()
+                  .uri(url)
+                  .headers(httpHeaders -> httpHeaders.setAll(headers))
+                  .exchangeToMono(responseHandler -> {
+                    log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                    if (responseHandler.statusCode().is2xxSuccessful()) {
+                      return responseHandler.bodyToMono(String.class);
+                    } else {
+                      throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                    }
+                  });
                 });
   }
 
   @DeleteMapping("/forward_to_fhir/**")
   public Mono<String> forwardedDelete(@RequestHeader Map<String, String> headers, ServerHttpRequest serverHttpRequest) {
     return Mono.just(serverHttpRequest)
-                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
-                .flatMap(url -> {
-                  if(pcs.pre_permissionControl(headers, "DELETE", url)) {
-                    log.info("Received \"DELETE\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
-                    return webClient.delete()
-                    .uri(url)
-                    .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .exchangeToMono(responseHandler -> {
-                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
-                      if (responseHandler.statusCode().is2xxSuccessful()) {
-                        return responseHandler.bodyToMono(String.class);
-                      } else {
-                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
-                      }
-                    });
-                  }else {
+                .flatMap(req -> {
+                  String url = getForwardUrl(req);
+                  if(!pcs.pre_permissionControl(headers, "DELETE", url)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
+                  return Mono.just(FHIR_BASE_URL + url);
+                })
+                .flatMap(url -> {
+                  log.info("Received \"DELETE\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
+                  return webClient.delete()
+                  .uri(url)
+                  .headers(httpHeaders -> httpHeaders.setAll(headers))
+                  .exchangeToMono(responseHandler -> {
+                    log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                    if (responseHandler.statusCode().is2xxSuccessful()) {
+                      return responseHandler.bodyToMono(String.class);
+                    } else {
+                      throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                    }
+                  });
                 });
   }
 
   @PostMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPost(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
     return Mono.just(serverHttpRequest)
-                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
-                .flatMap(url -> {
-                  if(pcs.pre_permissionControl(headers, "POST", url)) {
-                    log.info("Received \"POST\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
-                    return webClient.post()
-                    .uri(url)
-                    .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .exchangeToMono(responseHandler -> {
-                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
-                      if (responseHandler.statusCode().is2xxSuccessful()) {
-                        return responseHandler.bodyToMono(String.class);
-                      } else {
-                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
-                      }
-                    });
-                  }else {
+                .flatMap(req -> {
+                  String url = getForwardUrl(req);
+                  if(!pcs.pre_permissionControl(headers, "POST", url)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
+                  return Mono.just(FHIR_BASE_URL + url);
+                })
+                .flatMap(url -> {
+                  log.info("Received \"POST\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
+                  return webClient.post()
+                  .uri(url)
+                  .headers(httpHeaders -> httpHeaders.setAll(headers))
+                  .body(BodyInserters.fromValue(getForwardBody(body)))
+                  .exchangeToMono(responseHandler -> {
+                    log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                    if (responseHandler.statusCode().is2xxSuccessful()) {
+                      return responseHandler.bodyToMono(String.class);
+                    } else {
+                      throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                    }
+                  });
                 });
   }
 
   @PutMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPut(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
     return Mono.just(serverHttpRequest)
-                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
-                .flatMap(url -> {
-                  if(pcs.pre_permissionControl(headers, "PUT", url)) {
-                    log.info("Received \"PUT\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
-                    return webClient.put()
-                    .uri(url)
-                    .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .exchangeToMono(responseHandler -> {
-                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
-                      if (responseHandler.statusCode().is2xxSuccessful()) {
-                        return responseHandler.bodyToMono(String.class);
-                      } else {
-                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
-                      }
-                    });
-                  }else {
+                .flatMap(req -> {
+                  String url = getForwardUrl(req);
+                  if(!pcs.pre_permissionControl(headers, "PUT", url)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
+                  return Mono.just(FHIR_BASE_URL + url);
+                })
+                .flatMap(url -> {
+                  log.info("Received \"PUT\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
+                  return webClient.put()
+                  .uri(url)
+                  .headers(httpHeaders -> httpHeaders.setAll(headers))
+                  .body(BodyInserters.fromValue(getForwardBody(body)))
+                  .exchangeToMono(responseHandler -> {
+                    log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                    if (responseHandler.statusCode().is2xxSuccessful()) {
+                      return responseHandler.bodyToMono(String.class);
+                    } else {
+                      throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                    }
+                  });
                 });
   }
 
   @PatchMapping(value="/forward_to_fhir/**", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<String> forwardedPatch(@RequestHeader Map<String, String> headers, @RequestBody String body, ServerHttpRequest serverHttpRequest) throws JsonMappingException, JsonProcessingException {
     return Mono.just(serverHttpRequest)
-                .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
-                .flatMap(url -> {
-                  if(pcs.pre_permissionControl(headers, "PATCH", url)) {
-                    log.info("Received \"PATCH\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
-                    return webClient.patch()
-                    .uri(url)
-                    .headers(httpHeaders -> httpHeaders.setAll(headers))
-                    .body(BodyInserters.fromValue(getForwardBody(body)))
-                    .exchangeToMono(responseHandler -> {
-                      log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
-                      if (responseHandler.statusCode().is2xxSuccessful()) {
-                        return responseHandler.bodyToMono(String.class);
-                      } else {
-                        throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
-                      }
-                    });
-                  }else {
+                .flatMap(req -> {
+                  String url = getForwardUrl(req);
+                  if(!pcs.pre_permissionControl(headers, "PATCH", url)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
                   }
+                  return Mono.just(FHIR_BASE_URL + url);
+                })
+                .flatMap(url -> {
+                  log.info("Received \"PATCH\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
+                  return webClient.patch()
+                  .uri(url)
+                  .headers(httpHeaders -> httpHeaders.setAll(headers))
+                  .body(BodyInserters.fromValue(getForwardBody(body)))
+                  .exchangeToMono(responseHandler -> {
+                    log.info("Response from " + url + " returned with status code " + responseHandler.statusCode().toString());
+                    if (responseHandler.statusCode().is2xxSuccessful()) {
+                      return responseHandler.bodyToMono(String.class);
+                    } else {
+                      throw new ResponseStatusException(responseHandler.statusCode(), responseHandler.toString());
+                    }
+                  });
                 });
   }
 

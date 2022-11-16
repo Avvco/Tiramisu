@@ -1,10 +1,10 @@
 package tiramisu.Service;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,6 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 import tiramisu.DataBase.DAO.UserDAO;
+import tiramisu.DataBase.DAO.User_AuthorizationDAO;
+import tiramisu.DataBase.DTO.User;
+import tiramisu.DataBase.DTO.User_Authorization;
+import tiramisu.Request_Controller.UserIdentity;
 
 @Service
 @Slf4j
@@ -25,6 +29,12 @@ public class Permission_Control_Service {
 
   @Autowired
   private UserDAO userDAO;
+
+  @Autowired
+  private User_AuthorizationDAO uaDAO;
+
+  @Autowired
+  private UserIdentity userIdentity;
 
   private PermissionTableList permissionList = new PermissionTableList();
   
@@ -36,12 +46,28 @@ public class Permission_Control_Service {
    * @return
    */
   public boolean pre_permissionControl(Map<String, String> header, String method, String url) {
+    if(!requireForPrePermission(method, url)) return true;
     String token = header.get("Authorization");
-    log.info(url);
-    /*for(PermissionTableList.PermissionTable permission : permissionList.getPermissionTable()) {
-      log.info(permission.toString());
-    }*/
-    return true;
+    List<User_Authorization> foundUa = uaDAO.findByToken(token);
+    User user = null;
+
+    // check authorization token
+    if(foundUa.size() > 0) {
+      User_Authorization _ua = foundUa.get(0);
+      if(_ua.getExpireTime().isAfter(Instant.now())) {
+        // user has an active authorization
+        userIdentity.extendAuthorization(_ua);
+        List<User> foundUser = userDAO.findByUserAuthorization(_ua);
+        user = foundUser.get(0);
+      } else {
+        return false;
+      }
+    }else {
+      return false;
+    } 
+    
+    if(user.getType().equals("0")) return true;
+    return false;
   }
 
   /**
@@ -55,7 +81,14 @@ public class Permission_Control_Service {
     return true;
   }
 
-
+  private boolean requireForPrePermission(String method, String url) {
+    for(PermissionTableList.PermissionTable permission : permissionList.getPermissionTable()) {
+      if(permission.getMethod().equals(method) && permission.isOnly_medical_staff() && permission.getRoute().contains(url)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
   /**

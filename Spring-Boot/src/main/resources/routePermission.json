@@ -1,15 +1,15 @@
 {
   "permissionTable": [
     {
-      "route": "/api/v1/health",
-      "method": "GET",
-      "only_medical_staff": false,
+      "route": "/Patient",
+      "method": "POST",
+      "only_medical_staff": true,
       "only_itself": false
     },
     {
-      "route": "/api/v2/health",
+      "route": "/Patient",
       "method": "GET",
-      "only_medical_staff": false,
+      "only_medical_staff": true,
       "only_itself": false
     }
   ]
