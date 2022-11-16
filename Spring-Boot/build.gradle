@@ -32,12 +32,17 @@ dependencies {
   // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
   implementation 'org.springframework.boot:spring-boot-starter-actuator:+'
 
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+  implementation 'org.springframework.boot:spring-boot-starter-validation:+'
 
   // https://mvnrepository.com/artifact/org.projectlombok/lombok
   compileOnly 'org.projectlombok:lombok:+'
 
   // https://mvnrepository.com/artifact/org.web3j/core
   implementation 'org.web3j:core:+'
+
+  // https://mvnrepository.com/artifact/commons-codec/commons-codec
+  implementation 'commons-codec:commons-codec:+'
 
   // https://mvnrepository.com/artifact/mysql/mysql-connector-java
   implementation 'mysql:mysql-connector-java:8.0.30'

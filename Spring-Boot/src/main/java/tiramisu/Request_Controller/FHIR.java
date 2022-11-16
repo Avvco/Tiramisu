@@ -2,6 +2,7 @@ package tiramisu.Request_Controller;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -41,8 +42,8 @@ public class FHIR {
   protected static final WebClient webClient = WebClient.builder()
                                                   .exchangeStrategies(ExchangeStrategies.builder()
                                                     .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024 * 1000000)).build()).build();
-
-  private Permission_Control_Service pcs = new Permission_Control_Service();
+  @Autowired
+  private Permission_Control_Service pcs;
 
   // https://stackoverflow.com/questions/68012444/unable-to-read-properties-using-value-in-springboot-application
   //@Autowired
@@ -53,7 +54,7 @@ public class FHIR {
     return Mono.just(serverHttpRequest)
                 .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
                 .flatMap(url -> {
-                  if(pcs.permissionControl()) {
+                  if(pcs.pre_permissionControl(headers, "GET", url)) {
                     log.info("Received \"GET\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.get()
                     .uri(url)
@@ -77,7 +78,7 @@ public class FHIR {
     return Mono.just(serverHttpRequest)
                 .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
                 .flatMap(url -> {
-                  if(pcs.permissionControl()) {
+                  if(pcs.pre_permissionControl(headers, "DELETE", url)) {
                     log.info("Received \"DELETE\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.delete()
                     .uri(url)
@@ -101,7 +102,7 @@ public class FHIR {
     return Mono.just(serverHttpRequest)
                 .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
                 .flatMap(url -> {
-                  if(pcs.permissionControl()) {
+                  if(pcs.pre_permissionControl(headers, "POST", url)) {
                     log.info("Received \"POST\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.post()
                     .uri(url)
@@ -126,7 +127,7 @@ public class FHIR {
     return Mono.just(serverHttpRequest)
                 .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
                 .flatMap(url -> {
-                  if(pcs.permissionControl()) {
+                  if(pcs.pre_permissionControl(headers, "PUT", url)) {
                     log.info("Received \"PUT\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.put()
                     .uri(url)
@@ -151,7 +152,7 @@ public class FHIR {
     return Mono.just(serverHttpRequest)
                 .flatMap(req -> Mono.just(FHIR_BASE_URL + getForwardUrl(req)))
                 .flatMap(url -> {
-                  if(pcs.permissionControl()) {
+                  if(pcs.pre_permissionControl(headers, "PATCH", url)) {
                     log.info("Received \"PATCH\" from " + serverHttpRequest.getURI().toString() + ", forwarding to " + url);
                     return webClient.patch()
                     .uri(url)

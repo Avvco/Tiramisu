@@ -1,9 +1,13 @@
 package tiramisu.DataBase.DTO;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +19,30 @@ import lombok.NoArgsConstructor;
 public class User {
   @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-  private Integer user_id;
-  
-  private String user_name;
-  private String id_number;
+  @Column(name="user_id")
+  private Integer userId;
+
+  @Column(name="user_name")
+  private String userName;
+
+  @Column(name="id_number")
+  private String idNumber;
+
+  @Column(name="email")
   private String email;
+
+  @Column(name="hashed_password")
+  private String hashedPassword;
+  /**
+   * Type of user:
+   * 0: Health worker
+   * 1: User
+   */
+  @Column(name="type")
   private String type;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "userAuthorization", referencedColumnName = "userAuthorizationId")
+  private User_Authorization userAuthorization;
 
 }
