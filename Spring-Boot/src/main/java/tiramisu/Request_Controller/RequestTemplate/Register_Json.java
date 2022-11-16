@@ -10,13 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Register_Form {
+public class Register_Json {
   @NotEmpty
   @Size(min = 4, max = 40)
   private String userName;
-
-  //@NotEmpty
-  //private String idNumber;
 
   @NotEmpty
   @Email(message = "Please enter a valid e-mail address")
