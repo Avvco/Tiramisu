@@ -25,14 +25,12 @@ public class User {
   @Column(name="user_name")
   private String userName;
 
-  //@Column(name="id_number")
-  //private String idNumber;
-
   @Column(name="email")
   private String email;
 
   @Column(name="hashed_password")
   private String hashedPassword;
+  
   /**
    * Type of user:
    * 0: Health worker
