@@ -7,7 +7,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const {deployer} = await getNamedAccounts();
 
-  const deployed = await deploy("IdentityAuthentication", {
+  const deployed = await deploy("Controller", {
     from: deployer,
     args: [],
     log: true,
@@ -15,9 +15,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   if(deployed.newlyDeployed) {
     console.log(
-      `contract "IdentityAuthentication" deployed at ${deployed.address} using ${deployed.receipt?.gasUsed} gas, from ${deployed.receipt?.from}`
+      `contract "Controller" deployed at ${deployed.address} using ${deployed.receipt?.gasUsed} gas, from ${deployed.receipt?.from}`
     );
   }
 };
 export default func;
-func.tags = ['IdentityAuthentication'];
+func.tags = ['Controller'];
