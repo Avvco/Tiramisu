@@ -9,6 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.persistence.PreRemove;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import tiramisu.DataBase.DAO.UserDAO;
@@ -44,7 +46,7 @@ public class UserIdentity {
   @Autowired
   private Common common;
 
-  @PostMapping(value="/register")
+  @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<ResponseEntity<Object>> register(@RequestBody Register_Json json) {
 
     common.jsonValidator(Register_Json.class, json);
@@ -70,7 +72,7 @@ public class UserIdentity {
     return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
   } 
 
-  @PostMapping("/login")
+  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<ResponseEntity<Object>> login(@RequestBody Login_Json json) throws NoSuchAlgorithmException {
 
     common.jsonValidator(Login_Json.class, json);
@@ -138,6 +140,7 @@ public class UserIdentity {
   @Bean
   @Scheduled(fixedDelay=600000)
   @Async
+  // this method will remove the unassociated expired authorization.
   public void removeExpiredAuthorization() {
     List<User_Authorization> foundUa = uaDAO.findAll();
     for(User_Authorization ua : foundUa) {
