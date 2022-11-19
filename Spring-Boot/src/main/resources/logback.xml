@@ -3,7 +3,7 @@
   <property name="APP_NAME" value="ApplicationName"/>
   <property name="LOG_FILE_PATH" value="/LogFile/${APP_NAME}/logs/"/>
   <!--設定 Log 輸出格式-->
-  <property name="PATTERN_FORMAT" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+  <property name="PATTERN_FORMAT" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %class{36} %L %M - %msg%xEx%n"/>
   <contextName>logback</contextName>
   <!--輸出到 Console-->
   <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
