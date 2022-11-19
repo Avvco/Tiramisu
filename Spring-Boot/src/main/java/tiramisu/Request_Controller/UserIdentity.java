@@ -44,7 +44,7 @@ public class UserIdentity {
   @Autowired
   private Common common;
 
-  @PostMapping("/register")
+  @PostMapping(value="/register")
   public Mono<ResponseEntity<Object>> register(@RequestBody Register_Json json) {
 
     common.jsonValidator(Register_Json.class, json);

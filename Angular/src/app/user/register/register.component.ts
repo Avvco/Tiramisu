@@ -40,12 +40,12 @@ export class RegisterComponent implements OnInit {
       var dataUrl = "https://spring-boot.tiramisu.localhost/register";
       var xhr = new XMLHttpRequest();
       xhr.open('POST', dataUrl, true);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      var data = this.getFormData(this.registerForm.value);
-  
+      xhr.setRequestHeader('Content-type', 'application/json');
+      var data = JSON.stringify(this.registerForm.value);
+
       console.log(data);
   
-      xhr.send(this.registerForm.value);      
+      xhr.send(data);   
       //this.router.navigate(['/user/home']);
     }
     //console.log("died");
