@@ -40,7 +40,7 @@ public class User {
   private String type;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "userAuthorization", referencedColumnName = "userAuthorizationId")
+  @JoinColumn(name = "user_authorization", referencedColumnName = "user_authorization_id")
   private User_Authorization userAuthorization;
 
 }

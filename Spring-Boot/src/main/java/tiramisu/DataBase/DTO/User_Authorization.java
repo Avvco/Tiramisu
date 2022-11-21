@@ -1,6 +1,7 @@
 package tiramisu.DataBase.DTO;
 import java.time.Instant;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +19,13 @@ public class User_Authorization {
 
   @Id
   @GeneratedValue(strategy=GenerationType.UUID)
+  @Column(name="user_authorization_id")
   private String userAuthorizationId;
   
+  @Column(name="token")
   private String token;
+
+  @Column(name="expire_time")
   private Instant expireTime;
 
   @OneToOne(mappedBy = "userAuthorization")
