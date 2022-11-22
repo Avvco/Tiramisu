@@ -45,11 +45,10 @@ dependencies {
   implementation 'commons-codec:commons-codec:+'
 
   // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-  implementation 'mysql:mysql-connector-java:8.0.30'
+  implementation 'mysql:mysql-connector-java:+'
 
-
-
-
+  // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui
+  implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:+'
 
 }
 

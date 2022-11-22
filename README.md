@@ -48,6 +48,7 @@ You need to have:
 ### Spring-Boot
 
 - URL: <http://spring-boot.tiramisu.localhost>
+- Api Reference: <http://spring-boot.tiramisu.localhost/swagger-ui>
 
 ### HAPI-FHIR
 
