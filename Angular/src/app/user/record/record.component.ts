@@ -1,8 +1,11 @@
+import { Injectable } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormSetter } from './using/form-setter';
 import { HttpClient } from '@angular/common/http';
 import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
+
+import { FormSetter } from './using/form-setter';
+import { tokenHandler } from './using/token-handler';
 
 
 @Component({
@@ -10,6 +13,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   templateUrl: './record.component.html',
   styleUrls: ['./record.component.scss']
 })
+
+@Injectable()
 export class RecordComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
@@ -89,8 +94,18 @@ export class RecordComponent implements OnInit {
       const setter = new FormSetter(data);
       setter.setForm();
     }
+
   }
   logout() {
+
+    console.log("logout");
+    /*var requestUrl = "https://spring-boot.tiramisu.localhost/logout";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', requestUrl, true);
+    xhr.send();*/
+
     this.login$ = of(false);
+
   }
 }

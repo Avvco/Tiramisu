@@ -1,19 +1,26 @@
+import { Injectable } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
+import { tokenHandler } from './using/token-handler';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
+@Injectable()
 export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
+
   login$: Observable<boolean> | undefined;
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder){
+
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -31,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.loginForm.valid) {
+      localStorage.setItem('login', 'true');
       var dataUrl = "https://spring-boot.tiramisu.localhost/login";
       var xhr = new XMLHttpRequest();
       xhr.open('POST', dataUrl, true);
@@ -41,6 +49,9 @@ export class LoginComponent implements OnInit {
       let a = this;
       var status;
       xhr.onload = function(){
+        let handler = new tokenHandler();
+        let jsonRes = JSON.parse(xhr.responseText);
+        handler.setAccessToken(jsonRes.token);
         a.routerLink(xhr.status);
       } 
     }
@@ -51,14 +62,10 @@ export class LoginComponent implements OnInit {
     console.log(status);
     if(status == 200){
       console.log("success");
-      this.router.navigate(['/user/record']);
+      //this.router.navigate(['/user/record']);
     }
     else{
       console.log("failed");
     }
-  }
-
-  logout() {
-    this.login$ = of(false);
   }
 }
