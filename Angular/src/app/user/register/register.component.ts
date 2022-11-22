@@ -46,9 +46,9 @@ export class RegisterComponent implements OnInit {
       console.log(data);
   
       xhr.send(data);   
-      //this.router.navigate(['/user/home']);
+      this.router.navigate(['/user/home']);
     }
-    //console.log("died");
+    console.log("died");
   }
 
   logout() {

@@ -125,14 +125,15 @@
         <table>
           <tr>
             <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
-            <td class="td_right"><input type="radio" value="1" name="identitybox" formControlName="identitybox"/>個人
-              <input type="radio" value="0" name="identitybox" formControlName="identitybox"/>醫護人員
+            <td class="td_right">
+              <input type="radio" value="1" name="type" formControlName="type"/>個人
+              <input type="radio" value="0" name="type" formControlName="type"/>醫護人員
             </td>
           </tr>
           <tr>
             <td class="td_left"><label for="username">Username</label></td>
-            <td class="td_right"><input type="text" name="username" id="username" placeholder="請輸入用戶名"
-                formControlName="username"></td>
+            <td class="td_right"><input type="text" name="userName" id="userName" placeholder="請輸入用戶名"
+                formControlName="userName"></td>
           </tr>
           <tr>
             <td class="td_left"><label for="password">Password</label></td>
