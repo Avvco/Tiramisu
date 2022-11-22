@@ -2,9 +2,7 @@ version: '3.7'
 
 services:
   spring-boot-reloader:
-    build:
-      context: ./Spring-Boot
-      dockerfile: Dockerfile
+    image: gradle:latest
     volumes:
       - ./Spring-Boot:/tmp/Spring-Boot
       - /gradle_dependency:/root/.gradle/caches/modules-2/files-2.1
@@ -13,9 +11,7 @@ services:
     command: [ "bash", "./buildAndReload.sh" ]
 
   spring-boot:
-    build:
-      context: ./Spring-Boot
-      dockerfile: Dockerfile
+    image: gradle:latest
     volumes:
       - ./Spring-Boot:/tmp/Spring-Boot
       - /gradle_dependency:/root/.gradle/caches/modules-2/files-2.1
