@@ -11,6 +11,12 @@
       "method": "GET",
       "only_medical_staff": true,
       "only_itself": false
+    },
+    {
+      "route": "/address",
+      "method": "GET",
+      "only_medical_staff": true,
+      "only_itself": false
     }
   ]
 }

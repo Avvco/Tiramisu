@@ -1,8 +1,9 @@
-package tiramisu.Request_Controller;
+package tiramisu.RequestController;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -19,16 +20,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import tiramisu.DataBase.DAO.UserDAO;
 import tiramisu.DataBase.DAO.User_AuthorizationDAO;
 import tiramisu.DataBase.DTO.User;
 import tiramisu.DataBase.DTO.User_Authorization;
-import tiramisu.Request_Controller.RequestTemplate.Login_Json;
-import tiramisu.Request_Controller.RequestTemplate.Register_Json;
-import tiramisu.Request_Controller.ResponseTemplate.Login_Response;
+import tiramisu.RequestController.RequestTemplate.Login_Json;
+import tiramisu.RequestController.RequestTemplate.Register_Json;
+import tiramisu.RequestController.ResponseTemplate.Address_Response;
+import tiramisu.RequestController.ResponseTemplate.Login_Response;
+import tiramisu.Service.Permission_Control_Service;
 import tiramisu.Tiramisu.TiramisuSpringBootApplication;
 
 @RestController
@@ -45,10 +51,11 @@ public class UserIdentity {
   @Autowired
   private Common common;
 
-  @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<ResponseEntity<Object>> register(@RequestBody Register_Json json) {
+  @Autowired
+  private Permission_Control_Service pcs;
 
-    common.jsonValidator(Register_Json.class, json);
+  @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public Mono<ResponseEntity<Void>> register(@Valid @RequestBody Register_Json json) {
 
     if(json.getType().equals("0")) {
       log.info("Registering a health worker " + json.getUserName());
@@ -58,12 +65,7 @@ public class UserIdentity {
       log.error("Invalid user type ");
       return Mono.just(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
-
-    User user = new User();
-    user.setUserName(json.getUserName());
-    //user.setIdNumber(form.getIdNumber());
-    user.setEmail(json.getEmail());
-    user.setType(json.getType());
+    User user = common.classMapping(json, User.class);
     user.setHashedPassword(DigestUtils.sha256Hex(json.getPassword()));
     
     userDAO.save(user);
@@ -71,20 +73,18 @@ public class UserIdentity {
     return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
   } 
 
-  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<ResponseEntity<Object>> login(@RequestBody Login_Json json) throws NoSuchAlgorithmException {
+  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public Mono<Login_Response> login(@Valid @RequestBody Login_Json json) throws NoSuchAlgorithmException {
 
-    common.jsonValidator(Login_Json.class, json);
-
-    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), json.getType());
+    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), User.UserType.forValue(json.getType()));
 
     // user not found in database
-    if(foundUser.size() == 0) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-    if(foundUser.size() > 1) return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Multiple user found."));
+    if(foundUser.size() == 0) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    if(foundUser.size() > 1) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Multiple user found");
 
     User _user = foundUser.get(0);
 
-    if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(json.getPassword()))) return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(json.getPassword()))) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
     log.info("User " + _user.getUserName() + " logged in.");
 
@@ -97,7 +97,7 @@ public class UserIdentity {
         if(_ua.getExpireTime().isAfter(Instant.now())) {
           // user has an active authorization
           common.extendAuthorization(_ua);
-          return Mono.just(ResponseEntity.status(HttpStatus.OK).body(new Login_Response(_ua.getUserAuthorizationId(), _ua.getToken(), _ua.getExpireTime())));
+          return Mono.just(common.classMapping(_ua, Login_Response.class));
         }
         uaDAO.delete(_ua);
       }
@@ -119,11 +119,11 @@ public class UserIdentity {
     _user.setUserAuthorization(ua);
     userDAO.save(_user);
     common.extendAuthorization(ua);
-    return Mono.just(ResponseEntity.ok(new Login_Response(ua.getUserAuthorizationId(), ua.getToken(), ua.getExpireTime())));
+    return Mono.just(common.classMapping(ua, Login_Response.class));
   }
 
   @GetMapping("/logout")
-  public Mono<ResponseEntity<Object>> logout(@RequestHeader("Authorization") String token) {
+  public Mono<ResponseEntity<Object>> logout(@Parameter(description = "id of book to be searched") @RequestHeader("Authorization") String token) {
     log.info("User with token " + token + " logged out.");
     List<User_Authorization> foundUa = uaDAO.findByToken(token);
     if(foundUa.size() > 0) {
@@ -133,7 +133,20 @@ public class UserIdentity {
       return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
     return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-  } 
+  }
+
+  @GetMapping("/address")
+  public Mono<Address_Response> getAddress(@Parameter(description = "Authorization header") @RequestHeader("Authorization") String token) {
+    if(!pcs.pre_permissionControl(token, "GET", "/address")) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
+    }
+    ArrayList<String> arList = new ArrayList<String>();
+    List<User> foundUser = userDAO.findByType(User.UserType.HEALTH_WORKER);
+    for(User u : foundUser) {
+      arList.add(u.getEthAddress());
+    }
+    return Mono.just(new Address_Response(arList));
+  }
 
 
   @Bean
@@ -141,7 +154,7 @@ public class UserIdentity {
   @Async
   // this method will remove the unassociated expired authorization.
   public void removeExpiredAuthorization() {
-    List<User_Authorization> foundUa = uaDAO.findAll();
+    List<User_Authorization> foundUa = uaDAO.findAll(); 
     for(User_Authorization ua : foundUa) {
       if(ua.getExpireTime().isBefore(Instant.now())) {
         uaDAO.delete(ua);

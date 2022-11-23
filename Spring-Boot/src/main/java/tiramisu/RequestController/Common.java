@@ -1,4 +1,4 @@
-package tiramisu.Request_Controller;
+package tiramisu.RequestController;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -21,6 +24,8 @@ public class Common {
 
   @Autowired
   private User_AuthorizationDAO uaDAO;
+
+  private ObjectMapper mapper = new ObjectMapper();
 
   public void extendAuthorization(User_Authorization ua) {
     Instant instantNow = Instant.now();
@@ -36,5 +41,22 @@ public class Common {
     if (!violations.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, violations.toString());
     }
+  }
+
+  /**
+   * Convert a class object to another class object and fill with the same-name value.
+   * @param <T> The class object to convert from.
+   * @param <E> The class object to convert to.
+   * @param resource The class object to convert from.
+   * @param target The class object to convert to.
+   * @return The converted class object.
+   */
+  public <T, E> E classMapping(T resource, Class<E> target) {
+    try {
+      return mapper.readValue(mapper.writeValueAsString(resource), target);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

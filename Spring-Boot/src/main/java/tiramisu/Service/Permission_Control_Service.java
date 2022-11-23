@@ -21,7 +21,7 @@ import tiramisu.DataBase.DAO.UserDAO;
 import tiramisu.DataBase.DAO.User_AuthorizationDAO;
 import tiramisu.DataBase.DTO.User;
 import tiramisu.DataBase.DTO.User_Authorization;
-import tiramisu.Request_Controller.Common;
+import tiramisu.RequestController.Common;
 
 @Service
 @Slf4j
@@ -46,8 +46,16 @@ public class Permission_Control_Service {
    * @return
    */
   public boolean pre_permissionControl(Map<String, String> header, String method, String url) {
-    if(!requireForPrePermission(method, url)) return true;
+    
     String token = header.get("Authorization");
+
+    return pre_permissionControl(token, method, url);
+    
+  }
+
+  public boolean pre_permissionControl(String token, String method, String url) {
+    if(!requireForPrePermission(method, url)) return true;
+
     List<User_Authorization> foundUa = uaDAO.findByToken(token);
     User user = null;
 
@@ -66,7 +74,7 @@ public class Permission_Control_Service {
       return false;
     } 
     
-    if(user.getType().equals("0")) return true;
+    if(user.getType().equals(User.UserType.HEALTH_WORKER)) return true;
     return false;
   }
 
@@ -79,11 +87,13 @@ public class Permission_Control_Service {
    */
   public boolean after_permissionControl(Map<String, String> header, String method, String url) {
     return true;
+
+    
   }
 
   private boolean requireForPrePermission(String method, String url) {
     for(PermissionTableList.PermissionTable permission : permissionList.getPermissionTable()) {
-      if(permission.getMethod().equals(method) && permission.isOnly_medical_staff() && permission.getRoute().contains(url)) {
+      if(permission.getMethod().equals(method) && permission.isOnly_medical_staff() && permission.getRoute().startsWith(url)) {
         return true;
       }
     }

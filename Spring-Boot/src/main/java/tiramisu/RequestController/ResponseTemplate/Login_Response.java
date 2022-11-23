@@ -1,4 +1,4 @@
-package tiramisu.Request_Controller.ResponseTemplate;
+package tiramisu.RequestController.ResponseTemplate;
 
 import java.time.Instant;
 

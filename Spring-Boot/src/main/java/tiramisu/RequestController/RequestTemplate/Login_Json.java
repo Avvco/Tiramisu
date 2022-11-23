@@ -1,8 +1,6 @@
-package tiramisu.Request_Controller.RequestTemplate;
+package tiramisu.RequestController.RequestTemplate;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,17 +8,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Register_Json {
+public class Login_Json {
+  
   @NotEmpty
-  @Size(min = 4, max = 40)
   private String userName;
 
   @NotEmpty
-  @Email(message = "Please enter a valid e-mail address")
   private String email;
 
   @NotEmpty
-  @Size(min = 6, max = 40)
   private String password;
 
   @NotEmpty
