@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import tiramisu.Service.Permission_Control_Service;
@@ -33,6 +34,7 @@ import tiramisu.Tiramisu.TiramisuSpringBootApplication;
 @RestController
 @CrossOrigin(TiramisuSpringBootApplication.CORS)
 @Slf4j
+@SecurityRequirement(name = "Authorization")
 public class FHIR {
 
   private static final String FHIR_BASE_URL = "http://hapi-fhir:8080/fhir";

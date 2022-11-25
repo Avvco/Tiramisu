@@ -59,21 +59,21 @@ public class User {
   private User_Authorization userAuthorization;
 
   public enum UserType {
-    @JsonProperty("0")
+    @JsonProperty("HEALTH_WORKER")
     HEALTH_WORKER,
-    @JsonProperty("1")
+    @JsonProperty("PATIENT")
     PATIENT;
 
-    private static Map<String, UserType> namesMap = new HashMap<String, UserType>(3);
+    private static Map<String, UserType> namesMap = new HashMap<String, UserType>();
 
     static {
-      namesMap.put("0", HEALTH_WORKER);
-      namesMap.put("1", PATIENT);
+      namesMap.put("HEALTH_WORKER", HEALTH_WORKER);
+      namesMap.put("PATIENT", PATIENT);
     }
 
     @JsonCreator
     public static UserType forValue(String value) {
-      return namesMap.get(StringUtils.lowerCase(value));
+      return namesMap.get(StringUtils.upperCase(value));
     }
 
     @JsonValue

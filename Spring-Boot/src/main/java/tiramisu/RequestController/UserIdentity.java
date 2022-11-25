@@ -22,7 +22,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -54,17 +60,18 @@ public class UserIdentity {
   @Autowired
   private Permission_Control_Service pcs;
 
+  @Operation(summary = "Register", description = "Register a new user")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "204", description = "A new user was created successfully.", content = {
+      @Content()
+    }),
+    @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+      @Content()
+    })
+  })
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<ResponseEntity<Void>> register(@Valid @RequestBody Register_Json json) {
 
-    if(json.getType().equals("0")) {
-      log.info("Registering a health worker " + json.getUserName());
-    } else if(json.getType().equals("1")) {
-      log.info("Registering a user " + json.getUserName());
-    } else {
-      log.error("Invalid user type ");
-      return Mono.just(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
     User user = common.classMapping(json, User.class);
     user.setHashedPassword(DigestUtils.sha256Hex(json.getPassword()));
     
@@ -73,6 +80,20 @@ public class UserIdentity {
     return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
   } 
 
+
+  @Operation(summary = "Login", description = "Login as an user")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Login successfully.", content = {
+      @Content(mediaType = "application/json", 
+      schema = @Schema(implementation = Login_Response.class))
+    }),
+    @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+      @Content()
+    }),
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+      @Content()
+    })
+  })
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Login_Response> login(@Valid @RequestBody Login_Json json) throws NoSuchAlgorithmException {
 
@@ -122,8 +143,20 @@ public class UserIdentity {
     return Mono.just(common.classMapping(ua, Login_Response.class));
   }
 
+  @Operation(summary = "Logout", security = @SecurityRequirement(name = "Authorization"))
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "204", description = "The user was logged out successfully.", content = {
+      @Content()
+    }),
+    @ApiResponse(responseCode = "400", description = "Authorization field is not present in the header.", content = {
+      @Content()
+    }),
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+      @Content()
+    })
+  })
   @GetMapping("/logout")
-  public Mono<ResponseEntity<Object>> logout(@Parameter(description = "id of book to be searched") @RequestHeader("Authorization") String token) {
+  public Mono<ResponseEntity<Object>> logout(@Parameter(hidden  = true) @RequestHeader("Authorization") String token) {
     log.info("User with token " + token + " logged out.");
     List<User_Authorization> foundUa = uaDAO.findByToken(token);
     if(foundUa.size() > 0) {
@@ -135,8 +168,22 @@ public class UserIdentity {
     return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
   }
 
+
+  @Operation(summary = "Get all etherem wallet address of health workers.", security = @SecurityRequirement(name = "Authorization"))
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "OK.", content = {
+      @Content(mediaType = "application/json", 
+      schema = @Schema(implementation = Address_Response.class))
+    }),
+    @ApiResponse(responseCode = "400", description = "Authorization field is not present in the header.", content = {
+      @Content()
+    }),
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+      @Content()
+    })
+  })
   @GetMapping("/address")
-  public Mono<Address_Response> getAddress(@Parameter(description = "Authorization header") @RequestHeader("Authorization") String token) {
+  public Mono<Address_Response> getAddress(@Parameter(hidden  = true) @RequestHeader("Authorization") String token) {
     if(!pcs.pre_permissionControl(token, "GET", "/address")) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied");
     }

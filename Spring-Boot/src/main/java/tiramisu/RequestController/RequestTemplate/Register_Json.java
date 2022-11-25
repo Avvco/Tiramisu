@@ -2,11 +2,13 @@ package tiramisu.RequestController.RequestTemplate;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tiramisu.DataBase.DTO.User;
 
 @Data
 @NoArgsConstructor
@@ -24,8 +26,8 @@ public class Register_Json {
   @Size(min = 6, max = 40)
   private String password;
 
-  @NotEmpty
-  private String type;
+  @NotNull
+  private User.UserType type;
 
   @NotEmpty
   @Pattern(regexp = "^0x[0-9a-fA-F]{40}$", message = "Please enter a valid eth address")
