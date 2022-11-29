@@ -24,7 +24,8 @@ export class RegisterComponent implements OnInit {
       type: ['', Validators.required],
       userName: ['', Validators.required], 
       password: ['', Validators.required], //, Validators.pattern('^[a-zA-Z0-9-_]{5,20}')
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      ethAddress: ['', [Validators.required]]
     })
     this.register$ = of(true);
   }
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit {
   get userName() { return this.registerForm.get('userName'); }
   get password() { return this.registerForm.get('password'); }
   get email() { return this.registerForm.get('email') }
+  get ethAddress() { return this.registerForm.get('ethAddress') }
 
   submit() {
     if (this.registerForm.valid) {

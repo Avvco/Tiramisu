@@ -93,7 +93,7 @@ public class Permission_Control_Service {
 
   private boolean requireForPrePermission(String method, String url) {
     for(PermissionTableList.PermissionTable permission : permissionList.getPermissionTable()) {
-      if(permission.getMethod().equals(method) && permission.isOnly_medical_staff() && permission.getRoute().startsWith(url)) {
+      if(permission.getMethod().equals(method) && permission.isOnly_medical_staff() && url.startsWith(permission.getRoute())) {
         return true;
       }
     }

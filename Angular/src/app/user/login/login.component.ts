@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { tokenHandler } from './using/token-handler';
+import { tokenHandler } from '../using/token-handler';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     console.log(status);
     if(status == 200){
       console.log("success");
-      //this.router.navigate(['/user/record']);
+      this.router.navigate(['/user/record']);
     }
     else{
       console.log("failed");

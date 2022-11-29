@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -25,7 +26,7 @@ public class Common {
   @Autowired
   private User_AuthorizationDAO uaDAO;
 
-  private ObjectMapper mapper = new ObjectMapper();
+  private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
   public void extendAuthorization(User_Authorization ua) {
     Instant instantNow = Instant.now();

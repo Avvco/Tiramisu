@@ -97,7 +97,7 @@ public class UserIdentity {
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Login_Response> login(@Valid @RequestBody Login_Json json) throws NoSuchAlgorithmException {
 
-    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), User.UserType.forValue(json.getType()));
+    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), json.getType());
 
     // user not found in database
     if(foundUser.size() == 0) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);

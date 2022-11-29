@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tiramisu.DataBase.DTO.User;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Login_Json {
   @NotEmpty
   private String password;
 
-  @NotEmpty
-  private String type;
+  //@NotNull
+  private User.UserType type;
 
 }

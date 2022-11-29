@@ -63,12 +63,22 @@ export class RecordComponent implements OnInit {
 
   addRecord(): void {
     console.log("addRecord");
-    
+
     var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
     xhr.setRequestHeader('Content-type', 'application/json');
     var data = JSON.stringify(this.record.value);
+
+    let _tokenHandler = new tokenHandler();
+    let _token = _tokenHandler.getAccessToken();
+
+    if(_token != null){
+      xhr.setRequestHeader('Authorization', _token);
+    }
+    else{
+      console.log("token is null");
+    }
 
     console.log(data);
 
@@ -86,6 +96,17 @@ export class RecordComponent implements OnInit {
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', dataUrl, true);
+
+    let _tokenHandler = new tokenHandler();
+    let _token = _tokenHandler.getAccessToken();
+
+    if(_token != null){
+      xhr.setRequestHeader('Authorization', _token);
+    }
+    else{
+      console.log("token is null");
+    }
+    
     xhr.send();
     
     xhr.onload = function () {      

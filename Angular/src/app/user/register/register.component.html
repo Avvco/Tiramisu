@@ -126,8 +126,8 @@
           <tr>
             <td class="td_left"><label for="Sign-in Options">Sign-in Options</label></td>
             <td class="td_right">
-              <input type="radio" value="1" name="type" formControlName="type"/>個人
-              <input type="radio" value="0" name="type" formControlName="type"/>醫護人員
+              <input type="radio" value="PATIENT" name="type" formControlName="type"/>個人
+              <input type="radio" value="HEALTH_WORKER" name="type" formControlName="type"/>醫護人員
             </td>
           </tr>
           <tr>
@@ -144,6 +144,12 @@
             <td class="td_right"><input type="email" name="email" id="email" formControlName="email" placeholder="請輸入email"
               formControlName="email"></td>
           </tr>
+
+          <tr>
+            <td class="td_left"><label for="ethAddress">ETH Address</label></td>
+            <td class="td_right"><input type="text" name="ethAddress" id="ethAddress" formControlName="ethAddress" placeholder="請輸入ETH Address"></td>
+          </tr>
+
           <tr>
             <td colspan="2" align="center"><button type="submit" class="btn btn-default"
                 >Register</button> <a style="margin-left: 10px;">忘記密碼？</a></td>
