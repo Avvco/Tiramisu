@@ -15,6 +15,9 @@ import { of } from 'rxjs';
 export class RegisterComponent implements OnInit {
 
   public registerForm!: FormGroup;
+
+  private _requestUrl: string = "https://spring-boot.tiramisu.localhost";
+
   register$: Observable<boolean> | undefined;
   constructor(private router: Router, private fb: FormBuilder) { }
 
@@ -29,6 +32,7 @@ export class RegisterComponent implements OnInit {
     })
     this.register$ = of(true);
   }
+  
   get type() { return this.registerForm.get('type'); }
   get userName() { return this.registerForm.get('userName'); }
   get password() { return this.registerForm.get('password'); }
@@ -36,21 +40,23 @@ export class RegisterComponent implements OnInit {
   get ethAddress() { return this.registerForm.get('ethAddress') }
 
   submit() {
-    if (this.registerForm.valid) {
+    if(this.registerForm.valid) {
       console.log("can register");
 
-      var dataUrl = "https://spring-boot.tiramisu.localhost/register";
+      let apiUrl: string = "/register";
+      let dataUrl = this._requestUrl + apiUrl;
+      
       var xhr = new XMLHttpRequest();
       xhr.open('POST', dataUrl, true);
       xhr.setRequestHeader('Content-type', 'application/json');
-      var data = JSON.stringify(this.registerForm.value);
+      var data = JSON.stringify(this.registerForm.value);  
+      xhr.send(data);
 
-      console.log(data);
-  
-      xhr.send(data);   
       this.router.navigate(['/user/home']);
     }
-    console.log("died");
+    else{
+      console.log("died");
+    }
   }
 
   logout() {

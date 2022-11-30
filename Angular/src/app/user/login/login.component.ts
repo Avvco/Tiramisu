@@ -5,7 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { tokenHandler } from '../using/token-handler';
+import { TokenHandler } from '../using/token-handler';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +17,8 @@ import { tokenHandler } from '../using/token-handler';
 export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
+  
+  private _requestUrl: string = "https://spring-boot.tiramisu.localhost"
 
   login$: Observable<boolean> | undefined;
   constructor(private router: Router, private fb: FormBuilder){
@@ -39,7 +42,10 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.loginForm.valid) {
       localStorage.setItem('login', 'true');
-      var dataUrl = "https://spring-boot.tiramisu.localhost/login";
+
+      let apiUrl: string = "/login";
+      let dataUrl: string = this._requestUrl + apiUrl;
+
       var xhr = new XMLHttpRequest();
       xhr.open('POST', dataUrl, true);
       xhr.setRequestHeader('Content-type', 'application/json');
@@ -47,11 +53,13 @@ export class LoginComponent implements OnInit {
   
       xhr.send(data);  
       let a = this;
-      var status;
+
       xhr.onload = function(){
-        let handler = new tokenHandler();
         let jsonRes = JSON.parse(xhr.responseText);
+
+        let handler = new TokenHandler();        
         handler.setAccessToken(jsonRes.token);
+
         a.routerLink(xhr.status);
       } 
     }

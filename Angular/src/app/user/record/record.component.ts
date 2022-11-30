@@ -5,7 +5,7 @@ import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { FormSetter } from './using/form-setter';
-import { tokenHandler } from './using/token-handler';
+import { TokenHandler } from '../using/token-handler';
 
 
 @Component({
@@ -17,11 +17,7 @@ import { tokenHandler } from './using/token-handler';
 @Injectable()
 export class RecordComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
-  login$: Observable<boolean> | undefined;
-  ngOnInit(): void {
-    this.login$ = of(true);
-  }
+  private _requestUrl: string = "https://spring-boot.tiramisu.localhost"
 
   record = new FormGroup({
     resourceType: new FormControl('Patient'),
@@ -61,20 +57,28 @@ export class RecordComponent implements OnInit {
     birthDate: new FormControl('')
   });
 
+  constructor(private http: HttpClient) { }
+  login$: Observable<boolean> | undefined;
+  ngOnInit(): void {
+    this.login$ = of(true);
+  }
+
   addRecord(): void {
     console.log("addRecord");
 
-    var dataUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient";
+    let apiUrl: string = "/forward_to_fhir/Patient"
+    let dataUrl: string  = this._requestUrl + apiUrl
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', dataUrl, true);
     xhr.setRequestHeader('Content-type', 'application/json');
     var data = JSON.stringify(this.record.value);
 
-    let _tokenHandler = new tokenHandler();
-    let _token = _tokenHandler.getAccessToken();
+    let token_handler = new TokenHandler();
+    let token = token_handler.getAccessToken();
 
-    if(_token != null){
-      xhr.setRequestHeader('Authorization', _token);
+    if(token != null){
+      xhr.setRequestHeader('Authorization', token);
     }
     else{
       console.log("token is null");
@@ -89,19 +93,22 @@ export class RecordComponent implements OnInit {
     console.log("getRecord");
     var searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
-    var requestUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient?identifier=";
-    var dataUrl = requestUrl + searchVal;
+    /*var requestUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient?identifier=";
+    var dataUrl = requestUrl + searchVal;*/
+
+    let apiUrl: string = "/forward_to_fhir/Patient?identifier=";
+    let dataUrl: string  = this._requestUrl + apiUrl + searchVal;
 
     console.log(dataUrl);
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', dataUrl, true);
 
-    let _tokenHandler = new tokenHandler();
-    let _token = _tokenHandler.getAccessToken();
+    let token_handler = new TokenHandler();
+    let token = token_handler.getAccessToken();
 
-    if(_token != null){
-      xhr.setRequestHeader('Authorization', _token);
+    if(token != null){
+      xhr.setRequestHeader('Authorization', token);
     }
     else{
       console.log("token is null");
@@ -111,12 +118,12 @@ export class RecordComponent implements OnInit {
     
     xhr.onload = function () {      
       var data = JSON.parse(this.responseText);
-
-      const setter = new FormSetter(data);
-      setter.setForm();
+      const form_setter = new FormSetter(data);
+      form_setter.setForm();
     }
 
   }
+  
   logout() {
 
     console.log("logout");

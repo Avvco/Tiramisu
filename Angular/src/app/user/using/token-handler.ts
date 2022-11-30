@@ -1,4 +1,4 @@
-export class tokenHandler{
+export class TokenHandler{
     token: string;
 
     constructor(){
