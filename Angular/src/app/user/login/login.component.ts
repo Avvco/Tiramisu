@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
 import { TokenHandler } from '../using/token-handler';
+import {POST_LOGIN_API} from '../request/api';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
   
+  private _TokenHandler = new TokenHandler();
   private _requestUrl: string = "https://spring-boot.tiramisu.localhost"
 
   login$: Observable<boolean> | undefined;
@@ -43,30 +45,23 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       localStorage.setItem('login', 'true');
 
-      let apiUrl: string = "/login";
-      let dataUrl: string = this._requestUrl + apiUrl;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', dataUrl, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
-      var data = JSON.stringify(this.loginForm.value);
-  
-      xhr.send(data);  
-      let a = this;
-
-      xhr.onload = function(){
-        let jsonRes = JSON.parse(xhr.responseText);
-
-        let handler = new TokenHandler();        
-        handler.setAccessToken(jsonRes.token);
-
-        a.routerLink(xhr.status);
-      } 
+      let login = this;
+      POST_LOGIN_API(this.loginForm.value)
+        .then((res) => {
+          console.log(res);
+          login._TokenHandler.setAccessToken(res.data.token);
+          login._routerLink(res.status);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    //console.log("died");
+    else{
+      console.log("died");
+    }
   }
 
-  routerLink(status: number){
+  private _routerLink(status: number){
     console.log(status);
     if(status == 200){
       console.log("success");

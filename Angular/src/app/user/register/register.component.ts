@@ -4,7 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-
+import { POST_REGISTER_API } from '../request/api';
 
 @Component({
   selector: 'app-register',
@@ -43,16 +43,14 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.valid) {
       console.log("can register");
 
-      let apiUrl: string = "/register";
-      let dataUrl = this._requestUrl + apiUrl;
-      
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', dataUrl, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
-      var data = JSON.stringify(this.registerForm.value);  
-      xhr.send(data);
-
-      this.router.navigate(['/user/home']);
+      POST_REGISTER_API(this.registerForm.value)
+        .then((res) => {
+          console.log(res);
+          this.router.navigate(['/user/home']);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     else{
       console.log("died");

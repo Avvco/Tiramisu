@@ -5,8 +5,7 @@ import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { FormSetter } from './using/form-setter';
-import { TokenHandler } from '../using/token-handler';
-
+import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../request/api';
 
 @Component({
   selector: 'app-record',
@@ -66,74 +65,43 @@ export class RecordComponent implements OnInit {
   addRecord(): void {
     console.log("addRecord");
 
-    let apiUrl: string = "/forward_to_fhir/Patient"
-    let dataUrl: string  = this._requestUrl + apiUrl
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', dataUrl, true);
-    xhr.setRequestHeader('Content-type', 'application/json');
-    var data = JSON.stringify(this.record.value);
-
-    let token_handler = new TokenHandler();
-    let token = token_handler.getAccessToken();
-
-    if(token != null){
-      xhr.setRequestHeader('Authorization', token);
-    }
-    else{
-      console.log("token is null");
-    }
-
-    console.log(data);
-
-    xhr.send(data);
+    POST_RECORD_API(this.record.value)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("???");
+        console.log(err);
+      });
   }
 
   getRecord(): void {
     console.log("getRecord");
-    var searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
+    let searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
-    /*var requestUrl = "https://spring-boot.tiramisu.localhost/forward_to_fhir/Patient?identifier=";
-    var dataUrl = requestUrl + searchVal;*/
-
-    let apiUrl: string = "/forward_to_fhir/Patient?identifier=";
-    let dataUrl: string  = this._requestUrl + apiUrl + searchVal;
-
-    console.log(dataUrl);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', dataUrl, true);
-
-    let token_handler = new TokenHandler();
-    let token = token_handler.getAccessToken();
-
-    if(token != null){
-      xhr.setRequestHeader('Authorization', token);
-    }
-    else{
-      console.log("token is null");
-    }
-    
-    xhr.send();
-    
-    xhr.onload = function () {      
-      var data = JSON.parse(this.responseText);
-      const form_setter = new FormSetter(data);
+    GET_RECORD_API(searchVal)
+    .then((res) => {
+      console.log(res);
+      console.log("in set?")
+      const form_setter = new FormSetter(res.data);
+      console.log("end constructor")
       form_setter.setForm();
-    }
-
+      console.log("set end")
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
   
   logout() {
-
     console.log("logout");
-    /*var requestUrl = "https://spring-boot.tiramisu.localhost/logout";
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', requestUrl, true);
-    xhr.send();*/
-
-    this.login$ = of(false);
-
+    GET_LOGOUT_API()
+      .then((res) => {
+        console.log(res);
+        this.login$ = of(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
