@@ -5,7 +5,7 @@ import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { FormSetter } from './using/form-setter';
-import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../request/api';
+import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../util/APIHandler';
 
 @Component({
   selector: 'app-record',
@@ -70,7 +70,6 @@ export class RecordComponent implements OnInit {
         console.log(res);
       })
       .catch((err) => {
-        console.log("???");
         console.log(err);
       });
   }

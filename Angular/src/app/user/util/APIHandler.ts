@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-import { TokenHandler } from '../using/token-handler';
-
-let _TokenHandler = new TokenHandler();
+import { getAccessToken } from './UserTokenHandler';
 
 
 const BASE: string = "https://spring-boot.tiramisu.localhost";
@@ -14,7 +12,7 @@ const LOGIN_REQUEST = axios.create({
 const LOGOUT_REQUEST = axios.create({
   baseURL: BASE + "/logout",
   headers:{
-    Authorization: _TokenHandler.getAccessToken()
+    Authorization: getAccessToken()
   }
 });
 
@@ -25,7 +23,7 @@ const REGISTER_REQUEST = axios.create({
 const RECORD_REQUEST = axios.create({
   baseURL: BASE + "/forward_to_fhir/Patient",
   headers:{
-    Authorization: _TokenHandler.getAccessToken()
+    Authorization: getAccessToken()
   }
 });
 

@@ -4,8 +4,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { POST_REGISTER_API } from '../request/api';
-import { getETHAddress } from '../blockchain/register-support';
+import { POST_REGISTER_API } from '../util/APIHandler';
+import { getETHAddress } from './util/RegisterSupport';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +17,8 @@ export class RegisterComponent implements OnInit {
 
   public registerForm!: FormGroup;
 
-  //private _registerSupport: RegisterSupport = new RegisterSupport();
-
   register$: Observable<boolean> | undefined;
   constructor(private router: Router, private fb: FormBuilder) { }
-
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -41,6 +38,7 @@ export class RegisterComponent implements OnInit {
   async submit() {
     if (this.registerForm.valid) {
       let address: any = await getETHAddress();
+      
       let data = {
         type: this.registerForm.value.type,
         userName: this.registerForm.value.userName,

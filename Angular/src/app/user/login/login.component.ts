@@ -5,8 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { TokenHandler } from '../using/token-handler';
-import {POST_LOGIN_API} from '../request/api';
+import { setAccessToken } from '../util/UserTokenHandler';
+import {POST_LOGIN_API} from '../util/APIHandler';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
   
-  private _TokenHandler = new TokenHandler();
   private _requestUrl: string = "https://spring-boot.tiramisu.localhost"
 
   login$: Observable<boolean> | undefined;
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
       POST_LOGIN_API(this.loginForm.value)
         .then((res) => {
           console.log(res);
-          login._TokenHandler.setAccessToken(res.data.token);
+          setAccessToken(res.data.token);
           login._routerLink(res.status);
         })
         .catch((err) => {
