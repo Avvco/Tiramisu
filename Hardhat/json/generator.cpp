@@ -22,7 +22,7 @@ void writeJsonData(fstream &file, int cur, string operationType, string url)
 
     file << "\t\"name\": \"" << operationType << " account #" << cur << "\"," << endl;
     file << "\t\"description\" : \"This is a " << operationType << " account for Tiramisu\"," << endl;
-    file << "\t\"image\": \"" << url << cur << ".json\"" << endl;
+    file << "\t\"image\": \"" << url << cur << ".png\"" << endl;
     file << "}" << endl;
 }
 int main()
@@ -47,7 +47,6 @@ int main()
             execTimes = PATIENT_ACCOUNT;
         }
 
-        // build folder
         string folderPath = operationType;
         buildFolder(folderPath);
 
