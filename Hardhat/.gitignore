@@ -17,6 +17,8 @@ deployments
 v8-compile-cache-1000
 core-js-banners
 
+# c/cpp
+*.exe
 
 
 
