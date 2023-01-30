@@ -18,7 +18,7 @@ contract MedicalStaff is Ownable, ERC721("MedicalStaff", "MS") {
     uint256 public constant MAX_SUPPLY = 10;
     uint256 public constant MAX_BALANCE = 1;
 
-    string private constant BASE_URI = "test/";
+    string private constant BASE_URI = "https://ipfs.io/ipfs/Qma66NSZSdrbapcVLW1LteW3gARiChrEh4bthbE2y9mpNC/";
     string private constant BASE_Extension = ".json";
 
     mapping (uint256 => string) _tokenURIs;
