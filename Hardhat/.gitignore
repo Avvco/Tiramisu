@@ -20,8 +20,9 @@ core-js-banners
 # c/cpp
 *.exe
 
+# ERC721
+image/medical/
+image/patient/
 
-
-
-
-
+# Address save
+/address
