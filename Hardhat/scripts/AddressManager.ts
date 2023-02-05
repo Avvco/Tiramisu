@@ -4,15 +4,28 @@ import * as path from 'path';
 let basePath: string = "./address/";
 
 export async function saveContractAddress(contractKey:string, contractAddress: string) {
-    console.log("Start store.")
+    console.log("Start save.")
     
-    let storePath: string = basePath + contractKey + "-address.txt";
+    let storePath: string = basePath + contractKey + "-address.ts";
     console.log(storePath);
+    console.log(contractKey);
+    console.log(contractAddress);
+    
+    let variableName;
+    if(contractKey == "medical"){
+        variableName = "MEDICAL_ADDRESS";
+    }
+    else if(contractKey == "patient"){
+        variableName = "PATIENT_ADDRESS";
+    }
+    else{
+        variableName = "VERIFIER_ADDRESS";
+    }
 
-    let data: string = contractKey + ":" + contractAddress;
+    let data = "export const " + variableName + " = \"" + contractAddress + "\"";
     fsPromises.writeFile(
         storePath,
-        contractAddress
+        data
     );
 
     console.log("End.")

@@ -41,3 +41,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Contract Address
+/src/app/user/util/contract/address

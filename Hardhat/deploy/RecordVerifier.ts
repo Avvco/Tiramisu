@@ -1,7 +1,7 @@
 import {HardhatRuntimeEnvironment} from 'hardhat/types';
 import {DeployFunction} from 'hardhat-deploy/types';
 
-import { saveFrontendFiles } from '../script/save-address'
+import { saveContractAddress } from '../scripts/AddressManager'
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const {deployments, getNamedAccounts} = hre;
@@ -21,7 +21,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     );
   }
 
-  await saveFrontendFiles("verifier", deployed.address);
+  await saveContractAddress("verifier", deployed.address);
 };
 export default func;
 func.tags = ['RecordVerifier'];

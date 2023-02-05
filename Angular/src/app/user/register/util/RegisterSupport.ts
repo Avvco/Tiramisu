@@ -26,11 +26,9 @@ export async function getETHAddress() {
         } else {
           // Get the first account
           var account = accounts[0];
-          console.log("Current account:", account);
+          // console.log("Current account:", account);
         }
       });
-
-      console.log(address);
 
       return address;
     }

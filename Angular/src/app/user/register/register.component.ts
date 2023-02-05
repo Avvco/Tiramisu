@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 import { POST_REGISTER_API } from '../util/APIHandler';
 import { getETHAddress } from './util/RegisterSupport';
-
+import { registerHealthWorker, registerPatient } from '../util/contract/ContractSupportRegister';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -47,14 +47,21 @@ export class RegisterComponent implements OnInit {
         ethAddress: address[0]
       }
 
-      POST_REGISTER_API(data)
-        .then((res) => {
-          console.log(res);
-          this.router.navigate(['/user/home']);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if(data.type == "HEALTH_WORKER"){
+        await registerHealthWorker();
+      }
+      else{
+        await registerPatient();
+      }
+      
+      // POST_REGISTER_API(data)
+      //   .then((res) => {
+      //     console.log(res);
+      //     this.router.navigate(['/user/home']);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
     else {
       console.log("died");
