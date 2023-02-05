@@ -3,7 +3,7 @@ import * as path from 'path';
 
 let basePath: string = "./address/";
 
-export async function saveFrontendFiles(contractKey:string, contractAddress: string) {
+export async function saveContractAddress(contractKey:string, contractAddress: string) {
     console.log("Start store.")
     
     let storePath: string = basePath + contractKey + "-address.txt";
@@ -16,5 +16,17 @@ export async function saveFrontendFiles(contractKey:string, contractAddress: str
     );
 
     console.log("End.")
+}
+
+export async function getContractAddress(contract: string) {
+    let path = basePath + contract + "-address.txt";
+    fsPromises.readFile(path)
+    .then(function(result) {
+      console.log(""+result);
+      return result;
+    })
+    .catch(function(error) {
+       console.log(error);
+    })
 }
 
