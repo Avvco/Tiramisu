@@ -1,7 +1,7 @@
 import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 
-let basePath: string = "./address/";
+let basePath: string = "./scripts/address/";
 
 export async function saveContractAddress(contractKey:string, contractAddress: string) {
     console.log("Start save.")
