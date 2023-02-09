@@ -25,4 +25,3 @@ exec tmux new-session \; \
       split-window -h \; \
       send-keys 'docker-compose logs -f angular-server hardhat' C-m \; \
       select-pane -t 0 \; \
-
