@@ -1,15 +1,14 @@
 import { MEDICAL_ADDRESS } from './address/medical-address';
 import { PATIENT_ADDRESS } from './address/patient-address';
 
-import {testABI} from './MedicalStaff';
-
+import { test } from '../contract/MedicalStaff'
 import Web3 from 'web3';
 
 export async function registerHealthWorker() {
     console.log("Register health worker now.");
 
-    testABI();
-
+    let res = await test();
+    console.log("caller:", await test());
 }
 
 export async function registerPatient() {

@@ -12,7 +12,7 @@ declare global {
 
 export async function getETHAddress() {
   if (typeof window.ethereum != 'undefined') {
-    console.log("Already install metamask");
+    // console.log("Already install metamask");
     try {
       const PROVIDER: any = window.ethereum;
       await PROVIDER.enable();
