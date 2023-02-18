@@ -23,17 +23,18 @@ contract MedicalStaff is Ownable, ERC721("MedicalStaff", "MS") {
 
     mapping (uint256 => string) _tokenURIs;
 
+    function userBalance(address user) public view returns(uint256) {
+        return balanceOf(user);
+    }
+    
     function currentAccountID() public view returns (uint256) {
         return _medicalAccountCounter.current();
     }
 
     function registerMedicalAccount(address register) public onlyOwner {
-        require(
-            balanceOf(msg.sender) < MAX_BALANCE,
-            "This account already been registe."
-        );
-
-        _mintForRegister(register);
+        if(balanceOf(register) < MAX_BALANCE){
+          _mintForRegister(register);
+        }
     }
 
     function getTokenURI(uint256 tokenID) public view virtual returns(string memory){
