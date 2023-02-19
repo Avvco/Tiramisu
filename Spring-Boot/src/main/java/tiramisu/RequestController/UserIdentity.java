@@ -67,14 +67,20 @@ public class UserIdentity {
     }),
     @ApiResponse(responseCode = "400", description = "Bad Request", content = {
       @Content()
+    }),
+    @ApiResponse(responseCode = "409", description = "User already exist", content = {
+      @Content()
     })
   })
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public Mono<ResponseEntity<Void>> register(@Valid @RequestBody Register_Json json) {
+    
+    userDAO.findByUserNameAndType(json.getUserName(), json.getType()).ifPresent(c -> {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists.");
+    });
 
     User user = common.classMapping(json, User.class);
     user.setHashedPassword(DigestUtils.sha256Hex(json.getPassword()));
-    
     userDAO.save(user);
     
     return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
