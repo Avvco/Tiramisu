@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import tiramisu.DataBase.DAO.UserDAO;
 import tiramisu.DataBase.DAO.User_AuthorizationDAO;
 import tiramisu.DataBase.DTO.User;
-import tiramisu.DataBase.DTO.User_Authorization;
-import tiramisu.RequestController.Common;
 
 @Service
 @Slf4j
@@ -32,9 +29,6 @@ public class Permission_Control_Service {
 
   @Autowired
   private User_AuthorizationDAO uaDAO;
-
-  @Autowired
-  private Common common;
 
   private PermissionTableList permissionList = new PermissionTableList();
   
@@ -56,26 +50,14 @@ public class Permission_Control_Service {
   public boolean pre_permissionControl(String token, String method, String url) {
     if(!requireForPrePermission(method, url)) return true;
 
-    List<User_Authorization> foundUa = uaDAO.findByToken(token);
-    User user = null;
-
-    // check authorization token
-    if(foundUa.size() > 0) {
-      User_Authorization _ua = foundUa.get(0);
-      if(_ua.getExpireTime().isAfter(Instant.now())) {
-        // user has an active authorization
-        common.extendAuthorization(_ua);
-        List<User> foundUser = userDAO.findByUserAuthorization(_ua);
-        user = foundUser.get(0);
-      } else {
-        return false;
+    return uaDAO.findByToken(token).map(c -> {
+      if(c.getExpireTime().isAfter(Instant.now())) {
+        return userDAO.findByUserAuthorization(c).map(d -> {
+          return d.getType().equals(User.UserType.HEALTH_WORKER);
+        }).orElse(false);
       }
-    }else {
       return false;
-    } 
-    
-    if(user.getType().equals(User.UserType.HEALTH_WORKER)) return true;
-    return false;
+    }).orElse(false);
   }
 
   /**
@@ -87,8 +69,6 @@ public class Permission_Control_Service {
    */
   public boolean after_permissionControl(Map<String, String> header, String method, String url) {
     return true;
-
-    
   }
 
   private boolean requireForPrePermission(String method, String url) {

@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,52 +102,50 @@ public class UserIdentity {
     })
   })
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<Login_Response> login(@Valid @RequestBody Login_Json json) throws NoSuchAlgorithmException {
-
-    List<User> foundUser = userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), json.getType());
-
-    // user not found in database
-    if(foundUser.size() == 0) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-    if(foundUser.size() > 1) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Multiple user found");
-
-    User _user = foundUser.get(0);
-
-    if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(json.getPassword()))) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-
-    log.info("User " + _user.getUserName() + " logged in.");
-
-    // prevent when first time login, the user authorization is not created.
-    if(_user.getUserAuthorization() != null) {
-      // check if user has an active authorization
-      List<User_Authorization> foundUa = uaDAO.findByUserAuthorizationId(_user.getUserAuthorization().getUserAuthorizationId());
-      if(foundUa.size() > 0) {
-        User_Authorization _ua = foundUa.get(0);
-        if(_ua.getExpireTime().isAfter(Instant.now())) {
+  public Mono<User_Authorization> login(@Valid @RequestBody Login_Json json) throws NoSuchAlgorithmException {
+    return userDAO.findByUserNameAndEmailAndType(json.getUserName(), json.getEmail(), json.getType()).map(_user -> {
+      // user password incorrect
+      if(!_user.getHashedPassword().equals(DigestUtils.sha256Hex(json.getPassword()))) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password incorrect.");
+      log.info("User " + _user.getUserName() + " logged in.");
+      return Mono.justOrEmpty(Optional.ofNullable(_user.getUserAuthorization())
+        .map(ua -> {
           // user has an active authorization
-          common.extendAuthorization(_ua);
-          return Mono.just(common.classMapping(_ua, Login_Response.class));
+          if(ua.getExpireTime().isAfter(Instant.now())) {
+            common.extendAuthorization(ua);
+            return ua;
+          }
+          // user has an expired authorization
+          uaDAO.delete(ua);
+          return new User_Authorization();
+      }).orElseGet(() -> {
+          return new User_Authorization();
+      }))
+      .flatMap(ua -> {
+        if(Optional.ofNullable(ua.getToken()).isPresent()) return Mono.just(ua);
+        // issue new token
+        String _p1 = "";
+        try {
+          _p1 = String.valueOf(Math.abs(SecureRandom.getInstanceStrong().nextLong()));
+        } catch (NoSuchAlgorithmException e) {
+          e.printStackTrace();
         }
-        uaDAO.delete(_ua);
-      }
-    }
-    
-    // calculate new hash
-    String _p1 = String.valueOf(Math.abs(SecureRandom.getInstanceStrong().nextLong()));
-    //_p1 = _p1 + _user.getUserName() + _user.getIdNumber();
-    _p1 = _p1 + _user.getUserName();
-    
-    String sha256hex = DigestUtils.sha256Hex(_p1);
+        _p1 = _p1 + _user.getUserId();
 
-    Instant instantNow = Instant.now();
+        String sha256hex = DigestUtils.sha256Hex(_p1);
+        Instant instantNow = Instant.now();
 
-    User_Authorization ua = new User_Authorization();
-    ua.setToken(sha256hex);
-    ua.setExpireTime(instantNow);
-    uaDAO.save(ua);
-    _user.setUserAuthorization(ua);
-    userDAO.save(_user);
-    common.extendAuthorization(ua);
-    return Mono.just(common.classMapping(ua, Login_Response.class));
+        //User_Authorization ua = new User_Authorization();
+        ua.setToken(sha256hex);
+        ua.setExpireTime(instantNow);
+        uaDAO.save(ua);
+        _user.setUserAuthorization(ua);
+        userDAO.save(_user);
+        common.extendAuthorization(ua);
+        return Mono.just(ua);
+      });
+    }).orElseGet(() -> {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not exist.");
+    });
   }
 
   @Operation(summary = "Logout", security = @SecurityRequirement(name = "Authorization"))
@@ -163,15 +162,17 @@ public class UserIdentity {
   })
   @GetMapping("/logout")
   public Mono<ResponseEntity<Object>> logout(@Parameter(hidden  = true) @RequestHeader("Authorization") String token) {
-    log.info("User with token " + token + " logged out.");
-    List<User_Authorization> foundUa = uaDAO.findByToken(token);
-    if(foundUa.size() > 0) {
-      User_Authorization _ua = foundUa.get(0);
-      _ua.setExpireTime(Instant.now());
-      uaDAO.save(_ua);
-      return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
-    }
-    return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    return Mono.justOrEmpty(uaDAO.findByToken(token).map(c -> {
+      if(c.getExpireTime().isBefore(Instant.now())) {
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not logged in.");
+      }
+      c.setExpireTime(Instant.now());
+      uaDAO.save(c);
+      log.info("User with token " + token + " logged out.");
+      return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }).orElseGet(() -> {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No user found.");
+    }));
   }
 
 
