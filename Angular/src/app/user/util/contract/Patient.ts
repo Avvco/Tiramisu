@@ -6,9 +6,9 @@ import { ethers, Wallet } from 'ethers';
 let contractAddress = MEDICAL_ADDRESS;
 let contractABI = [
     "function currentAccountID() public view returns (uint256)",
-    "function registerMedicalAccount(address) public",
+    "function registerPatientAccount(address) public",
     "function getTokenURI(uint256) public view returns(string memory)",
-    "function isMedicalStaff(address) public view returns (bool)"
+    "function isPatient(address) public view returns (bool)"
 ];
 
 let providers = new ethers.providers.JsonRpcProvider('https://hardhat.tiramisu.localhost/');
@@ -19,21 +19,7 @@ let deployPkey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2
 let signer = new Wallet(deployPkey, providers);
 
 export async function test() {
-    let addr = await getETHAddress();
-    addr = addr[0];
-    console.log(addr);
 
-    let cid = await currentAccountID();
-    console.log("ub:", cid);
-
-    let reg = await registerMedicalAccount(addr);
-    console.log("reg:", reg);
-    
-    let judge = await isMedicalStaff(addr);
-    console.log("jud:", judge);
-
-    cid = await currentAccountID();
-    console.log("ub:", cid.toNumber());
 }
 
 export async function currentAccountID() {
@@ -46,20 +32,20 @@ export async function currentAccountID() {
     return res;
 }
 
-export async function registerMedicalAccount(address: string) {
+export async function registerPatientAccount(address: string) {
     // console.log("registerMedicalAccount in.");
 
-    let res = await contract.connect(signer)['registerMedicalAccount'](address);
+    let res = await contract.connect(signer)['registerPatientAccount'](address);
     // console.log("registerMedicalAccount res:", res);
 
     // console.log("registerMedicalAccount out.");
     return res;
 }
 
-export async function isMedicalStaff(address: string) {
+export async function isPatient(address: string) {
     // console.log("isMedicalStaff in.");
 
-    let res = await contract.connect(signer)['isMedicalStaff'](address);
+    let res = await contract.connect(signer)['isPatient'](address);
     // console.log("isMedicalStaff res:", res);
 
     // console.log("isMedicalStaff out.");

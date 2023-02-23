@@ -27,13 +27,10 @@ contract Patient is Ownable, ERC721("MedicalStaff", "MS") {
         return _patientAccountCounter.current();
     }
 
-    function registerPatientAccount() public onlyOwner {
-        require(
-            balanceOf(msg.sender) < MAX_BALANCE,
-            "This account already been registe."
-        );
-
-        _mintForRegister();
+    function registerPatientAccount(address register) public onlyOwner {
+        if(balanceOf(register) < MAX_BALANCE){
+          _mintForRegister(register);
+        }
     }
 
     function getTokenURI(uint256 tokenID) public view virtual returns(string memory){
@@ -50,13 +47,13 @@ contract Patient is Ownable, ERC721("MedicalStaff", "MS") {
         return string(abi.encodePacked(BASE_URI, tokenID.toString(), BASE_Extension));
     }
 
-    function isPatient() public view returns (bool) {
-        return (balanceOf(msg.sender) == 1);
+    function isPatient(address register) public view returns (bool) {
+        return (balanceOf(register) == 1);
     }
 
-    function _mintForRegister() private {
+    function _mintForRegister(address register) private {
         uint256 tokenID = currentAccountID();
         _patientAccountCounter.increment();
-        _safeMint(msg.sender, tokenID);
+        _safeMint(register, tokenID);
     }
 }

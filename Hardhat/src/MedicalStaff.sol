@@ -22,10 +22,6 @@ contract MedicalStaff is Ownable, ERC721("MedicalStaff", "MS") {
     string private constant BASE_Extension = ".json";
 
     mapping (uint256 => string) _tokenURIs;
-
-    function userBalance(address user) public view returns(uint256) {
-        return balanceOf(user);
-    }
     
     function currentAccountID() public view returns (uint256) {
         return _medicalAccountCounter.current();
