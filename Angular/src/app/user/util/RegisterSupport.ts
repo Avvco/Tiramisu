@@ -8,6 +8,9 @@ export async function registerHealthWorker(data: any, caller: any) {
   console.log("Register health worker now.");
   let userAddr = data.ethAddress;
   let isStaff = await isMedicalStaff(userAddr);
+
+  console.log("TEST:", data)
+
   if (!isStaff) {
     sendDataToDataBase(data, caller);
     let reg = await registerMedicalAccount(userAddr);
@@ -17,12 +20,13 @@ export async function registerHealthWorker(data: any, caller: any) {
   }
 }
 
-export async function registerPatient(data:any, caller:any) {
+export async function registerPatient(data: any, caller: any) {
   console.log("Register patient now.");
   let userAddr = data.ethAddress;
-  let isPatien = await isPatient(userAddr);
 
-  if (!isPatien) {
+  let _isPatient = await isPatient(userAddr);
+
+  if (!_isPatient) {
     sendDataToDataBase(data, caller);
     let reg = await registerPatientAccount(userAddr);
   }

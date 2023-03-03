@@ -37,41 +37,22 @@ export async function test() {
 }
 
 export async function currentAccountID() {
-    // console.log("currentAccountID in.");
 
     let res = await contract['currentAccountID']();
-    // console.log("currentAccountID res:", res);
-
-    // console.log("currentAccountID out.");
     return res;
 }
 
 export async function registerMedicalAccount(address: string) {
-    // console.log("registerMedicalAccount in.");
-
     let res = await contract.connect(signer)['registerMedicalAccount'](address);
-    // console.log("registerMedicalAccount res:", res);
-
-    // console.log("registerMedicalAccount out.");
     return res;
 }
 
 export async function isMedicalStaff(address: string) {
-    // console.log("isMedicalStaff in.");
-
     let res = await contract.connect(signer)['isMedicalStaff'](address);
-    // console.log("isMedicalStaff res:", res);
-
-    // console.log("isMedicalStaff out.");
     return res;
 }
 
 export async function getTokenURI(tokenID: any) {
-    // console.log("getTokenURI in.");
-
     let res = await contract['getTokenURI'](tokenID);
-    // console.log("isMedicalStaff res:", res);
-    
-    // console.log("getTokenURI out.");
     return res;
 }

@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   async submit() {
     if (this.registerForm.valid) {
       let address: any = await getETHAddress();
-      
+
       let data = {
         type: this.registerForm.value.type,
         userName: this.registerForm.value.userName,
@@ -46,22 +46,13 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email,
         ethAddress: address[0]
       }
-      console.log(address);
-      if(data.type == "HEALTH_WORKER"){
+
+      if (data.type == "HEALTH_WORKER") {
         await registerHealthWorker(data, this);
       }
-      else{
+      else {
         await registerPatient(data, this);
       }
-      
-      // POST_REGISTER_API(data)
-      //   .then((res) => {
-      //     console.log(res);
-      //     this.router.navigate(['/user/home']);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     }
     else {
       console.log("died");
