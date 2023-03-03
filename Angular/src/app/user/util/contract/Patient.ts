@@ -1,6 +1,6 @@
 import { PATIENT_ADDRESS } from './address/patient-address';
 
-import { getETHAddress } from '../../register/util/RegisterSupport';
+import { getETHAddress } from './address/userAddress';
 import { ethers, Wallet } from 'ethers';
 
 let contractAddress = PATIENT_ADDRESS;

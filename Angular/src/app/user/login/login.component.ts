@@ -6,7 +6,10 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
 import { setAccessToken } from '../util/UserTokenHandler';
-import {POST_LOGIN_API} from '../util/APIHandler';
+import { POST_LOGIN_API } from '../util/APIHandler';
+import { getETHAddress } from '../util/contract/address/userAddress';
+
+import { loginHealthWorker, loginPatient } from '../util/LoginSupport';
 
 @Component({
   selector: 'app-login',
@@ -18,18 +21,18 @@ import {POST_LOGIN_API} from '../util/APIHandler';
 export class LoginComponent implements OnInit {
 
   public loginForm!: FormGroup;
-  
+
   private _requestUrl: string = "https://spring-boot.tiramisu.localhost"
 
   login$: Observable<boolean> | undefined;
-  constructor(private router: Router, private fb: FormBuilder){
+  constructor(private router: Router, private fb: FormBuilder) {
 
   }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       type: ['', Validators.required],
-      userName: ['', Validators.required], 
+      userName: ['', Validators.required],
       password: ['', Validators.required], //, Validators.pattern('^[a-zA-Z0-9-_]{5,20}')
       email: ['', [Validators.required, Validators.email]]
     })
@@ -40,34 +43,28 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
   get email() { return this.loginForm.get('email') }
 
-  submit() {
+  async submit() {
     if (this.loginForm.valid) {
       localStorage.setItem('login', 'true');
 
-      let login = this;
-      POST_LOGIN_API(this.loginForm.value)
-        .then((res) => {
-          console.log(res);
-          setAccessToken(res.data.token);
-          login._routerLink(res.status);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    else{
-      console.log("died");
-    }
-  }
+      let address: any = await getETHAddress();
+      let data = {
+        type: this.loginForm.value.type,
+        userName: this.loginForm.value.userName,
+        password: this.loginForm.value.password,
+        email: this.loginForm.value.email,
+        ethAddress: address[0]
+      }
 
-  private _routerLink(status: number){
-    console.log(status);
-    if(status == 200){
-      console.log("success");
-      this.router.navigate(['/user/record']);
+      if (data.type == "HEALTH_WORKER") {
+        await loginHealthWorker(data, this);
+      }
+      else {
+        await loginPatient(data, this);
+      }
     }
-    else{
-      console.log("failed");
+    else {
+      console.log("died");
     }
   }
 }
