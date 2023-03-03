@@ -1,9 +1,9 @@
-import { MEDICAL_ADDRESS } from './address/medical-address';
+import { PATIENT_ADDRESS } from './address/patient-address';
 
 import { getETHAddress } from '../../register/util/RegisterSupport';
 import { ethers, Wallet } from 'ethers';
 
-let contractAddress = MEDICAL_ADDRESS;
+let contractAddress = PATIENT_ADDRESS;
 let contractABI = [
     "function currentAccountID() public view returns (uint256)",
     "function registerPatientAccount(address) public",
