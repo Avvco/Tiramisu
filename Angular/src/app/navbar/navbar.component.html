@@ -1,7 +1,8 @@
 <div [style.background]="(login$ | async) ? '#492b20' : '#A49380'" class="navbar">
     <a button routerLink="/" class="home">首頁</a>
     <span class="to-right"></span>
-    <a button *ngIf="(login$ | async)" routerLink="/user/login" class="login">會員登入</a>
-    <a button *ngIf="(login$ | async)" routerLink="/user/register" class="login">會員註冊</a>
+    <a button *ngIf="(login$ | async)" (click)="login()" class="login">會員登入</a>
+    <a button *ngIf="(login$ | async)" (click)="register()" class="login">會員註冊</a>
     <a button *ngIf="!(login$ | async)" (click)="logout()">會員登出</a>
 </div>
+<div *ngIf="(picshow$ | async)" class="picture"> <img src="../../assets/images/main.png" style="width:150%; padding-left: 20%;"> </div>
