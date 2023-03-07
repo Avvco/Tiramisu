@@ -207,11 +207,11 @@ public class UserIdentity {
   @Scheduled(fixedDelay=600000)
   @Async
   // this method will remove the unassociated expired authorization.
-  public void removeExpiredAuthorization() {
+  void removeExpiredAuthorization() {
     List<User_Authorization> foundUa = uaDAO.findAll(); 
     for(User_Authorization ua : foundUa) {
       if(ua.getExpireTime().isBefore(Instant.now())) {
-        uaDAO.delete(ua);
+        uaDAO.delete(ua); 
       }
     }
     log.info("Expired authorization removed.");

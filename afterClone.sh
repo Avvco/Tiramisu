@@ -59,7 +59,7 @@ chown -R $(logname) $PWD
 printf "DONE\n\n"
 
 # Delete DataBase-related files
-printf "\n===== Delete MySQL-related files =====\n"
+printf "\n===== Delete DataBase-related files =====\n"
 rm -rf /db
 printf "DONE\n\n"
 
@@ -76,7 +76,7 @@ docker run -it --rm -v $PWD/Angular:/tmp -w /tmp node npm install
 docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp node npm install --legacy-peer-deps
 
 # Delete DataBase-related files again to prevent potential incomplete initialization caused by docker-compose up above
-printf "\n===== Delete MySQL-related files again =====\n"
+printf "\n===== Delete DataBase-related files again =====\n"
 rm -rf /db
 printf "DONE\n\n"
 

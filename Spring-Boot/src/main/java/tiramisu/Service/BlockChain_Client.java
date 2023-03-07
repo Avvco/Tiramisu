@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@SuppressWarnings({"unchecked", "rawtypes", "null"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BlockChain_Client {
 
   @Value("${blockchain.dev.contract.address}")

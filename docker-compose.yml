@@ -21,21 +21,15 @@ services:
       - spring-boot-reloader
     command: [ "bash", "./bootRun.sh" ]
 
-  # Comes from https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/docker-compose.yml
-  spring-boot-mysql:
-    image: mysql:latest
-    container_name: spring-boot-mysql
-    # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
-    command: --lower_case_table_names=1
+  spring-boot-postgres:
+    image: postgres:latest
+    container_name: spring-boot-postgres
     environment:
-      MYSQL_DATABASE: 'spring'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'admin'
-      MYSQL_ROOT_PASSWORD: 'admin'
+      POSTGRES_PASSWORD: password
     depends_on:
       - spring-boot
     volumes:
-      - /db/spring-boot-mysql:/var/lib/mysql
+      - /db/spring-boot-postgres:/var/lib/postgresql/data
 
   hapi-fhir:
     image: hapiproject/hapi:latest
@@ -45,35 +39,25 @@ services:
     environment:
      SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
 
-  # Comes from https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/master/docker-compose.yml
-  hapi-fhir-mysql:
-    image: mysql:latest
-    container_name: hapi-fhir-mysql
-    # case-sensitive, https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html
-    command: --lower_case_table_names=1
+  hapi-fhir-postgres:
+    image: postgres:latest
+    container_name: hapi-fhir-postgres
     environment:
-      MYSQL_DATABASE: 'hapi'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'admin'
-      MYSQL_ROOT_PASSWORD: 'admin'
+      POSTGRES_PASSWORD: password
     depends_on:
       - hapi-fhir
     volumes:
-      - /db/hapi-fhir-mysql:/var/lib/mysql
+      - /db/hapi-fhir-postgres:/var/lib/postgresql/data
 
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpMyAdmin
-    environment:
-      PMA_ARBITRARY: 1
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'admin'
-      MYSQL_ROOT_PASSWORD: 'admin'
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 64550:8080
     depends_on:
-      - hapi-fhir-mysql
-      - spring-boot-mysql
-
+      - spring-boot-postgres
+      - hapi-fhir-postgres
 
   hardhat:
     build:
@@ -111,4 +95,4 @@ services:
     depends_on:
       - angular-server
       - hardhat
-      - phpmyadmin
+      - adminer

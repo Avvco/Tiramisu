@@ -59,21 +59,25 @@ You need to have:
 
 - URL: <http://hardhat.tiramisu.localhost>
 
-### phpMyAdmin
+### Adminer
 
-- URL: <http://phpMyAdmin.tiramisu.localhost>
+- URL: <http://adminer.tiramisu.localhost>
 
 #### For HAPI-FHIR
 
-- Server: `hapi-fhir-mysql`
-- Username: `admin`
-- Password: `admin`
+- System: `PostgreSQL`
+- Server: `hapi-fhir-postgres`
+- Username: `postgres`
+- Password: `password`
+- Database: leave it empty
 
 #### For Spring-Boot
 
-- Server: `spring-boot-mysql`
-- Username: `admin`
-- Password: `admin`
+- System: `PostgreSQL`
+- Server: `spring-boot-postgres`
+- Username: `postgres`
+- Password: `password`
+- Database: leave it empty
 
 ## Inter Container Networking
 
