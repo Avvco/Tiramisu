@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
   get email() { return this.loginForm.get('email') }
 
+  register() {
+    this.router.navigate(['/user/register']);
+}
+
   async submit() {
     if (this.loginForm.valid) {
       localStorage.setItem('login', 'true');
