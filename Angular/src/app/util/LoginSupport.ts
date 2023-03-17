@@ -1,7 +1,7 @@
 import { isMedicalStaff } from './contract/MedicalStaff'
 import { isPatient } from './contract/Patient'
 
-import { setAccessToken } from '../util/UserTokenHandler';
+import { setAccessToken } from './UserTokenHandler';
 import { POST_LOGIN_API } from './APIHandler';
 
 

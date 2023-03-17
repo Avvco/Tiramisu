@@ -16,7 +16,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-
   h1,
   h2,
   h3,
@@ -29,16 +28,6 @@
   p {
     margin: 0;
   }
-
-  .spacer {
-    flex: 1;
-  }
-
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
   .content {
     display: flex;
     margin: 82px auto 32px;
@@ -58,63 +47,72 @@
   a:hover {
     color: #125699;
   }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-
-    .card-container>*:not(.circle-link),
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
 </style>
 
 <!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <!--
-    <img    width="40"
-      alt="Angular Logo"
-      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-    />
-    -->
+<!-- <div class="toolbar" role="banner">
   <span style="text-align:center; font-size: 28px; margin-left: 20px;">FHIR </span>
-</div>
-
-<div class="content" role="main">
+</div> -->
+<section class="ftco-section" role="main">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Login to FHIR</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="login-wrap p-0">
+          <h3 class="mb-4 text-center">Have an account?</h3>
+          <form method="post" action="" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate class="signin-form">
+            <div class="form-group">
+              <table>
+                <tr>
+                  <td class="td_left"><input type="radio" value="PATIENT" name="type" formControlName="type"/>個人</td>
+                  <td class="td_right"><input type="radio" value="HEALTH_WORKER" name="type" formControlName="type"/>醫護人員</td>
+                </tr>
+              </table>
+            </div>
+            <div class="form-group ">
+              <input type="text" class="form-control" placeholder="Username" required name="userName" id="userName"
+              formControlName="userName">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" required
+              name="password" id="password" formControlName="password">
+              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" id="email" placeholder="email" required
+              formControlName="email" class="form-control">
+              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+            </div>
+            <div class="form-group d-md-flex">
+              <div class="w-50">
+                <label class="checkbox-wrap checkbox-primary">Remember Me
+                  <input type="checkbox" checked>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="w-50 text-md-right">
+                <a href="#" style="color: #fff">Forgot Password</a>
+              </div>
+            </div>
+          </form>
+          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+          <div class="social d-flex text-center">
+            <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+            <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <div class="content" role="main">
   <div class="login_frame">
     <div class="rg_left">
       <p>登入帳號</p>
@@ -152,14 +150,12 @@
         </table>
       </form>
     </div>
-    <!--
       <div class="login_a">
         <a>已有帳號？</a>
       </div>
-      -->
   </div>
 
-</div>
+</div> -->
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
-import { LoginComponent } from './login/login.component';
 
 import { RecordComponent } from './record/record.component';
 import { RegisterComponent } from './register/register.component';
@@ -11,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    LoginComponent,
     RecordComponent,
     RegisterComponent
   ],

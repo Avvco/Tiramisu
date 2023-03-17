@@ -4,9 +4,9 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { POST_REGISTER_API } from '../util/APIHandler';
-import { getETHAddress } from '../util/contract/address/userAddress';
-import { registerHealthWorker, registerPatient } from '../util/RegisterSupport';
+import { POST_REGISTER_API } from '../../util/APIHandler';
+import { getETHAddress } from '../../util/contract/address/userAddress';
+import { registerHealthWorker, registerPatient } from '../../util/RegisterSupport';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
