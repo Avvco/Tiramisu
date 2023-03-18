@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   get email() { return this.loginForm.get('email') }
 
   register() {
-    this.router.navigate(['/user/register']);
+    this.router.navigate(['../user/register']);
 }
 
   async submit() {

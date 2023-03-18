@@ -1,5 +1,5 @@
 .toolbar {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -14,6 +14,7 @@
 .content {
     display: flex;
     margin: 82px auto 32px;
+    top: 0%;
     left: 0;
     right: 0;
     padding: 0 16px;
@@ -30,6 +31,10 @@
     border-radius: 10px;
     text-align: left;
     margin: auto;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 .title {
     text-align: center;
