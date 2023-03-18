@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
+import { removeAccessToken } from 'src/app/util/UserTokenHandler';
 
 @Component({
   selector: 'app-record',
@@ -98,6 +99,7 @@ export class RecordComponent implements OnInit {
       .then((res) => {
         console.log(res);
         this.login$ = of(false);
+        removeAccessToken();
       })
       .catch((err) => {
         console.log(err);

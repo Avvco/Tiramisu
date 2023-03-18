@@ -1,7 +1,7 @@
 import { isMedicalStaff } from './contract/MedicalStaff'
 import { isPatient } from './contract/Patient'
 
-import { setAccessToken } from './UserTokenHandler';
+import { setAccessToken, getAccessToken } from './UserTokenHandler';
 import { POST_LOGIN_API } from './APIHandler';
 
 
@@ -33,25 +33,10 @@ export async function loginPatient(data: any, caller: any) {
 
 }
 
-function sendDataToDataBase(data: any, caller: any) {
-  POST_LOGIN_API(caller.loginForm.value)
-    .then((res) => {
-      console.log(res);
-      setAccessToken(res.data.token);
-      _routerLink(res.status, caller);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-function _routerLink(status: number, caller: any) {
-  console.log(status);
-  if (status == 200) {
-    console.log("success");
-    caller.router.navigate(['/user/record']);
-  }
-  else {
-    console.log("failed");
-  }
+async function sendDataToDataBase(data: any, caller: any) {
+  const res = await POST_LOGIN_API(data);
+  console.log(res);
+  setAccessToken(res.data.token);
+  console.log(getAccessToken());
+  caller.router.navigate(['/user/record'])
 }
