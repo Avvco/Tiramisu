@@ -1,4 +1,4 @@
-import { PATIENT_ADDRESS } from './address/patient-address';
+import { PATIENT_ADDRESS } from './address/patientAddress';
 
 import { getETHAddress } from './address/userAddress';
 import { ethers, Wallet } from 'ethers';
