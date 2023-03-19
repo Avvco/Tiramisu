@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable , of} from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
+import { MerkleTree } from 'merkletreejs'
+import SHA256 from 'crypto-js/sha256';
+
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { removeAccessToken } from 'src/app/util/UserTokenHandler';
@@ -66,13 +69,40 @@ export class RecordComponent implements OnInit {
   addRecord(): void {
     console.log("addRecord");
 
-    POST_RECORD_API(this.record.value)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const data = ['data1', 'data2', 'data3', 'data4'];
+    const _data = ['data5', 'data6'];
+
+    const hashedData = data.map(d => SHA256(d).toString());
+    const baddData = _data.map(d => SHA256(d).toString());
+
+    const merkleTree = new MerkleTree(hashedData, SHA256);
+    const rootHash = merkleTree.getRoot().toString('hex');
+    const proof0 = merkleTree.getProof(hashedData[0]);
+    const proof1 = merkleTree.getProof(hashedData[1]);
+    const proof2 = merkleTree.getProof(hashedData[2]);
+    const proof3 = merkleTree.getProof(baddData[0]);
+
+    console.log('Root hash:', rootHash);
+    console.log('Proof0:', proof0);
+    console.log('Proof1:', proof1);
+    console.log('Proof2:', proof2);
+    console.log(merkleTree.verify(proof3, baddData[0], rootHash)) // true
+    console.log(merkleTree.verify(proof0, hashedData[0], rootHash)) // true
+
+
+    // const badLeaves = ['a', 'x', 'c'].map(x => SHA256(x))
+    // const badTree = new MerkleTree(badLeaves, SHA256)
+    // const badLeaf = SHA256('x')
+    // const badProof = badTree.getProof(badLeaf)
+    // console.log(badTree.verify(badProof, badLeaf, root)) // false
+
+    // POST_RECORD_API(this.record.value)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
   getRecord(): void {

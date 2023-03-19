@@ -24,8 +24,10 @@
     "@material-ui/core": "^4.12.4",
     "@metamask/providers": "^10.2.1",
     "axios": "^0.27.2",
+    "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
     "jquery": "^3.6.1",
+    "merkletreejs": "^0.3.9",
     "tslib": "^2.3.0",
     "web3": "^1.8.2",
     "zone.js": "~0.11.4"
@@ -34,6 +36,7 @@
     "@angular-devkit/build-angular": "^14.0.3",
     "@angular/cli": "~14.0.3",
     "@angular/compiler-cli": "^14.0.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/jasmine": "~4.0.0",
     "@types/jquery": "^3.5.14",
     "jasmine-core": "~4.1.0",
