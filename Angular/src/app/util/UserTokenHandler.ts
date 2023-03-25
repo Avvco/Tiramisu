@@ -8,6 +8,7 @@ export function getAccessToken(): string{
 }
 
 export function setAccessToken(value: string){
+  localStorage.removeItem(TOKEN);
   localStorage.setItem(TOKEN, value);
 }
 
