@@ -1,12 +1,12 @@
-import { PATIENT_ADDRESS } from './address/patientAddress';
+import { VERIFIER_ADDRESS } from './address/verifierAddress';
 
 import { getETHAddress } from './address/userAddress';
 import { ethers, Wallet } from 'ethers';
 
-let contractAddress = PATIENT_ADDRESS;
+let contractAddress = VERIFIER_ADDRESS;
 let contractABI = [
     "function setRecordRoot(bytes32) public",
-    "function getRecordRoot() public onlyOwner view returns(bytes32)",
+    "function getRecordRoot() public view returns(bytes32)",
     "function isValidRecord(bytes32[] calldata, bytes32) public view returns(bool)",
 ];
 
@@ -24,7 +24,7 @@ export async function test() {
 export async function getRecordRoot() {
     // console.log("currentAccountID in.");
 
-    let res = await contract['getRecordRoot']();
+    let res = await contract.connect(signer)['getRecordRoot']();
     // console.log("currentAccountID res:", res);
 
     // console.log("currentAccountID out.");

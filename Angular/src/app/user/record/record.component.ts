@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable , of} from "rxjs";
+import { Observable, of } from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { MerkleTree } from 'merkletreejs'
@@ -10,6 +10,8 @@ import SHA256 from 'crypto-js/sha256';
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { removeAccessToken } from 'src/app/util/UserTokenHandler';
+import { verifySingleMerkleData, verifyAllMerkleData, saveAllMerkleData } from 'src/app/util/RecordSupport';
+
 
 @Component({
   selector: 'app-record',
@@ -54,7 +56,7 @@ export class RecordComponent implements OnInit {
       postalCode: new FormControl('812'),
       country: new FormControl('TW')
     }),
-    
+
     active: new FormControl('true'),
 
     birthDate: new FormControl('')
@@ -66,28 +68,85 @@ export class RecordComponent implements OnInit {
     this.login$ = of(true);
   }
 
-  addRecord(): void {
+  async addRecord(): Promise<void> {
     console.log("addRecord");
+    let test = {
+      "fullUrl": "http://spring-boot.tiramisu.localhost/fhir/Patient/1",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2023-03-18T06:15:44.788+00:00",
+          "source": "#v6soiaaR1YmCg6xp"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">22342234 <b>2234 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>12345688</td></tr><tr><td>Address</td><td><span>大馬路999號 </span><br/><span>yumeow </span><span>TW </span></td></tr><tr><td>Date of birth</td><td><span>01 March 2023</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "use": "official",
+            "value": "12345688"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "2234",
+            "given": [
+              "22342234"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "9123456789",
+            "use": "mobile"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "2023-03-01",
+        "address": [
+          {
+            "use": "home",
+            "type": "physical",
+            "line": [
+              "大馬路999號"
+            ],
+            "city": "yumeow",
+            "district": "小港區",
+            "postalCode": "812",
+            "country": "TW"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+    await verifySingleMerkleData(test);
+    // const data = ['data1', 'data2', 'data3', 'data4'];
+    // const _data = ['data5', 'data6'];
 
-    const data = ['data1', 'data2', 'data3', 'data4'];
-    const _data = ['data5', 'data6'];
+    // const hashedData = data.map(d => SHA256(d).toString());
+    // const baddData = _data.map(d => SHA256(d).toString());
 
-    const hashedData = data.map(d => SHA256(d).toString());
-    const baddData = _data.map(d => SHA256(d).toString());
+    // const merkleTree = new MerkleTree(hashedData, SHA256);
+    // const rootHash = merkleTree.getRoot().toString('hex');
+    // const proof0 = merkleTree.getProof(hashedData[0]);
+    // const proof1 = merkleTree.getProof(hashedData[1]);
+    // const proof2 = merkleTree.getProof(hashedData[2]);
+    // const proof3 = merkleTree.getProof(baddData[0]);
 
-    const merkleTree = new MerkleTree(hashedData, SHA256);
-    const rootHash = merkleTree.getRoot().toString('hex');
-    const proof0 = merkleTree.getProof(hashedData[0]);
-    const proof1 = merkleTree.getProof(hashedData[1]);
-    const proof2 = merkleTree.getProof(hashedData[2]);
-    const proof3 = merkleTree.getProof(baddData[0]);
-
-    console.log('Root hash:', rootHash);
-    console.log('Proof0:', proof0);
-    console.log('Proof1:', proof1);
-    console.log('Proof2:', proof2);
-    console.log(merkleTree.verify(proof3, baddData[0], rootHash)) // true
-    console.log(merkleTree.verify(proof0, hashedData[0], rootHash)) // true
+    // console.log('Root hash:', rootHash);
+    // console.log('Proof0:', proof0);
+    // console.log('Proof1:', proof1);
+    // console.log('Proof2:', proof2);
+    // console.log(merkleTree.verify(proof3, baddData[0], rootHash)) // true
+    // console.log(merkleTree.verify(proof0, hashedData[0], rootHash)) // true
 
 
     // const badLeaves = ['a', 'x', 'c'].map(x => SHA256(x))
@@ -110,19 +169,19 @@ export class RecordComponent implements OnInit {
     let searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
     GET_RECORD_API(searchVal)
-    .then((res) => {
-      console.log(res);
-      console.log("in set?")
-      const form_setter = new FormSetter(res.data);
-      console.log("end constructor")
-      form_setter.setForm();
-      console.log("set end")
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        console.log(res);
+        console.log("in set?")
+        const form_setter = new FormSetter(res.data);
+        console.log("end constructor")
+        form_setter.setForm();
+        console.log("set end")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  
+
   logout() {
     console.log("logout");
     GET_LOGOUT_API()
