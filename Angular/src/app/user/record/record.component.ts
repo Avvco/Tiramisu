@@ -4,9 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { MerkleTree } from 'merkletreejs'
-import SHA256 from 'crypto-js/sha256';
-
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { removeAccessToken } from 'src/app/util/UserTokenHandler';
@@ -70,63 +67,7 @@ export class RecordComponent implements OnInit {
 
   async addRecord(): Promise<void> {
     console.log("addRecord");
-    let test = {
-      "fullUrl": "http://spring-boot.tiramisu.localhost/fhir/Patient/1",
-      "resource": {
-        "resourceType": "Patient",
-        "id": "1",
-        "meta": {
-          "versionId": "1",
-          "lastUpdated": "2023-03-18T06:15:44.788+00:00",
-          "source": "#v6soiaaR1YmCg6xp"
-        },
-        "text": {
-          "status": "generated",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">22342234 <b>2234 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>12345688</td></tr><tr><td>Address</td><td><span>大馬路999號 </span><br/><span>yumeow </span><span>TW </span></td></tr><tr><td>Date of birth</td><td><span>01 March 2023</span></td></tr></tbody></table></div>"
-        },
-        "identifier": [
-          {
-            "use": "official",
-            "value": "12345688"
-          }
-        ],
-        "active": true,
-        "name": [
-          {
-            "use": "official",
-            "family": "2234",
-            "given": [
-              "22342234"
-            ]
-          }
-        ],
-        "telecom": [
-          {
-            "system": "phone",
-            "value": "9123456789",
-            "use": "mobile"
-          }
-        ],
-        "gender": "female",
-        "birthDate": "2023-03-01",
-        "address": [
-          {
-            "use": "home",
-            "type": "physical",
-            "line": [
-              "大馬路999號"
-            ],
-            "city": "yumeow",
-            "district": "小港區",
-            "postalCode": "812",
-            "country": "TW"
-          }
-        ]
-      },
-      "search": {
-        "mode": "match"
-      }
-    }
+
 
     let isValidNow = await verifyAllData();
     if (!isValidNow) {
