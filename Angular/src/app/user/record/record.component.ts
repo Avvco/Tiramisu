@@ -68,7 +68,7 @@ export class RecordComponent implements OnInit {
   async addRecord(): Promise<void> {
     console.log("addRecord");
 
-
+    uploadAllDataOnchain();
     let isValidNow = await verifyAllData();
     if (!isValidNow) {
       return;
