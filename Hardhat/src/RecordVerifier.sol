@@ -23,8 +23,7 @@ contract RecordVerifier is Ownable{
       return _merkle;
   } 
 
-  function isValidRecord(bytes32[] calldata merkleProof, bytes32 userAddress) public view returns(bool) {
-    bytes32 _leaf = keccak256(abi.encode(userAddress));
+  function isValidRecord(bytes32[] calldata merkleProof, bytes32 _leaf) public view returns(bool) {
     return MerkleProof.verify(merkleProof, recordRoot, _leaf);
   } 
 }

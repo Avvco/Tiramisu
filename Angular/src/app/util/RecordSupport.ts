@@ -1,88 +1,82 @@
-import { MerkleTree } from 'merkletreejs'
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
+import { utils } from "ethers";
 
-import SHA256 from 'crypto-js/sha256';
-import { ethers } from 'ethers';
 
 import { GET_ALL_RECORD_API } from './APIHandler';
 import { getRecordRoot, setRecordRoot, isValidRecord } from './contract/Verify';
 
-export async function verifySingleMerkleData(input: any) {
-    GET_ALL_RECORD_API()
-        .then(async (res) => {
-            let data = res.data.entry;
-            const tree = StandardMerkleTree.of(data, ["address", "uint256"]);
-            console.log(tree);
-            
-            // let hashedData = data.map((d: string | CryptoJS.lib.WordArray) => SHA256(d).toString());
-            // let merkleTree = new MerkleTree(hashedData, SHA256);
+export async function verifySingleData(input: any) {
+  let tree = await calculateMerkleTree();
 
-            // let hashedInput = '0x' + SHA256(input).toString();
-            // let proof = merkleTree.getProof(hashedInput);
-            // let proof1 = merkleTree.getProof(hashedData[0]);
-            // console.log(proof);
-            // console.log(proof1);
-            // let proofStrings = proof.map((p: any) => p.position + p.data.toString('hex'));
-            // proofStrings = proofStrings.map((p: string) => p.replace('left', '0x'));
-
-            // console.log(proofStrings);
-
-            // let isValid = await isValidRecord(proofStrings, hashedInput);
-            // console.log(isValid);
-        })
-        .catch((err) => {
-            console.log(err);
-            return false;
-        });
+  if (tree == null) {
+    console.log("build error");
+    return false;
+  }
+  try {
+    let onchainRoot = await getRecordRoot();
+    let hashedInput = utils.solidityKeccak256(["string"], [JSON.stringify(input)]);
+    let proof = tree.getProof([hashedInput]);
+    let isValid = StandardMerkleTree.verify(onchainRoot, ["string"], [hashedInput], proof);
+    console.log(isValid);
+    return isValid;
+  }
+  catch {
+    console.log("died");
+    return false;
+  }
 }
 
-export async function verifyAllMerkleData() {
-    GET_ALL_RECORD_API()
-        .then(async (res) => {
-            let data = res.data.entry;
-            let hashedData = data.map((d: string | CryptoJS.lib.WordArray) => SHA256(d).toString());
-            let merkleTree = new MerkleTree(hashedData, SHA256);
-            let curRoot = '0x' + merkleTree.getRoot().toString('hex');
-            let onchainRoot = await getRecordRoot();
+export async function verifyAllData() {
+  let tree = await calculateMerkleTree();
 
-            console.log(data);
-            return curRoot == onchainRoot;
-        })
-        .catch((err) => {
-            console.log(err);
-            return false;
-        });
+  if (tree == null) {
+    console.log("build error");
+    return false;
+  }
+
+  try {
+    let onchainRoot = await getRecordRoot();
+    let isValid = onchainRoot == tree.root;
+    console.log(isValid);
+    return isValid;
+  }
+  catch {
+    console.log("died");
+    return false;
+  }
 }
 
-export async function saveAllMerkleData() {
-    GET_ALL_RECORD_API()
-        .then(async (res) => {
-            let data = res.data.entry;
-            let hashedData = data.map((d: string | CryptoJS.lib.WordArray) => '0x' + SHA256(d).toString());
-            let merkleTree = new MerkleTree(hashedData, SHA256);
-            let curRoot = '0x' + merkleTree.getRoot().toString('hex');
-            console.log(curRoot);
-            await setRecordRoot(curRoot);
-        })
-        .catch((err) => {
-            console.log(err);
-            return false;
-        });
+export async function uploadAllDataOnchain() {
+  let tree = await calculateMerkleTree();
+
+  if (tree == null) {
+    console.log("build error");
+  }
+  else {
+    await setRecordRoot(tree.root);
+    console.log(tree.root);
+  }
 }
 
-export async function saveSingleMerkleData(data: any) {
-    GET_ALL_RECORD_API()
-        .then(async (res) => {
-            let data = res.data.entry;
-            let hashedData = data.map((d: string | CryptoJS.lib.WordArray) => SHA256(d).toString());
-            let merkleTree = new MerkleTree(hashedData, SHA256);
-            let curRoot = '0x' + merkleTree.getRoot().toString('hex');
-            console.log(curRoot);
-            await setRecordRoot(curRoot);
-        })
+async function calculateMerkleTree() {
+  let tree = await GET_ALL_RECORD_API()
+    .then(async (res) => {
+      let data = res.data.entry;
 
-        .catch((err) => {
-            console.log(err);
-            return false;
-        });
+      let hashData = [];
+      for (let i = 0; i < data.length; i++) {
+        let str = JSON.stringify(data[i]);
+        let hashStr = utils.solidityKeccak256(["string"], [str]);
+        hashData.push([hashStr]);
+      }
+
+      let tree = StandardMerkleTree.of(hashData, ["string"]);
+      return tree;
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+
+  return tree;
 }
