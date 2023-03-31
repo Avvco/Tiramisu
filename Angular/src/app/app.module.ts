@@ -8,13 +8,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './user/register/register.component';
+import { RegisterComponent } from './register/register.component';
 import { RecordComponent } from './user/record/record.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     NavbarComponent,
     LoginComponent,
     RegisterComponent,

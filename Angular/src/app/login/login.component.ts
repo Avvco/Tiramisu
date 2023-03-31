@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private fb: FormBuilder) {
 
   }
-  
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       type: ['', Validators.required],
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   get email() { return this.loginForm.get('email') }
 
   register() {
-    this.router.navigate(['../user/register']);
+    this.router.navigate(['register']);
 }
 
   async submit() {

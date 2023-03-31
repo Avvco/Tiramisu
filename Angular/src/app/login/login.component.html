@@ -44,9 +44,6 @@
     text-decoration: none;
   }
 
-  a:hover {
-    color: #125699;
-  }
 </style>
 
 <!-- Toolbar -->
@@ -63,7 +60,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-4">
         <div class="login-wrap p-0">
-          <h3 class="mb-4 text-center">Have an account? <a (click)="register()"
+          <h3 class="mb-4 text-center">Have an account? <a routerLink="../register"
             style="color: aquamarine;">Sign up</a></h3>
           <form method="post" action="" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate class="signin-form">
             <div class="form-group">

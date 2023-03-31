@@ -4,7 +4,7 @@
 if [ "$(sysctl fs.inotify.max_user_watches)"!="fs.inotify.max_user_watches = 524288" ]; then
   sed -i '/fs.inotify.max_user_watches/d' /etc/sysctl.conf
   echo fs.inotify.max_user_watches = 524288 | tee -a /etc/sysctl.conf
-  sysctl -p 
+  sysctl -p
 fi
 
 # First stop and delete all running containers
@@ -72,7 +72,7 @@ docker stop $(docker ps -a -q)
 
 # Install dependencies for each containers
 printf "\n===== Installing dependencies ... =====\n"
-docker run -it --rm -v $PWD/Angular:/tmp -w /tmp node npm install
+docker run -it --rm -v $PWD/Angular:/tmp -w /tmp node npm install --legacy-peer-deps
 docker run -it --rm -v $PWD/Hardhat:/tmp -w /tmp node npm install --legacy-peer-deps
 
 # Delete DataBase-related files again to prevent potential incomplete initialization caused by docker-compose up above
