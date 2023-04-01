@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 /* You can add global styles to this file, and also import other style files */
 
 $font-primary: 'Lato',Arial, sans-serif;
@@ -26,7 +28,9 @@ body {
     margin: 0px;
     height: 100%;
     width: 100%;
-    background: url('/assets/images/bg4.jpg')no-repeat center center fixed;
+    background: url('/assets/images/bg4.jpg')no-repeat center center fixed ;
+    background-color: mat-color(mat-palette($mat-grey), darker, 0.5);;
+    background-blend-mode: multiply;
     -webkit-background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;

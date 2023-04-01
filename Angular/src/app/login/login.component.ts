@@ -66,8 +66,10 @@ export class LoginComponent implements OnInit {
       else {
         await loginPatient(data, this);
       }
+      this.router.navigate(['../user/record']);
     }
     else {
+      alert("Username or password is incorrect");
       console.log("died");
     }
   }

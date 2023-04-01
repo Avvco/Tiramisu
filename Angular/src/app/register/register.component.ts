@@ -35,6 +35,18 @@ export class RegisterComponent implements OnInit {
   get password() { return this.registerForm.get('password'); }
   get email() { return this.registerForm.get('email') }
 
+  getErrorMessage(formControl: FormControl): string {
+    if (!formControl.errors || formControl.pristine) {
+      return '';
+    } else if (formControl.errors['required']) {
+      return '此欄位必填';
+    } else if (formControl.errors['minlength']) {
+      return  '密碼長度最短不得低於8碼';
+    }
+    return '';
+  }
+
+
   async submit() {
     if (this.registerForm.valid) {
       let address: any = await getETHAddress();
@@ -57,6 +69,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['../login']);
     }
     else {
+      alert("Please fill all required fields.")
       console.log("died");
     }
   }

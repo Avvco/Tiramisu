@@ -282,27 +282,6 @@ select {
     word-wrap: normal;
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-    -webkit-appearance: button;
-}
-
-button:not(:disabled),
-[type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
-[type="submit"]:not(:disabled) {
-    cursor: pointer;
-}
-
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-    padding: 0;
-    border-style: none;
-}
 
 input[type="radio"],
 input[type="checkbox"] {
@@ -12005,7 +11984,7 @@ textarea.form-control {
     content: "\f0c8";
     font-family: "FontAwesome";
     position: absolute;
-    color: rgba(255, 255, 255, 0.1);
+    color: #ffeeba;
     font-size: 20px;
     margin-top: -4px;
     -webkit-transition: 0.3s;
@@ -12031,7 +12010,7 @@ textarea.form-control {
 
 /* Style the checkmark/indicator */
 .checkbox-primary {
-    color: #00e673;
+    color: #22b39f;
 }
 
 .checkbox-primary input:checked~.checkmark:after {
@@ -12054,9 +12033,9 @@ textarea.form-control {
 }
 
 .btn.btn-primary {
-    background: #00802b !important;
-    border: 1px solid #006622 !important;
-    color: #000 !important;
+    background: #145441!important;
+    border: 1.5px solid #144440!important;
+    color: whitesmoke !important;
 }
 
 .btn.btn-primary:hover {
