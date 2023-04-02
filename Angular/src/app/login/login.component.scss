@@ -12072,13 +12072,8 @@ textarea.form-control {
 
 .content {
     display: flex;
-    margin: 82px auto 32px;
-    left: 0;
-    right: 0;
-    padding: 0 16px;
-    /*max-width: 960px;*/
-    flex-direction: column;
-    align-items: center;
+    
+    background-color: grey;
 }
 
 .login_frame {
