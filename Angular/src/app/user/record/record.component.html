@@ -6,6 +6,8 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<script src="https://code.angularjs.org/1.6.9/angular.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
   :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -69,7 +71,15 @@
 <section class="ftco-section" role="main">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-4 mt-4">
+      <div class="col-md-9 text-center mb-4 mt-4">
+        <form name="search" (ngSubmit)="getRecord()">
+            <div class="form-group">
+              <div class="search-item" style="padding-left: 65%;">
+                <input tpye="text" id="search-value" placeholder="ID number" class="form-control">
+                <button type="submit" class="form-control" style="background-color: rgba(32, 114, 51, 0.25)">search</button>
+              </div>
+            </div>
+        </form>
         <h2 class="heading-section">Patient's medical form</h2>
       </div>
     </div>
@@ -79,17 +89,18 @@
           <form method="post" action="" [formGroup]="record" (ngSubmit)="addRecord()" novalidate>
             <div class="form-group item">
               <div class="name-item">
-                <input type="text" class="form-control" id="name-given" formControlName="given" autocomplete="on" placeholder="First Name"
-                  value="">
-                <input type="text" class="form-control" id="name-family" formControlName="family" autocomplete="on" placeholder="Last Name"
-                  value="">
+                <input type="text" class="form-control" id="name-given" formControlName="given" autocomplete="on"
+                  placeholder="First Name" value="">
+                <input type="text" class="form-control" id="name-family" formControlName="family" autocomplete="on"
+                  placeholder="Last Name" value="">
               </div>
             </div>
-            <div class="form-group item">
+            <div class="form-group">
               <div class="birth-item text-md-center">
-                <input type="radio" id="gender-male" formControlName="gender" value="male" /><span style="font-size: 22px;">Male</span>
-                  <input type="radio" id="gender-female" formControlName="gender" value="female" /><span style="font-size: 22px;">Female</span>
-
+                <input type="radio" id="gender-male" formControlName="gender" value="male" /><span
+                  style="font-size: 22px;">Male</span>
+                <input type="radio" id="gender-female" formControlName="gender" value="female" /><span
+                  style="font-size: 22px;">Female</span>
                 <input type="date" class="form-control">
                 <input type="text" class="form-control" placeholder="ID number">
               </div>
@@ -97,13 +108,14 @@
             <div class="form-group item">
               <div class="name-item">
                 <input type="email" name="email" id="email" placeholder="Email" formControlName="email"
-                class="form-control">
-                <input type="tel" id="telecom-value" formControlName="value" autocomplete="on" placeholder="Phone number"
-                value="" class="form-control">
+                  class="form-control">
+                <input type="tel" id="telecom-value" formControlName="value" autocomplete="on"
+                  placeholder="Phone number" value="" class="form-control">
               </div>
             </div>
             <div class="form-group item">
-              <input type="textarea" id="address-city" formControlName="city" placeholder="Address" class="form-control">
+              <input type="textarea" id="address-city" formControlName="city" placeholder="Address"
+                class="form-control">
             </div>
             <div class="form-group item">
               <div class="blood-item">
@@ -115,6 +127,8 @@
                   <option value="O" style="color:rgb(70, 70, 70)">O</option>
                   <option value="unknown" style="color:rgb(70, 70, 70)">unknown</option>
                 </select>
+                <input type="textarea" id="allergy" formControlName="allergy" placeholder="Allergy (seperated by comma)"
+                  class="form-control">
               </div>
             </div>
             <!-- <div class="form-group">
@@ -122,8 +136,10 @@
                 formControlName="password">
               <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div> -->
-            <div class="form-group mb-4">
-              <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+            <div class="form-group mb-5 mt-5">
+              <div style="width: 100%; padding-left: 25%; padding-right: 25%">
+                <button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
+              </div>
             </div>
             <!-- <div class="form-group d-md-flex">
               <div class="w-50">
@@ -151,7 +167,7 @@
     </div>
     <form [formGroup]="record" (ngSubmit)="addRecord()">
       <table> -->
-        <!--
+<!--
           <tr>
             <td class="td_left">初診日期</td>
             <td class="td_right">
@@ -160,7 +176,7 @@
           </tr>
           -->
 
-        <!-- <tr>
+<!-- <tr>
           <td class="td_right2">病歷號</td>
           <td class="td_right">
             <div formGroupName="identifier">
@@ -185,28 +201,28 @@
         </tr>
 
         <tr> -->
-          <!--
+<!--
             <td class="td_left">身分證號碼</td>
             <td class="td_right">
               <input type="text" name="personId" [(ngModel)]="personId" placeholder="請輸入身分證號碼">
             </td>
             -->
 
-          <!-- <td class="td_left">聯絡電話</td>
+<!-- <td class="td_left">聯絡電話</td>
           <td class="td_right">
             <div formGroupName="telecom">
 
             </div>
           </td> -->
 
-          <!--
+<!--
             <td class="td_right2">出生日期</td>
             <td class="td_right">
               <input type="date" name="birthDate" [(ngModel)]="birthDate" value="2022-09-12">
             </td>
             -->
 
-          <!-- <td class="td_left">聯絡地址</td>
+<!-- <td class="td_left">聯絡地址</td>
           <td class="td_right">
             <div formGroupName="address">
               <input type="text" id="address-city" formControlName="city" placeholder="請輸入聯絡地址">
@@ -220,7 +236,7 @@
             <input type="date" id="birthDate" formControlName="birthDate" value="2022-09-12">
           </td>
         </tr> -->
-        <!--
+<!--
             <td class="td_left">行動電話</td>
             <td class="td_right">
               <input type="text" name="actionPhone" [(ngModel)]="actionPhone" placeholder="請輸入行動電話">
@@ -355,7 +371,7 @@
             </td>
           </tr>
           -->
-        <!-- <tr>
+<!-- <tr>
           <td colspan="6" align="center">
             <button type="submit" class="btn btn-default">上傳</button>
           </td>

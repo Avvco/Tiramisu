@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
+import { Directive, ElementRef, Input } from '@angular/core'
+
 
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
@@ -56,13 +58,13 @@ export class RecordComponent implements OnInit {
 
     active: new FormControl('true'),
 
-    birthDate: new FormControl('')
+    birthDate: new FormControl(''),
+
   });
 
   constructor(private http: HttpClient) { }
-  login$: Observable<boolean> | undefined;
   ngOnInit(): void {
-    this.login$ = of(true);
+
   }
 
   async addRecord(): Promise<void> {
@@ -106,16 +108,16 @@ export class RecordComponent implements OnInit {
       });
   }
 
-  logout() {
-    console.log("logout");
-    GET_LOGOUT_API()
-      .then((res) => {
-        console.log(res);
-        this.login$ = of(false);
-        removeAccessToken();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // logout() {
+  //   console.log("logout");
+  //   GET_LOGOUT_API()
+  //     .then((res) => {
+  //       console.log(res);
+  //       this.login$ = of(false);
+  //       removeAccessToken();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 }

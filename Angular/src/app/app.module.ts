@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { RecordComponent } from './user/record/record.component';
+import { UserRoutingModule } from './user/user-routing.module';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -18,7 +20,6 @@ import { RecordComponent } from './user/record/record.component';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    RecordComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +28,7 @@ import { RecordComponent } from './user/record/record.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

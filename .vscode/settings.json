@@ -3,5 +3,6 @@
   "markdownlint.ignore": [
     "*.example",
     ".env"
-  ]
+  ],
+  "java.compile.nullAnalysis.mode": "automatic"
 }

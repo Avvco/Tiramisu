@@ -7,8 +7,28 @@
   font-size: large;
 }
 
-.to-right {
-  flex: 1 1 auto;
+.hover-underline-animation {
+  position: relative;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #1b5050;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .content {
@@ -254,12 +274,14 @@ button:hover {
   background: #666;
 }
 
-@media (min-width: 568px) {
+@media (min-width: 500px) {
 
   .name-item,
   .city-item,
   .sex-item,
-  .birth-item {
+  .birth-item,
+  .search-item,
+  .blood-item {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -269,8 +291,16 @@ button:hover {
   .city-item input {
     width: 49%;
   }
-
-  .blood-item{
+  .search-item input {
+    width: 65%;
+  }
+  .search-item button {
+    width: 30%;
+  }
+  .blood-item input[type=textarea]{
+    width: 79%;
+  }
+  .blood-item select {
     width: 20%;
   }
   .birth-item input[type=date], input[type=text] {
