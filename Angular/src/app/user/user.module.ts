@@ -11,7 +11,7 @@ import { PatientRecordComponent } from './patient-record/patient-record.componen
 @NgModule({
   declarations: [
     RecordComponent,
-    PatientRecordComponent,
+    PatientRecordComponent
   ],
   imports: [
     CommonModule,

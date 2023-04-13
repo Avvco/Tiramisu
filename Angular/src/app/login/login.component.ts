@@ -45,28 +45,29 @@ export class LoginComponent implements OnInit {
 
   register() {
     this.router.navigate(['register']);
-}
+  }
 
   async submit() {
     if (this.loginForm.valid) {
-      // localStorage.setItem('login', 'true');
+      localStorage.setItem('login', 'true');
 
-      // let address: any = await getETHAddress();
-      // let data = {
-      //   type: this.loginForm.value.type,
-      //   userName: this.loginForm.value.userName,
-      //   password: this.loginForm.value.password,
-      //   email: this.loginForm.value.email,
-      //   ethAddress: address[0]
-      // }
+      let address: any = await getETHAddress();
+      let data = {
+        type: this.loginForm.value.type,
+        userName: this.loginForm.value.userName,
+        password: this.loginForm.value.password,
+        email: this.loginForm.value.email,
+        ethAddress: address[0]
+      }
 
-      // if (data.type == "HEALTH_WORKER") {
-      //   await loginHealthWorker(data, this);
-      // }
-      // else {
-      //   await loginPatient(data, this);
-      // }
-      this.router.navigate(['../user/record']);
+      if (data.type == "HEALTH_WORKER") {
+        await loginHealthWorker(data, this);
+        this.router.navigate(['../user/record']);
+      }
+      else {
+        await loginPatient(data, this);
+        this.router.navigate(['../user/patient-record']);
+      }
     }
     else {
       alert("Username or password is incorrect");

@@ -1,1 +1,374 @@
-<p>patient-record works!</p>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+</style>
+
+
+
+<!-- Toolbar -->
+<!-- <div class="toolbar" role="banner">
+  <img    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+    <span style="text-align:center; font-size: 22px; margin-left: 20px;">填寫病歷 </span>
+    <span class="to-right"></span>
+    <div class="search">
+      <form name="search" (ngSubmit)="getRecord()">
+        <td class="td_left">病歷號</td>
+        <td class="td_right">
+          <input tpye="text" id="search-value" placeholder="請輸入病歷號">
+        </td>
+        <td class="td_right"> <button type="submit">搜索</button></td>
+        <td class="logout"> <a button *ngIf="(login$ | async)" (click)="logout()" routerLink="../home"
+            style="font-size:large;">會員登出</a></td>
+      </form>
+    </div>
+
+  </div>
+-->
+<section class="ftco-section" role="main">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-9 text-center mb-4 mt-4">
+        <h2 class="heading-section">Patient's medical form</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-9">
+        <div class="login-wrap p-0">
+          <form method="post" action="" novalidate>
+            <div class="form-group item">
+              <div class="name-item">
+                <input type="text" class="form-control" id="name-given" formControlName="given" autocomplete="on"
+                  placeholder="First Name" value="">
+                <input type="text" class="form-control" id="name-family" formControlName="family" autocomplete="on"
+                  placeholder="Last Name" value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="birth-item text-md-center">
+                <input type="radio" id="gender-male" formControlName="gender" value="male" /><span
+                  style="font-size: 22px;">Male</span>
+                <input type="radio" id="gender-female" formControlName="gender" value="female" /><span
+                  style="font-size: 22px;">Female</span>
+                <input type="date" class="form-control">
+                <input type="text" class="form-control" placeholder="ID number">
+              </div>
+            </div>
+            <div class="form-group item">
+              <div class="name-item">
+                <input type="email" name="email" id="email" placeholder="Email" formControlName="email"
+                  class="form-control">
+                <input type="tel" id="telecom-value" formControlName="value" autocomplete="on"
+                  placeholder="Phone number" value="" class="form-control">
+              </div>
+            </div>
+            <div class="form-group item">
+              <input type="textarea" id="address-city" formControlName="city" placeholder="Address"
+                class="form-control">
+            </div>
+            <div class="form-group item mb-5">
+              <div class="blood-item">
+                <select class="form-control">
+                  <option value="" selected disabled hidden>Blood type</option>
+                  <option value="A" style="color:rgb(70, 70, 70)">A</option>
+                  <option value="B" style="color:rgb(70, 70, 70)">B</option>
+                  <option value="AB" style="color:rgb(70, 70, 70)">AB</option>
+                  <option value="O" style="color:rgb(70, 70, 70)">O</option>
+                  <option value="unknown" style="color:rgb(70, 70, 70)">unknown</option>
+                </select>
+                <input type="textarea" id="allergy" formControlName="allergy" placeholder="Allergy (seperated by comma)"
+                  class="form-control">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" required name="password" id="password"
+                formControlName="password">
+              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+            </div> -->
+            <!-- <div class="form-group mb-5 mt-5">
+              <div style="width: 100%; padding-left: 25%; padding-right: 25%">
+                <button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
+              </div>
+            </div> -->
+            <!-- <div class="form-group d-md-flex">
+              <div class="w-50">
+              </div>
+              <div class="w-50 text-md-right">
+                <a href="#" style="color: #fff">Forgot Password</a>
+              </div>
+            </div> -->
+          </form>
+          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+          <div class="social d-flex text-center">
+            <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+            <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <div class="content" role="main">
+
+  <div class="login_frame">
+    <div class="title">
+      <p id="title">Patient's medical form</p>
+    </div>
+    <form [formGroup]="record" (ngSubmit)="addRecord()">
+      <table> -->
+<!--
+          <tr>
+            <td class="td_left">初診日期</td>
+            <td class="td_right">
+              <input type="date" name="firstDate" [(ngModel)]="firstDate" value="2022-09-12">
+            </td>
+          </tr>
+          -->
+
+<!-- <tr>
+          <td class="td_right2">病歷號</td>
+          <td class="td_right">
+            <div formGroupName="identifier">
+              <input type="text" id="identifier-value" formControlName="value" placeholder="請輸入病歷號">
+            </div>
+          </td>
+
+          <td class="td_left">姓名</td>
+          <td class="td_right">
+            <div formGroupName="name">
+              <input type="text" id="name-family" formControlName="family" autocomplete="on" placeholder="請輸入姓"
+                value="">
+              <input type="text" id="name-given" formControlName="given" autocomplete="on" placeholder="請輸入名" value="">
+            </div>
+          </td>
+
+          <td class="td_left">性別</td>
+          <td class="td_right">
+            <input type="radio" id="gender-female" formControlName="gender" value="female" />女
+            <input type="radio" id="gender-male" formControlName="gender" value="male" />男
+          </td>
+        </tr>
+
+        <tr> -->
+<!--
+            <td class="td_left">身分證號碼</td>
+            <td class="td_right">
+              <input type="text" name="personId" [(ngModel)]="personId" placeholder="請輸入身分證號碼">
+            </td>
+            -->
+
+<!-- <td class="td_left">聯絡電話</td>
+          <td class="td_right">
+            <div formGroupName="telecom">
+
+            </div>
+          </td> -->
+
+<!--
+            <td class="td_right2">出生日期</td>
+            <td class="td_right">
+              <input type="date" name="birthDate" [(ngModel)]="birthDate" value="2022-09-12">
+            </td>
+            -->
+
+<!-- <td class="td_left">聯絡地址</td>
+          <td class="td_right">
+            <div formGroupName="address">
+              <input type="text" id="address-city" formControlName="city" placeholder="請輸入聯絡地址">
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="td_left">出生日期</td>
+          <td class="td_right">
+            <input type="date" id="birthDate" formControlName="birthDate" value="2022-09-12">
+          </td>
+        </tr> -->
+<!--
+            <td class="td_left">行動電話</td>
+            <td class="td_right">
+              <input type="text" name="actionPhone" [(ngModel)]="actionPhone" placeholder="請輸入行動電話">
+            </td>
+
+          </tr>
+          <tr>
+            <td class="td_left">職業</td>
+            <td class="td_right">
+              <input type="text" name="profession" [(ngModel)]="profession" placeholder="請輸入職業">
+            </td>
+            <td class="td_left">婚姻</td>
+            <td class="td_right">
+              <select name="marriage" [(ngModel)]="marriage">
+                <option value="未婚">未婚</option>
+                <option value="已婚">已婚</option>
+                <option value="離婚">離婚</option>
+                <option value="喪偶">喪偶</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">血型</td>
+            <td class="td_right">
+              <select name="blood" [(ngModel)]="blood">
+                <option value="A">A型</option>
+                <option value="B">B型</option>
+                <option value="AB">AB型</option>
+                <option value="O">O型</option>
+                <option value="unknown">未知</option>
+              </select>
+            </td>
+            <td class="td_left">藥物過敏史</td>
+            <td class="td_right">
+              <input type="text" name="drugAllergy" [(ngModel)]="drugAllergy" placeholder="若無則輸入無" />
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">通訊住址</td>
+            <td class="td_right">
+              <input type="textarea" name="contactAddress" [(ngModel)]="contactAddress" placeholder="請輸入通訊住址">
+            </td>
+            <td class="td_left">免費電子健康報</td>
+            <td class="td_right">
+              <input type="radio" name="freePaper" [(ngModel)]="freePaper" value="1" />願意
+              <input type="radio" name="freePaper" [(ngModel)]="freePaper" value="2" />不願意
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">收到本院簡訊</td>
+            <td class="td_right">
+              <input type="radio" name="newsletter" [(ngModel)]="newsletter" value="1" />同意
+              <input type="radio" name="newsletter" [(ngModel)]="newsletter" value="2" />不同意
+            </td>
+            <td class="td_left">電子信箱</td>
+            <td class="td_right">
+              <input type="textarea" name="emailAddress" [(ngModel)]="emailAddress" placeholder="請輸入電子信箱">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">緊急聯絡人</td>
+            <td class="td_right">
+              <input type="text" name="emergencyContact" [(ngModel)]="emergencyContact" placeholder="請輸入姓名">
+            </td>
+            <td class="td_left">與病患之關係</td>
+            <td class="td_right">
+              <input type="text" name="relationship" [(ngModel)]="relationship" placeholder="請輸入關係">
+            </td>
+            <td class="td_left">聯絡電話</td>
+            <td class="td_right">
+              <input type="text" name="emergencyContactPhone" [(ngModel)]="emergencyContactPhone" placeholder="請輸入聯絡電話">
+            </td>
+          </tr>
+        </table>
+      </form>
+      <div class="title">
+        <p id="title">病患健康自評表(病患填寫)</p>
+      </div>
+      <form (ngForm)="addRecord()">
+        <table>
+          <tr>
+            <td class="td_left">身高</td>
+            <td class="td_right">
+              <input type="text" name="height" [(ngModel)]="height" placeholder="請輸入身高(公分)">
+            </td>
+            <td class="td_left">體重</td>
+            <td class="td_right">
+              <input type="text" name="weight" [(ngModel)]="weight" placeholder="請輸入體重(公斤)">
+            </td>
+            <td class="td_left">BMI</td>
+            <td class="td_right">
+              <input type="text" name="BMI" [(ngModel)]="BMI" placeholder="請輸入BMI(體重/身高^2)">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">腰圍</td>
+            <td class="td_right">
+              <input type="text" name="waistline" [(ngModel)]="waistline" placeholder="請輸入腰圍(公分)">
+            </td>
+            <td class="td_left">血壓</td>
+            <td class="td_right">
+              <input type="text" name="pressure" [(ngModel)]="pressure" placeholder="收縮壓/舒張壓(mmHg)">
+            </td>
+            <td class="td_left">脈搏</td>
+            <td class="td_right">
+              <input type="text" name="pulse" [(ngModel)]="pulse" placeholder="請輸入脈搏(次/分)">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">體重改變</td>
+            <td class="td_right">
+              <input type="text" name="weightchange" [(ngModel)]="weightchange" placeholder="請輸入體重變化量">
+            </td>
+            <td class="td_left">菸</td>
+            <td class="td_right">
+              <input type="text" name="cigarette" [(ngModel)]="cigarette" placeholder="請輸入幾支/天(若無請填無)">
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left">檳榔</td>
+            <td class="td_right">
+              <input type="radio" name="betel" [(ngModel)]="betel" value="1" />有嚼食
+              <input type="radio" name="betel" [(ngModel)]="betel" value="2" />無嚼食
+            </td>
+            <td class="td_left">酒</td>
+            <td class="td_right">
+              <input type="text" name="alcohol" [(ngModel)]="alcohol" placeholder="請輸入ml/天(若無請填無)">
+            </td>
+            <td class="td_left">運動</td>
+            <td class="td_right">
+              <input type="text" name="sport" [(ngModel)]="sport" placeholder="請輸入分鐘/天(若無請填無)">
+            </td>
+          </tr>
+          -->
+<!-- <tr>
+          <td colspan="6" align="center">
+            <button type="submit" class="btn btn-default">上傳</button>
+          </td>
+        </tr>
+
+      </table>
+    </form>
+  </div>
+</div> -->
+<router-outlet></router-outlet>
