@@ -30,7 +30,7 @@ public class Common {
 
   public void extendAuthorization(User_Authorization ua) {
     Instant instantNow = Instant.now();
-    Instant instantExpire = instantNow.plus(5, ChronoUnit.MINUTES);
+    Instant instantExpire = instantNow.plus(15, ChronoUnit.MINUTES);
     ua.setExpireTime(instantExpire);
     uaDAO.save(ua);
   }
