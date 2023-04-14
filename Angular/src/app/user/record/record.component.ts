@@ -40,20 +40,21 @@ export class RecordComponent implements OnInit {
 
     gender: new FormControl(''),
 
-    telecom: new FormGroup({
-      system: new FormControl('phone'),
-      use: new FormControl('mobile'),
-      value: new FormControl('')
-    }),
+    telecom: new FormGroup([
+      new FormGroup({
+        system: new FormControl('phone'),
+        use: new FormControl('mobile'),
+        value: new FormControl('')
+      }),
+      new FormGroup({
+        system: new FormControl('email'),
+        use: new FormControl('work'),
+        value: new FormControl('')
+      })
+    ]),
 
     address: new FormGroup({
-      use: new FormControl('home'),
-      type: new FormControl('physical'),
-      city: new FormControl(''),
-      district: new FormControl('小港區'),
-      line: new FormControl('大馬路999號'),
-      postalCode: new FormControl('812'),
-      country: new FormControl('TW')
+      text: new FormControl(''),
     }),
 
     active: new FormControl('true'),
@@ -70,11 +71,12 @@ export class RecordComponent implements OnInit {
   async addRecord(): Promise<void> {
     console.log("addRecord");
 
-    uploadAllDataOnchain();
-    let isValidNow = await verifyAllData();
-    if (!isValidNow) {
-      return;
-    }
+    console.log(this.record.value);
+    // uploadAllDataOnchain();
+    // let isValidNow = await verifyAllData();
+    // if (!isValidNow) {
+    //   return;
+    // }
 
     await POST_RECORD_API(this.record.value)
       .then((res) => {
@@ -84,7 +86,7 @@ export class RecordComponent implements OnInit {
         console.log(err);
       });
 
-    uploadAllDataOnchain();
+    // uploadAllDataOnchain();
   }
 
   async getRecord(): Promise<void> {
