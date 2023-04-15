@@ -58,6 +58,38 @@ export async function uploadAllDataOnchain() {
   }
 }
 
+export async function setForm(data: any) {
+  console.log(data);
+
+  console.log(data.identifier);
+  (document.getElementById('identifier-value') as HTMLInputElement).value = data.identifier[0].value;
+
+  console.log(data.name[0].family);
+  (document.getElementById('name-family') as HTMLInputElement).value = data.name[0].family;
+
+  console.log(data.name[0].given);
+  (document.getElementById('name-given') as HTMLInputElement).value = data.name[0].given;
+
+  console.log(data.gender);
+  if (data.gender == "male") {
+    (document.getElementById('gender-male') as HTMLInputElement).checked = true;
+  }
+  else {
+    (document.getElementById('gender-female') as HTMLInputElement).checked = true;
+  }
+
+  console.log(data.telecom[0].value);
+  (document.getElementById('telecom-value') as HTMLInputElement).value = data.telecom[0].value
+
+  console.log(data.address[0]);
+  (document.getElementById('address-city') as HTMLInputElement).value = data.address[0].text;
+
+  console.log(data.birthDate);
+  (document.getElementById('birthDate') as HTMLInputElement).value = data.birthDate;
+}
+
+
+
 async function calculateMerkleTree() {
   let tree = await GET_ALL_RECORD_API()
     .then(async (res) => {
