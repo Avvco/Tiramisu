@@ -61,12 +61,17 @@ export class LoginComponent implements OnInit {
       }
 
       if (data.type == "HEALTH_WORKER") {
-        await loginHealthWorker(data, this);
-        this.router.navigate(['../user/record']);
+        try {
+          await loginHealthWorker(data, this);
+          //this.router.navigate(['../user/record']);
+        }
+        catch {
+          console.log("health worker login error")
+        }
       }
       else {
         await loginPatient(data, this);
-        this.router.navigate(['../user/patient-record']);
+        // this.router.navigate(['../user/patient-record']);
       }
     }
     else {
