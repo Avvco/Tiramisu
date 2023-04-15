@@ -65,8 +65,8 @@ export class RegisterComponent implements OnInit {
       else {
         await registerPatient(data, this);
       }
-      alert("Register successful!! Please login for FHIR.")
-      this.router.navigate(['../login']);
+      // alert("Register successful!! Please login for FHIR.")
+      // this.router.navigate(['../login']);
     }
     else {
       alert("Please fill all required fields.")

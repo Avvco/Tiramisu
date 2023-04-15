@@ -4,45 +4,61 @@ import { registerPatientAccount, isPatient } from './contract/Patient'
 import { POST_REGISTER_API } from './APIHandler';
 
 
-export async function registerHealthWorker(data: any, caller: any) {
-  console.log("Register health worker now.");
-  let userAddr = data.ethAddress;
-  let isStaff = await isMedicalStaff(userAddr);
+export async function registerHealthWorker(registerData: any, component: any) {
+  try {
+    console.log("Register health worker now.");
+    let userAddr = registerData.ethAddress;
+    let isStaff = await isMedicalStaff(userAddr);
 
-  console.log("TEST:", data)
+    if (isStaff) {
+      alert("Register health worker failed.")
+      return;
+    }
 
-  if (!isStaff) {
-    sendDataToDataBase(data, caller);
+    let res = await sendDataToDataBase(registerData);
     let reg = await registerMedicalAccount(userAddr);
+    if (res.status == 200) {
+      alert("register success.")
+      component.router.navigate(['../login']);
+    }
+    else {
+      alert("Register health worker failed.")
+    }
   }
-  else {
-    console.log("This accout have been use.")
+  catch (err) {
+    console.log(err);
+    throw new Error("Login health worker failed.");
   }
 }
 
-export async function registerPatient(data: any, caller: any) {
-  console.log("Register patient now.");
-  let userAddr = data.ethAddress;
+export async function registerPatient(registerData: any, component: any) {
+  try {
+    console.log("Register health worker now.");
+    let userAddr = registerData.ethAddress;
+    let _isPatient = await isPatient(userAddr);
 
-  let _isPatient = await isPatient(userAddr);
+    if (_isPatient) {
+      alert("Register patient failed.")
+      return;
+    }
 
-  if (!_isPatient) {
-    sendDataToDataBase(data, caller);
+    let res = await sendDataToDataBase(registerData);
     let reg = await registerPatientAccount(userAddr);
+    if (res.status == 200) {
+      alert("register success.")
+      component.router.navigate(['../login']);
+    }
+    else {
+      alert("Register patient failed.")
+    }
   }
-  else {
-    console.log("This accout have been use.")
+  catch (err) {
+    console.log(err);
+    throw new Error("Login patient failed.");
   }
-
 }
 
-function sendDataToDataBase(data: any, caller: any) {
-  POST_REGISTER_API(data)
-    .then((res) => {
-      console.log(res);
-      caller.router.navigate(['/user/home']);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+async function sendDataToDataBase(data: any) {
+  const res = await POST_REGISTER_API(data);
+  return res;
 }
