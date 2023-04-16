@@ -9,7 +9,7 @@ import { Directive, ElementRef, Input } from '@angular/core'
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain } from 'src/app/util/RecordSupport';
+import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
 
 
 @Component({
@@ -40,18 +40,23 @@ export class RecordComponent implements OnInit {
 
     gender: new FormControl(''),
 
-    telecom: new FormGroup([
-      new FormGroup({
-        system: new FormControl('phone'),
-        use: new FormControl('mobile'),
-        value: new FormControl('')
-      }),
-      new FormGroup({
-        system: new FormControl('email'),
-        use: new FormControl('work'),
-        value: new FormControl('')
-      })
-    ]),
+    telecom: new FormGroup({
+      system: new FormControl('email'),
+      use: new FormControl('home'),
+      value: new FormControl('')
+    }),
+    // telecom: new FormGroup([
+    //   new FormGroup({
+    //     system: new FormControl('email'),
+    //     use: new FormControl('work'),
+    //     value: new FormControl('')
+    //   }),
+    //   new FormGroup({
+    //     system: new FormControl('phone'),
+    //     use: new FormControl('mobile'),
+    //     value: new FormControl('')
+    //   })
+    // ]),
 
     address: new FormGroup({
       text: new FormControl(''),
@@ -72,13 +77,14 @@ export class RecordComponent implements OnInit {
     console.log("addRecord");
 
     console.log(this.record.value);
-    // uploadAllDataOnchain();
-    // let isValidNow = await verifyAllData();
-    // if (!isValidNow) {
-    //   return;
-    // }
+    await uploadAllDataOnchain(); //for debug
 
-    await POST_RECORD_API(this.record.value)
+    let isValidNow = await verifyAllData();
+    if (!isValidNow) {
+      return;
+    }
+
+    let res = await POST_RECORD_API(this.record.value)
       .then((res) => {
         console.log(res);
       })
@@ -86,7 +92,7 @@ export class RecordComponent implements OnInit {
         console.log(err);
       });
 
-    // uploadAllDataOnchain();
+    await uploadAllDataOnchain();
   }
 
   async getRecord(): Promise<void> {
@@ -94,20 +100,23 @@ export class RecordComponent implements OnInit {
 
     let isValidNow = await verifyAllData();
     if (!isValidNow) {
+      alert("Data broken.")
       return;
     }
 
     let searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
-    GET_RECORD_API(searchVal)
+    let res = await GET_RECORD_API(searchVal)
       .then((res) => {
-        console.log(res);
-        const form_setter = new FormSetter(res.data);
-        form_setter.setForm();
+        return res.data
       })
       .catch((err) => {
         console.log(err);
       });
+
+    // console.log(res.entry[0]);
+    let data = res.entry[0].resource;
+    setForm(data);
   }
 
   // logout() {

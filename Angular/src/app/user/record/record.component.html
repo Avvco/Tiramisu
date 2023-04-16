@@ -103,12 +103,16 @@
                   style="font-size: 22px;">Male</span>
                 <input type="radio" id="gender-female" formControlName="gender" value="female" /><span
                   style="font-size: 22px;">Female</span>
-                <input type="date" class="form-control">
-                <input type="text" class="form-control" placeholder="ID number">
+                <input type="date" id="birthDate" class="form-control" formControlName="birthDate">
+
+                <div formGroupName="identifier">
+                  <input type="text" id="identifier-value" class="form-control" formControlName="value" autocomplete="on" 
+                    placeholder="ID number" value="">
+                </div>
               </div>
             </div>
 
-            <div class="form-group item">
+            <!-- <div class="form-group item">
               <div class="name-item">
                 <div formGroupName="telecom">
                   <div formGroupName="0">
@@ -121,14 +125,14 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <!-- <div class="form-group item">
+            <div class="form-group item">
               <div formGroupName="telecom">
                 <input type="textarea" id="telecom-value" formControlName="value" placeholder="Telecom"
                 class="form-control">
               </div>
-            </div> -->
+            </div>
 
             <div class="form-group item">
               <div formGroupName="address">
