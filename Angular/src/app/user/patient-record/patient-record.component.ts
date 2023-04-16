@@ -67,8 +67,8 @@ export class PatientRecordComponent implements OnInit {
   constructor() { }
 
   async ngOnInit(): Promise<void> {
-    // let user = await getUserName();
-    let user = "yumeow0122"
+    let user = await getUserName();
+    // let user = "123"
     let res = await GET_RECORD_API(user)
       .then((res) => {
         return res.data
@@ -77,9 +77,9 @@ export class PatientRecordComponent implements OnInit {
         console.log(err);
       });
 
-    console.log(res.entry[0]);
-    // let data = res.entry[0].resource;
-    // setForm(data);
+    console.log(res.entry[0].resource);
+    let data = res.entry[0].resource;
+    setForm(data);
   }
 
 }
