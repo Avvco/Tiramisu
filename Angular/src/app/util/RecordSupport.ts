@@ -95,6 +95,14 @@ async function calculateMerkleTree() {
     .then(async (res) => {
       let data = res.data.entry;
 
+      if (data == null) {
+        console.log("here")
+        let hashData = [["0"]];
+        let tree = StandardMerkleTree.of(hashData, ["string"]);
+
+        return tree;
+      }
+
       let hashData = [];
       for (let i = 0; i < data.length; i++) {
         let str = JSON.stringify(data[i]);

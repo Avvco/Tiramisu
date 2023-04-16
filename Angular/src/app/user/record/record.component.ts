@@ -89,9 +89,10 @@ export class RecordComponent implements OnInit {
         console.log(res);
       })
       .catch((err) => {
+        console.log("error:")
         console.log(err);
       });
-
+    console.log(res);
     await uploadAllDataOnchain();
   }
 
