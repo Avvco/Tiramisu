@@ -105,9 +105,9 @@
                   style="font-size: 22px;">Female</span>
                 <input type="date" id="birthDate" class="form-control" formControlName="birthDate">
 
-                <div formGroupName="identifier">
-                  <input type="text" id="identifier-value" class="form-control" formControlName="value" autocomplete="on" 
-                    placeholder="ID number" value="">
+                <div formGroupName="identifier" style="width: 35%">
+                  <input type="text" id="identifier-value" style="width: 100%;" class="form-control"
+                    formControlName="value" autocomplete="on" placeholder="ID number" value="">
                 </div>
               </div>
             </div>
@@ -128,16 +128,15 @@
             </div> -->
 
             <div class="form-group item">
-              <div formGroupName="telecom">
-                <input type="textarea" id="telecom-value" formControlName="value" placeholder="Telecom"
-                class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group item">
-              <div formGroupName="address">
-                <input type="textarea" id="address-city" formControlName="text" placeholder="Address"
-                  class="form-control">
+              <div class="name-item">
+                <div formGroupName="telecom" style="width: 25%">
+                  <input type="textarea" id="telecom-value" formControlName="value" placeholder="Telecom"
+                    style="width: 100%" class="form-control">
+                </div>
+                <div formGroupName="address" style="width: 74%">
+                  <input type="textarea" id="address-city" formControlName="text" placeholder="Address"
+                   style="width: 100%" class="form-control">
+                </div>
               </div>
             </div>
 
