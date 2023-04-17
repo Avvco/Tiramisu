@@ -14,7 +14,7 @@ export async function loginHealthWorker(loginData: any, component: any) {
     if (isStaff) {
       let res = await sendDataToDataBase(loginData);
       if (res.status === 200) {
-        alert("Login patient success.")
+        alert("Login health work success.")
         component.router.navigate(['../user/record']);
       }
       else {

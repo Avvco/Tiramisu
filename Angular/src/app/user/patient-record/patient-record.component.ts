@@ -10,6 +10,7 @@ import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIH
 import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
 import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
 import { getUserName } from 'src/app/util/UserTokenHandler';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient-record',
   templateUrl: './patient-record.component.html',
@@ -64,10 +65,17 @@ export class PatientRecordComponent implements OnInit {
 
   });
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    let user = await getUserName();
+    let token = getAccessToken();
+    console.log(token);
+    if (getAccessToken() == null) {
+      alert("please login first.");
+      this.router.navigate(['../login']);
+    }
+
+    let user = getUserName();
     // let user = "123"
     let res = await GET_RECORD_API(user)
       .then((res) => {

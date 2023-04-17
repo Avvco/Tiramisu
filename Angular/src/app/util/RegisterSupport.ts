@@ -17,11 +17,12 @@ export async function registerHealthWorker(registerData: any, component: any) {
 
     let res = await sendDataToDataBase(registerData);
     let reg = await registerMedicalAccount(userAddr);
-    if (res.status == 200) {
+    if (res.status == 204) {
       alert("register success.")
       component.router.navigate(['../login']);
     }
     else {
+      console.log(res.status)
       alert("Register health worker failed.")
     }
   }
@@ -44,7 +45,7 @@ export async function registerPatient(registerData: any, component: any) {
 
     let res = await sendDataToDataBase(registerData);
     let reg = await registerPatientAccount(userAddr);
-    if (res.status == 200) {
+    if (res.status == 204) {
       alert("register success.")
       component.router.navigate(['../login']);
     }
