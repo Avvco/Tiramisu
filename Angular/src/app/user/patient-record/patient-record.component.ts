@@ -75,6 +75,12 @@ export class PatientRecordComponent implements OnInit {
       this.router.navigate(['../login']);
     }
 
+    let isValidNow = await verifyAllData();
+    if (!isValidNow) {
+      alert("Data broken.")
+      return;
+    }
+
     let user = getUserName();
     // let user = "123"
     let res = await GET_RECORD_API(user)
@@ -85,8 +91,8 @@ export class PatientRecordComponent implements OnInit {
         console.log(err);
       });
 
-    console.log(res.entry[0].resource);
-    let data = res.entry[0].resource;
+    let size = res.entry.length;
+    let data = res.entry[size-1].resource;
     setForm(data);
   }
 

@@ -37,4 +37,4 @@ export const POST_RECORD_API = (data: any) => RECORD_REQUEST.post("", data);
 
 export const GET_RECORD_API = (searchVal: string) => RECORD_REQUEST.get("?identifier="+searchVal);
 
-export const GET_ALL_RECORD_API = () => RECORD_REQUEST.get("/$everything");
+export const GET_ALL_RECORD_API = () => RECORD_REQUEST.get("/$everything?_count=200");

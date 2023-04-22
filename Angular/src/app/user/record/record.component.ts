@@ -9,7 +9,7 @@ import { Directive, ElementRef, Input } from '@angular/core'
 import { FormSetter } from './using/form-setter';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
+import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm, calculateMerkleTree } from 'src/app/util/RecordSupport';
 
 
 @Component({
@@ -76,11 +76,12 @@ export class RecordComponent implements OnInit {
   async addRecord(): Promise<void> {
     console.log("addRecord");
 
+    let tree = await calculateMerkleTree();
     console.log(this.record.value);
-    await uploadAllDataOnchain(); //for debug
-
+     await uploadAllDataOnchain(); //for renew
     let isValidNow = await verifyAllData();
     if (!isValidNow) {
+      alert("Data broken");
       return;
     }
 
@@ -92,7 +93,7 @@ export class RecordComponent implements OnInit {
         console.log("error:")
         console.log(err);
       });
-    console.log(res);
+
     await uploadAllDataOnchain();
   }
 
@@ -100,6 +101,7 @@ export class RecordComponent implements OnInit {
     console.log("getRecord");
 
     let isValidNow = await verifyAllData();
+    console.log(isValidNow);
     if (!isValidNow) {
       alert("Data broken.")
       return;
@@ -116,8 +118,10 @@ export class RecordComponent implements OnInit {
       });
 
     // console.log(res.entry[0]);
-    let data = res.entry[0].resource;
+    let size = res.entry.length;
+    let data = res.entry[size - 1].resource;
     setForm(data);
+    console.log("E");
   }
 
   // logout() {
