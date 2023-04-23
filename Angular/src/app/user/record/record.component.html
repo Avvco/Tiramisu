@@ -72,10 +72,12 @@
       <div class="col-md-9 text-center mb-4 mt-4">
         <form name="search" (ngSubmit)="getRecord()">
           <div class="form-group">
-            <div class="search-item" style="padding-left: 65%;">
-              <input tpye="text" id="search-value" placeholder="ID number" class="form-control">
+            <div class="search-item" style="padding-left: 40%;">
+              <input type="text" id="search-value" placeholder="ID number" class="form-control">
               <button type="submit" class="form-control"
                 style="background-color: rgba(32, 114, 51, 0.25)">search</button>
+              <div style="width: 18%;"><h4><a href="../record-history" style="color: #125699">History</a></h4></div>
+              <!-- <img src="../../../assets/images/history.png" width="10%"> -->
             </div>
           </div>
         </form>
