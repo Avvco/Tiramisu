@@ -7,11 +7,13 @@ import { RecordComponent } from './record/record.component';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientRecordComponent } from './patient-record/patient-record.component';
+import { RecordHistoryComponent } from './record-history/record-history.component';
 
 @NgModule({
   declarations: [
     RecordComponent,
-    PatientRecordComponent
+    PatientRecordComponent,
+    RecordHistoryComponent
   ],
   imports: [
     CommonModule,

@@ -303,12 +303,6 @@ button:hover {
   .blood-item select {
     width: 20%;
   }
-  .birth-item input[type=date], input[type=text] {
-    width: 35%;
-  }
-  .birth-item input[type=radio]{
-    width: 2%;
-  }
 
   .city-item select {
     width: calc(50% - 8px);
@@ -995,6 +989,12 @@ pre code {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
+  }
+}
+
+@media (min-width: 2160px) {
+  .container {
+    max-width: 2000px;
   }
 }
 
