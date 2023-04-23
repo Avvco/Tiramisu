@@ -36,9 +36,7 @@ export async function verifyAllData() {
 
   try {
     let onchainRoot = await getRecordRoot();
-    let isValid = onchainRoot == tree.root;
-    console.log(isValid);
-    return isValid;
+    return onchainRoot == tree.root;
   }
   catch {
     console.log("died");
@@ -61,16 +59,16 @@ export async function uploadAllDataOnchain() {
 export async function setForm(data: any) {
   console.log(data);
 
-  console.log(data.identifier);
+  //console.log(data.identifier);
   (document.getElementById('identifier-value') as HTMLInputElement).value = data.identifier[0].value;
 
-  console.log(data.name[0].family);
+  //console.log(data.name[0].family);
   (document.getElementById('name-family') as HTMLInputElement).value = data.name[0].family;
 
-  console.log(data.name[0].given);
+  //console.log(data.name[0].given);
   (document.getElementById('name-given') as HTMLInputElement).value = data.name[0].given;
 
-  console.log(data.gender);
+  //console.log(data.gender);
   if (data.gender == "male") {
     (document.getElementById('gender-male') as HTMLInputElement).checked = true;
   }
@@ -81,20 +79,20 @@ export async function setForm(data: any) {
   console.log(data.telecom[0].value);
   (document.getElementById('telecom-value') as HTMLInputElement).value = data.telecom[0].value
 
-  console.log(data.address[0]);
+  console.log(data.address[0].text);
   (document.getElementById('address-city') as HTMLInputElement).value = data.address[0].text;
 
-  console.log(data.birthDate);
+  //console.log(data.birthDate);
   (document.getElementById('birthDate') as HTMLInputElement).value = data.birthDate;
 }
 
 
 
-async function calculateMerkleTree() {
+export async function calculateMerkleTree() {
   let tree = await GET_ALL_RECORD_API()
     .then(async (res) => {
       let data = res.data.entry;
-
+      console.log(res.data);
       if (data == null) {
         console.log("here")
         let hashData = [["0"]];
@@ -105,7 +103,8 @@ async function calculateMerkleTree() {
 
       let hashData = [];
       for (let i = 0; i < data.length; i++) {
-        let str = JSON.stringify(data[i]);
+        //let str = JSON.stringify(data[i]) + "error";
+         let str = JSON.stringify(data[i]);
         let hashStr = utils.solidityKeccak256(["string"], [str]);
         hashData.push([hashStr]);
       }
