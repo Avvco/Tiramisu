@@ -22,7 +22,7 @@ services:
     command: [ "bash", "./bootRun.sh" ]
 
   spring-boot-postgres:
-    image: postgres:latest
+    image: postgres:15.2
     container_name: spring-boot-postgres
     environment:
       POSTGRES_PASSWORD: password
@@ -32,7 +32,7 @@ services:
       - /db/spring-boot-postgres:/var/lib/postgresql/data
 
   hapi-fhir:
-    image: hapiproject/hapi:latest
+    image: hapiproject/hapi:v6.4.0
     volumes:
       - ./HAPI-FHIR/jpaserver-starter:/data/hapi
     container_name: hapi-fhir
@@ -40,7 +40,7 @@ services:
      SPRING_CONFIG_LOCATION: file:///data/hapi/application.yaml
 
   hapi-fhir-postgres:
-    image: postgres:latest
+    image: postgres:15.2
     container_name: hapi-fhir-postgres
     environment:
       POSTGRES_PASSWORD: password
