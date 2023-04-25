@@ -21,50 +21,29 @@ import { Router } from '@angular/router';
 export class RecordHistoryComponent implements OnInit {
 
   record = new FormGroup({
-    resourceType: new FormControl('Patient'),
+    resourceType: new FormControl('Observation'),
 
-    identifier: new FormGroup({
-      use: new FormControl('official'),
-      type: new FormControl('Student ID'),
-      value: new FormControl('')
-    }),
+    identifier: new FormControl(''),
+    effectiveDateTime: new FormControl(''),
+    performer: new FormControl(''),
+    code: new FormControl(''),
+    method: new FormControl(''),
 
-    name: new FormGroup({
-      use: new FormControl('official'),
-      family: new FormControl(''),
-      given: new FormControl('')
-    }),
-
-    gender: new FormControl(''),
-
-    telecom: new FormGroup({
-      system: new FormControl('email'),
-      use: new FormControl('home'),
-      value: new FormControl('')
-    }),
-    // telecom: new FormGroup([
-    //   new FormGroup({
-    //     system: new FormControl('email'),
-    //     use: new FormControl('work'),
-    //     value: new FormControl('')
-    //   }),
-    //   new FormGroup({
-    //     system: new FormControl('phone'),
-    //     use: new FormControl('mobile'),
-    //     value: new FormControl('')
-    //   })
-    // ]),
-
-    address: new FormGroup({
-      text: new FormControl(''),
-    }),
-
-    active: new FormControl('true'),
-
-    birthDate: new FormControl(''),
-
+    // a: new FormGroup({
+    //   b: new FormControl('official'),
+    // }),
   });
 
+  medication = new FormGroup({
+    identifier: new FormControl(''),
+    effectiveDateTime: new FormControl(''),
+
+    a: new FormGroup({
+      b: new FormControl('official'),
+    }),
+
+
+  });
   constructor(private router: Router) { }
 
   async ngOnInit(): Promise<void> {
