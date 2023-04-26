@@ -53,10 +53,10 @@ export const GET_RECORD_API = (searchVal: string) => RECORD_REQUEST.get("?identi
 
 export const GET_ALL_RECORD_API = () => RECORD_REQUEST.get("/$everything?_count=200");
 
-export const POST_OBSERVATION_REQUEST = (data: any) => OBSERVATION_REQUEST.post("", data);
+export const POST_OBSERVATION_API = (data: any) => OBSERVATION_REQUEST.post("", data);
 
-export const GET_OBSERVATION_REQUEST = (searchVal: string) => OBSERVATION_REQUEST.get("/_search?identifier=" + searchVal);
+export const GET_OBSERVATION_API = (searchVal: string) => OBSERVATION_REQUEST.get("/_search?identifier=" + searchVal);
 
-export const POST_MEDICATION_REQUEST = (data: any) => MEDICATION_REQUEST.post("", data);
+export const POST_MEDICATION_API = (data: any) => MEDICATION_REQUEST.post("", data);
 
-export const GET_MEDICATION_REQUEST = (searchVal: string) => MEDICATION_REQUEST.get("/_search?identifier=" + searchVal);
+export const GET_MEDICATION_API = (searchVal: string) => MEDICATION_REQUEST.get("/_search?identifier=" + searchVal);
