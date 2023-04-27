@@ -53,8 +53,6 @@ services:
     image: adminer
     container_name: adminer
     restart: always
-    ports:
-      - 64550:8080
     depends_on:
       - spring-boot-postgres
       - hapi-fhir-postgres
