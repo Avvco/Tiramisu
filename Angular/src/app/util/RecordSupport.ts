@@ -14,9 +14,9 @@ export async function set_record(data: any) {
     (document.getElementById('gender-female') as HTMLInputElement).checked = true;
   }
 
-  (document.getElementById('telecom-value') as HTMLInputElement).value = data.telecom[0].value
+  (document.getElementById('telecom-value') as HTMLInputElement).value = data.telecom[0].value;
 
-    (document.getElementById('address-city') as HTMLInputElement).value = data.address[0].text;
+  (document.getElementById('address-city') as HTMLInputElement).value = data.address[0].text;
 
   (document.getElementById('birthDate') as HTMLInputElement).value = data.birthDate;
 }

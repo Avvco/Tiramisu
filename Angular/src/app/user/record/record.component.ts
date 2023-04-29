@@ -8,7 +8,8 @@ import { Directive, ElementRef, Input } from '@angular/core'
 
 import { POST_RECORD_API, GET_RECORD_API } from '../../util/APIHandler';
 import { set_record } from 'src/app/util/RecordSupport';
-import { verifyAllData, uploadAllDataOnchain, calculateMerkleTree } from 'src/app/util/MerkleSupport';
+import { uploadAllDataOnchain } from 'src/app/util/MerkleSupport';
+import { verify_data } from 'src/app/util/VerifySupport';
 
 
 @Component({
@@ -63,14 +64,9 @@ export class RecordComponent implements OnInit {
   async addRecord(): Promise<void> {
     console.log("addRecord");
 
-    let tree = await calculateMerkleTree();
-    console.log(this.record.value);
-    await uploadAllDataOnchain(); //for renew
-    let isValidNow = await verifyAllData();
-    if (!isValidNow) {
-      alert("Data broken");
-      return;
-    }
+    // await uploadAllDataOnchain(); //for renew
+
+    await verify_data();
 
     let res = await POST_RECORD_API(this.record.value)
       .then((res) => {
@@ -87,12 +83,7 @@ export class RecordComponent implements OnInit {
   async getRecord(): Promise<void> {
     console.log("getRecord");
 
-    let isValidNow = await verifyAllData();
-    console.log(isValidNow);
-    if (!isValidNow) {
-      alert("Data broken.")
-      return;
-    }
+    verify_data();
 
     let searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
 
@@ -107,7 +98,6 @@ export class RecordComponent implements OnInit {
     let size = res.entry.length;
     let data = res.entry[size - 1].resource;
     set_record(data);
-    console.log("E");
   }
 
   // logout() {

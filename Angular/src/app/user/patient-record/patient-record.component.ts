@@ -6,10 +6,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Directive, ElementRef, Input } from '@angular/core'
 import { Router } from '@angular/router';
 
-import { verifyAllData } from 'src/app/util/MerkleSupport';
 import { GET_RECORD_API } from '../../util/APIHandler';
 import { set_record } from 'src/app/util/RecordSupport';
 import { getUserName, getAccessToken, removeAccessToken } from 'src/app/util/UserTokenController';
+import { verify_data } from 'src/app/util/VerifySupport';
+
 @Component({
   selector: 'app-patient-record',
   templateUrl: './patient-record.component.html',
@@ -61,11 +62,7 @@ export class PatientRecordComponent implements OnInit {
       this.router.navigate(['../login']);
     }
 
-    let isValidNow = await verifyAllData();
-    if (!isValidNow) {
-      alert("Data broken.")
-      return;
-    }
+    verify_data();
 
     let user = getUserName();
     let res = await GET_RECORD_API(user)
