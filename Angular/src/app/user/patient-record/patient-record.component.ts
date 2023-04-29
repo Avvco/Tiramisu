@@ -4,13 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from "rxjs";
 import { FormGroup, FormControl } from '@angular/forms';
 import { Directive, ElementRef, Input } from '@angular/core'
-
-
-import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
-import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
-import { getUserName } from 'src/app/util/UserTokenHandler';
 import { Router } from '@angular/router';
+
+import { verifyAllData } from 'src/app/util/MerkleSupport';
+import { GET_RECORD_API } from '../../util/APIHandler';
+import { set_record } from 'src/app/util/RecordSupport';
+import { getUserName, getAccessToken, removeAccessToken } from 'src/app/util/UserTokenController';
 @Component({
   selector: 'app-patient-record',
   templateUrl: './patient-record.component.html',
@@ -42,18 +41,6 @@ export class PatientRecordComponent implements OnInit {
       use: new FormControl('home'),
       value: new FormControl('')
     }),
-    // telecom: new FormGroup([
-    //   new FormGroup({
-    //     system: new FormControl('email'),
-    //     use: new FormControl('work'),
-    //     value: new FormControl('')
-    //   }),
-    //   new FormGroup({
-    //     system: new FormControl('phone'),
-    //     use: new FormControl('mobile'),
-    //     value: new FormControl('')
-    //   })
-    // ]),
 
     address: new FormGroup({
       text: new FormControl(''),
@@ -62,7 +49,6 @@ export class PatientRecordComponent implements OnInit {
     active: new FormControl('true'),
 
     birthDate: new FormControl(''),
-
   });
 
   constructor(private router: Router) { }
@@ -82,7 +68,6 @@ export class PatientRecordComponent implements OnInit {
     }
 
     let user = getUserName();
-    // let user = "123"
     let res = await GET_RECORD_API(user)
       .then((res) => {
         return res.data
@@ -92,8 +77,8 @@ export class PatientRecordComponent implements OnInit {
       });
 
     let size = res.entry.length;
-    let data = res.entry[size-1].resource;
-    setForm(data);
+    let data = res.entry[size - 1].resource;
+    set_record(data);
   }
 
 }

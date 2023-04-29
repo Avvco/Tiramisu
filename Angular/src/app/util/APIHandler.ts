@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { getAccessToken } from './UserTokenHandler';
+import { getAccessToken } from './UserTokenController';
 
 
 const BASE: string = "https://spring-boot.tiramisu.localhost";

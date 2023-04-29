@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 
-import { setAccessToken } from '../util/UserTokenHandler';
+import { setAccessToken } from '../util/UserTokenController';
 import { POST_LOGIN_API } from '../util/APIHandler';
 import { getETHAddress } from '../util/contract/address/userAddress';
 

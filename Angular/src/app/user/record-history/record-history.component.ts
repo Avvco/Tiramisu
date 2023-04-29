@@ -10,10 +10,6 @@ import { Router } from '@angular/router';
 import { add_observation, add_medication } from 'src/app/util/HistorySupport';
 import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
 
-import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
-import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
-import { getUserName } from 'src/app/util/UserTokenHandler';
 @Component({
   selector: 'app-record-history',
   templateUrl: './record-history.component.html',

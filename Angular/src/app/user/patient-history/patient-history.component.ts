@@ -8,9 +8,7 @@ import { Directive, ElementRef, Input } from '@angular/core'
 
 import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
-import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
-import { getUserName } from 'src/app/util/UserTokenHandler';
+import { getUserName, getAccessToken, removeAccessToken } from 'src/app/util/UserTokenController';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient-history',

@@ -6,10 +6,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Directive, ElementRef, Input } from '@angular/core'
 
 
-import { FormSetter } from './using/form-setter';
-import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
-import { removeAccessToken } from 'src/app/util/UserTokenHandler';
-import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm, calculateMerkleTree } from 'src/app/util/RecordSupport';
+import { POST_RECORD_API, GET_RECORD_API } from '../../util/APIHandler';
+import { set_record } from 'src/app/util/RecordSupport';
+import { verifyAllData, uploadAllDataOnchain, calculateMerkleTree } from 'src/app/util/MerkleSupport';
 
 
 @Component({
@@ -45,18 +44,6 @@ export class RecordComponent implements OnInit {
       use: new FormControl('home'),
       value: new FormControl('')
     }),
-    // telecom: new FormGroup([
-    //   new FormGroup({
-    //     system: new FormControl('email'),
-    //     use: new FormControl('work'),
-    //     value: new FormControl('')
-    //   }),
-    //   new FormGroup({
-    //     system: new FormControl('phone'),
-    //     use: new FormControl('mobile'),
-    //     value: new FormControl('')
-    //   })
-    // ]),
 
     address: new FormGroup({
       text: new FormControl(''),
@@ -78,7 +65,7 @@ export class RecordComponent implements OnInit {
 
     let tree = await calculateMerkleTree();
     console.log(this.record.value);
-     await uploadAllDataOnchain(); //for renew
+    await uploadAllDataOnchain(); //for renew
     let isValidNow = await verifyAllData();
     if (!isValidNow) {
       alert("Data broken");
@@ -117,10 +104,9 @@ export class RecordComponent implements OnInit {
         console.log(err);
       });
 
-    // console.log(res.entry[0]);
     let size = res.entry.length;
     let data = res.entry[size - 1].resource;
-    setForm(data);
+    set_record(data);
     console.log("E");
   }
 
