@@ -55,13 +55,6 @@ export class PatientRecordComponent implements OnInit {
   constructor(private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    let token = getAccessToken();
-    console.log(token);
-    if (getAccessToken() == null) {
-      alert("please login first.");
-      this.router.navigate(['../login']);
-    }
-
     verify_data();
 
     let user = getUserName();

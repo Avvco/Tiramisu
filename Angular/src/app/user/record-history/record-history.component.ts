@@ -7,8 +7,10 @@ import { Directive, ElementRef, Input } from '@angular/core'
 import { Router } from '@angular/router';
 
 
+import { verify_data } from 'src/app/util/VerifySupport';
 import { add_observation, add_medication } from 'src/app/util/HistorySupport';
 import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
+import { uploadAllDataOnchain } from 'src/app/util/MerkleSupport';
 
 @Component({
   selector: 'app-record-history',
@@ -72,6 +74,8 @@ export class RecordHistoryComponent implements OnInit {
 
   async search_patient_history(): Promise<void> {
     try {
+      verify_data();
+
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_hitory_list(pateintID, this);
 
@@ -84,12 +88,14 @@ export class RecordHistoryComponent implements OnInit {
 
   async add_history() {
     try {
+      verify_data();
       let med = this.history.value.medication;
       let obs = this.history.value.observation;
 
       add_observation(obs);
       add_medication(med);
 
+      uploadAllDataOnchain();
       alert("add success.");
     }
     catch (err) {

@@ -7,6 +7,7 @@ import { Directive, ElementRef, Input } from '@angular/core'
 
 
 import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
+import { verify_data } from 'src/app/util/VerifySupport';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { getUserName, getAccessToken, removeAccessToken } from 'src/app/util/UserTokenController';
 import { Router } from '@angular/router';
@@ -67,8 +68,7 @@ export class PatientHistoryComponent implements OnInit {
   constructor(private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    let token = getAccessToken();
-    console.log(token);
+    verify_data();
 
     try {
       let pateintID = getUserName();
