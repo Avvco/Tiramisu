@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 
 
 import { add_observation, add_medication } from 'src/app/util/HistorySupport';
+import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
+
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
 import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
@@ -22,26 +24,46 @@ import { getUserName } from 'src/app/util/UserTokenHandler';
 export class RecordHistoryComponent implements OnInit {
 
   history = new FormGroup({
-    observation : new FormGroup({
+    observation: new FormGroup({
       resourceType: new FormControl('Observation'),
-      identifier: new FormControl(''),
+      identifier: new FormGroup({
+        use: new FormControl(''),
+        value: new FormControl(''), // give day
+      }),
 
-      effectiveDateTime: new FormControl(''), // when to visit
-      performer: new FormControl(''), // which staff
-      code: new FormControl(''), // what problem
-      method: new FormControl(''), // how to handle
+      code: new FormGroup({
+        text: new FormControl(''), // what problem
+      }),
+
+      performer: new FormGroup({
+        display: new FormControl(''), // which staff
+      }),
+
+      method: new FormGroup({
+        text: new FormControl(''),
+      }),
+
+      effectiveDateTime: new FormControl(''), // when to visit      
     }),
 
-    medication : new FormGroup({
+    medication: new FormGroup({
       resourceType: new FormControl('Medication'),
-      identifier: new FormControl(''),
+      identifier: new FormGroup({
+        use: new FormControl(''),
+        value: new FormControl(''), // give day
+      }),
 
-      code: new FormControl(''), // medication name
-      marketingAuthorizationHolder: new FormControl(''), // medication production
-      totalVolume: new FormControl(''), // total medication
-      definition: new FormControl(''), // how to use
-      batch: new FormGroup({
-        lotNumber: new FormControl(''), // give day
+      code: new FormGroup({
+        coding: new FormGroup({
+          display: new FormControl('') // medication use
+        }),
+        text: new FormControl('') // medication name
+      }),
+      totalVolume: new FormGroup({ // how to use
+        value: new FormControl(''), // medication use
+        unit: new FormControl('mg'), // medication use
+        code: new FormControl('mg')
+
       }),
     })
   });
@@ -53,8 +75,15 @@ export class RecordHistoryComponent implements OnInit {
   }
 
   async search_patient_history(): Promise<void> {
-    let searchVal = (document.getElementById('search-value') as HTMLInputElement).value;
-    console.log(searchVal);
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_hitory_list(pateintID, this);
+
+      alert("search success.");
+    }
+    catch (err) {
+      alert("search fail.");
+    }
   }
 
   async add_history() {
@@ -66,6 +95,105 @@ export class RecordHistoryComponent implements OnInit {
       add_medication(med);
 
       alert("add success.");
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h0() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 0, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h1() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 1, this);
+    }
+    catch (err) {
+    }
+  }
+
+  async get_h2() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 2, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h3() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 3, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h4() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 4, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h5() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 5, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h6() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 6, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h7() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 7, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h8() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 8, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h9() {
+    try {
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      get_history(pateintID, 9, this);
     }
     catch (err) {
       alert("add fail.");

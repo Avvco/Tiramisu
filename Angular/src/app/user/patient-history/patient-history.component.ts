@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Directive, ElementRef, Input } from '@angular/core'
 
 
+import { get_hitory_list, get_history } from 'src/app/util/HistorySupport';
 import { POST_RECORD_API, GET_RECORD_API, GET_LOGOUT_API } from '../../util/APIHandler';
 import { getAccessToken, removeAccessToken } from 'src/app/util/UserTokenHandler';
 import { verifySingleData, verifyAllData, uploadAllDataOnchain, setForm } from 'src/app/util/RecordSupport';
@@ -20,49 +21,49 @@ import { Router } from '@angular/router';
 @Injectable()
 export class PatientHistoryComponent implements OnInit {
 
-  record = new FormGroup({
-    resourceType: new FormControl('Patient'),
+  history = new FormGroup({
+    observation: new FormGroup({
+      resourceType: new FormControl('Observation'),
+      identifier: new FormGroup({
+        use: new FormControl(''),
+        value: new FormControl(''), // give day
+      }),
 
-    identifier: new FormGroup({
-      use: new FormControl('official'),
-      type: new FormControl('Student ID'),
-      value: new FormControl('')
+      code: new FormGroup({
+        text: new FormControl(''), // what problem
+      }),
+
+      performer: new FormGroup({
+        display: new FormControl(''), // which staff
+      }),
+
+      method: new FormGroup({
+        text: new FormControl(''),
+      }),
+
+      effectiveDateTime: new FormControl(''), // when to visit      
     }),
 
-    name: new FormGroup({
-      use: new FormControl('official'),
-      family: new FormControl(''),
-      given: new FormControl('')
-    }),
+    medication: new FormGroup({
+      resourceType: new FormControl('Medication'),
+      identifier: new FormGroup({
+        use: new FormControl(''),
+        value: new FormControl(''), // give day
+      }),
 
-    gender: new FormControl(''),
+      code: new FormGroup({
+        coding: new FormGroup({
+          display: new FormControl('') // medication use
+        }),
+        text: new FormControl('') // medication name
+      }),
+      totalVolume: new FormGroup({ // how to use
+        value: new FormControl(''), // medication use
+        unit: new FormControl('mg'), // medication use
+        code: new FormControl('mg')
 
-    telecom: new FormGroup({
-      system: new FormControl('email'),
-      use: new FormControl('home'),
-      value: new FormControl('')
-    }),
-    // telecom: new FormGroup([
-    //   new FormGroup({
-    //     system: new FormControl('email'),
-    //     use: new FormControl('work'),
-    //     value: new FormControl('')
-    //   }),
-    //   new FormGroup({
-    //     system: new FormControl('phone'),
-    //     use: new FormControl('mobile'),
-    //     value: new FormControl('')
-    //   })
-    // ]),
-
-    address: new FormGroup({
-      text: new FormControl(''),
-    }),
-
-    active: new FormControl('true'),
-
-    birthDate: new FormControl(''),
-
+      }),
+    })
   });
 
   constructor(private router: Router) { }
@@ -70,24 +71,115 @@ export class PatientHistoryComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let token = getAccessToken();
     console.log(token);
-    if (getAccessToken() == null) {
-      alert("please login first.");
-      this.router.navigate(['../login']);
+
+    try {
+      let pateintID = getUserName();
+      console.log(pateintID)
+      get_hitory_list(pateintID, this);
+
+      alert("search success.");
     }
-
-    let user = getUserName();
-    // let user = "123"
-    let res = await GET_RECORD_API(user)
-      .then((res) => {
-        return res.data
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    console.log(res.entry[0].resource);
-    let data = res.entry[0].resource;
-    setForm(data);
+    catch (err) {
+      alert("search fail.");
+    }
   }
 
+  async get_h0() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 0, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h1() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 1, this);
+    }
+    catch (err) {
+    }
+  }
+
+  async get_h2() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 2, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h3() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 3, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h4() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 4, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h5() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 5, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h6() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 6, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h7() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 7, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h8() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 8, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
+
+  async get_h9() {
+    try {
+      let pateintID = getUserName();
+      get_history(pateintID, 9, this);
+    }
+    catch (err) {
+      alert("add fail.");
+    }
+  }
 }

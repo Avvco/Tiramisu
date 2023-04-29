@@ -55,8 +55,8 @@ export const GET_ALL_RECORD_API = () => RECORD_REQUEST.get("/$everything?_count=
 
 export const POST_OBSERVATION_API = (data: any) => OBSERVATION_REQUEST.post("", data);
 
-export const GET_OBSERVATION_API = (searchVal: string) => OBSERVATION_REQUEST.get("/_search?identifier=" + searchVal);
+export const GET_OBSERVATION_API = (searchVal: string) => OBSERVATION_REQUEST.get("?identifier=" + searchVal);
 
 export const POST_MEDICATION_API = (data: any) => MEDICATION_REQUEST.post("", data);
 
-export const GET_MEDICATION_API = (searchVal: string) => MEDICATION_REQUEST.get("/_search?identifier=" + searchVal);
+export const GET_MEDICATION_API = (searchVal: string) => MEDICATION_REQUEST.get("?identifier=" + searchVal);

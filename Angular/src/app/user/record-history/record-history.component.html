@@ -13,40 +13,42 @@
       <h4 style="font-weight: 600;" class="mb-4">最近十筆就醫紀錄</h4>
       <form>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h0" (click)="get_h0()" class="form-control" value=""></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h1" (click)="get_h1()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h2" (click)="get_h2()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h3" (click)="get_h3()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h4" (click)="get_h4()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h5" (click)="get_h5()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h6" (click)="get_h6()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h7" (click)="get_h7()" class="form-control"></button>
         </div>
         <div class="form-group">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h8" (click)="get_h8()" class="form-control"></button>
         </div>
         <div class="form-group mb-4">
-          <button type="submit" class="form-control"></button>
+          <button type="submit" id="h9" (click)="get_h9()" class="form-control"></button>
         </div>
+
         <div class="form-group" style="width: 70%; padding-left: 26%;">
           <button type="submit" class="form-control" style="background-color: rgba(32, 74, 114, 0.5)">新增</button>
         </div>
       </form>
     </div>
+
     <div style="display: inline-block; width: 72%;" class="col-md-9 text-center mt-5 mb-5 mr-3">
       <h4 style="font-weight: 600;" class="mb-4">看診紀錄</h4>
 
@@ -65,11 +67,13 @@
 
           <div class="form-group text-left">
             <div style="display: inline-block; width: 32%;">
-              <input type="date" id="visit-date" formControlName="effectiveDateTime" class="form-control">
+              <input type="date" id="effectiveDateTime" formControlName="effectiveDateTime" class="form-control">
             </div>
 
             <div style="display: inline-block; width: 65%;" class="ml-3">
-              <input type="text" formControlName="performer" class="form-control">
+              <div formGroupName="performer">
+                <input type="text" id="performer" formControlName="display" class="form-control">
+              </div>
             </div>
           </div>
 
@@ -77,14 +81,18 @@
             <h5>診斷病因、病徵</h5>
           </div>
           <div class="form-group">
-            <input type="text" formControlName="code" class="form-control">
+            <div formGroupName="code">
+              <input type="text" id="code-text" formControlName="text" class="form-control">
+            </div>
           </div>
 
           <div class="form-group text-left">
             <h5>處置方法</h5>
           </div>
           <div class="form-group">
-            <input type="text" formControlName="method" class="form-control">
+            <div formGroupName="method">
+              <input type="text" id="method-text" formControlName="text" class="form-control">
+            </div>
           </div>
         </div>
 
@@ -95,64 +103,64 @@
           </div>
           <div class="form-group text-left">
             <div style="display: inline-block; width: 60%;">
-              <input type="text" id="med-name0" formControlName="code" class="form-control" placeholder="藥品名稱及規格">
+              <input type="text" id="med-name0" class="form-control" placeholder="藥品名稱及規格" value="">
             </div>
             <div style="display: inline-block; width: 24%;" class="ml-2">
-              <input type="text" id="med-useway0" formControlName="definition" class="form-control" placeholder="用法及用量">
+              <input type="text" id="med-useway0" class="form-control" placeholder="用法及用量" value="">
             </div>
             <div style="display: inline-block; width: 13%;" class="ml-2">
-              <input type="text" id="med-volume0" formControlName="totalVolume" class="form-control" placeholder="總量">
+              <input type="text" id="med-volume0" class="form-control" placeholder="總量" value="">
             </div>
           </div>
 
           <div class="form-group text-left">
             <div style="display: inline-block; width: 60%;">
-              <input type="text" id="med-name1" formControlName="code" class="form-control" placeholder="藥品名稱及規格">
+              <input type="text" id="med-name1" class="form-control" placeholder="藥品名稱及規格">
             </div>
             <div style="display: inline-block; width: 24%;" class="ml-2">
-              <input type="text" id="med-useway1" formControlName="definition" class="form-control" placeholder="用法及用量">
+              <input type="text" id="med-useway1" class="form-control" placeholder="用法及用量">
             </div>
             <div style="display: inline-block; width: 13%;" class="ml-2">
-              <input type="text" id="med-volume1" formControlName="totalVolume" class="form-control" placeholder="總量">
+              <input type="text" id="med-volume1" class="form-control" placeholder="總量">
             </div>
           </div>
 
           <div class="form-group text-left">
             <div style="display: inline-block; width: 60%;">
-              <input type="text" id="med-name2" formControlName="code" class="form-control" placeholder="藥品名稱及規格">
+              <input type="text" id="med-name2" class="form-control" placeholder="藥品名稱及規格">
             </div>
             <div style="display: inline-block; width: 24%;" class="ml-2">
-              <input type="text" id="med-useway2" formControlName="definition" class="form-control" placeholder="用法及用量">
+              <input type="text" id="med-useway2" class="form-control" placeholder="用法及用量">
             </div>
             <div style="display: inline-block; width: 13%;" class="ml-2">
-              <input type="text" id="med-volume2" formControlName="totalVolume" class="form-control" placeholder="總量">
+              <input type="text" id="med-volume2" class="form-control" placeholder="總量">
             </div>
           </div>
 
           <div class="form-group text-left">
             <div style="display: inline-block; width: 60%;">
-              <input type="text" id="med-name3" formControlName="code" class="form-control" placeholder="藥品名稱及規格">
+              <input type="text" id="med-name3" class="form-control" placeholder="藥品名稱及規格">
             </div>
             <div style="display: inline-block; width: 24%;" class="ml-2">
-              <input type="text" id="med-useway3" formControlName="definition" class="form-control" placeholder="用法及用量">
+              <input type="text" id="med-useway3" class="form-control" placeholder="用法及用量">
             </div>
             <div style="display: inline-block; width: 13%;" class="ml-2">
-              <input type="text" id="med-volume3" formControlName="totalVolume" class="form-control" placeholder="總量">
+              <input type="text" id="med-volume3" class="form-control" placeholder="總量">
             </div>
           </div>
           <div class="form-group text-left">
             <div style="display: inline-block; width: 60%;">
-              <input type="text" id="med-name4" formControlName="code" class="form-control" placeholder="藥品名稱及規格">
+              <input type="text" id="med-name4" class="form-control" placeholder="藥品名稱及規格">
             </div>
             <div style="display: inline-block; width: 24%;" class="ml-2">
-              <input type="text" id="med-useway4" formControlName="definition" class="form-control" placeholder="用法及用量">
+              <input type="text" id="med-useway4" class="form-control" placeholder="用法及用量">
             </div>
             <div style="display: inline-block; width: 13%;" class="ml-2">
-              <input type="text" id="med-volume4" formControlName="totalVolume" class="form-control" placeholder="總量">
+              <input type="text" id="med-volume4" class="form-control" placeholder="總量">
             </div>
           </div>
 
-          <div class="form-group text-left">
+          <!-- <div class="form-group text-left">
             <div style="display: inline-block; width: 25%;">
               <h5>給藥天份</h5>
             </div>
@@ -168,9 +176,11 @@
               </div>
             </div>
             <div style="display: inline-block; width: 70%;" class="ml-3">
-              <input type="text" formControlName="marketingAuthorizationHolder" class="form-control">
+              <div formGroupName="marketingAuthorizationHolder">
+                <input type="text" formControlName="reference" class="form-control">
+              </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <div style="display: inline-block;">
