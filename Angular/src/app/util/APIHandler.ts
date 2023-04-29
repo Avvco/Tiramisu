@@ -57,6 +57,10 @@ export const POST_OBSERVATION_API = (data: any) => OBSERVATION_REQUEST.post("", 
 
 export const GET_OBSERVATION_API = (searchVal: string) => OBSERVATION_REQUEST.get("?identifier=" + searchVal);
 
+export const GET_ALL_OBSERVATION_API = () => OBSERVATION_REQUEST.get("");
+
 export const POST_MEDICATION_API = (data: any) => MEDICATION_REQUEST.post("", data);
 
 export const GET_MEDICATION_API = (searchVal: string) => MEDICATION_REQUEST.get("?identifier=" + searchVal);
+
+export const GET_ALL_MEDICATIO_API = () => MEDICATION_REQUEST.get("");
