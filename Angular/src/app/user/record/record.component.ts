@@ -96,7 +96,7 @@ export class RecordComponent implements OnInit {
       });
 
     let size = res.entry.length;
-    let data = res.entry[size - 1].resource;
+    let data = res.entry[0].resource;
     set_record(data);
   }
 

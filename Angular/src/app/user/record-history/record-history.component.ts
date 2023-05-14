@@ -74,7 +74,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async search_patient_history(): Promise<void> {
     try {
-      verify_data();
+      let judge = await verify_data()
+      if (judge == false)
+        return;
 
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_hitory_list(pateintID, this);
@@ -88,8 +90,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async add_history() {
     try {
-      verify_data();
-      let med = this.history.value.medication;
+      let judge = await verify_data()
+      if (judge == false)
+        return; let med = this.history.value.medication;
       let obs = this.history.value.observation;
 
       add_observation(obs);
@@ -105,7 +108,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h0() {
     try {
-      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+      let judge = await verify_data()
+      if (judge == false)
+        return; let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 0, this);
     }
     catch (err) {
@@ -115,6 +120,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h1() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 1, this);
     }
@@ -124,6 +132,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h2() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 2, this);
     }
@@ -134,6 +145,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h3() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 3, this);
     }
@@ -144,6 +158,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h4() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 4, this);
     }
@@ -154,6 +171,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h5() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 5, this);
     }
@@ -164,6 +184,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h6() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 6, this);
     }
@@ -174,6 +197,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h7() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 7, this);
     }
@@ -184,6 +210,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h8() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 8, this);
     }
@@ -194,6 +223,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async get_h9() {
     try {
+      let judge = await verify_data()
+      if (judge == false)
+        return;
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 9, this);
     }

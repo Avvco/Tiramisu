@@ -5,6 +5,7 @@ import { GET_ALL_MEDICATIO_API, GET_ALL_OBSERVATION_API, GET_ALL_RECORD_API } fr
 import { getRecordRoot, setRecordRoot, isValidRecord } from './contract/Verify';
 
 export async function verifyAllData() {
+  await uploadAllDataOnchain(); // for initial upload
   try {
     const [tree, onchainRoot] = await Promise.all([calculateMerkleTree(), getRecordRoot()]);
 
@@ -44,7 +45,6 @@ export async function calculateMerkleTree() {
 
   let hashData = [];
   for (let i = 0; i < data.length; i++) {
-    //let str = JSON.stringify(data[i]) + "error"; //force create invalid data
     let str = JSON.stringify(data[i]);
     let hashStr = utils.solidityKeccak256(["string"], [str]);
     hashData.push([hashStr]);
