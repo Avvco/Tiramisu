@@ -74,9 +74,9 @@ export class RecordHistoryComponent implements OnInit {
 
   async search_patient_history(): Promise<void> {
     try {
-      let judge = await verify_data()
-      if (judge == false)
-        return;
+      // let judge = await verify_data()
+      // if (judge == false)
+      //   return;
 
       let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_hitory_list(pateintID, this);
@@ -90,9 +90,10 @@ export class RecordHistoryComponent implements OnInit {
 
   async add_history() {
     try {
-      let judge = await verify_data()
-      if (judge == false)
-        return; let med = this.history.value.medication;
+      // let judge = await verify_data()
+      // if (judge == false)
+      //   return; 
+      let med = this.history.value.medication;
       let obs = this.history.value.observation;
 
       add_observation(obs);
@@ -102,7 +103,7 @@ export class RecordHistoryComponent implements OnInit {
       alert("add success.");
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -110,11 +111,13 @@ export class RecordHistoryComponent implements OnInit {
     try {
       let judge = await verify_data()
       if (judge == false)
-        return; let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
+        return; 
+      let pateintID = (document.getElementById('search-value') as HTMLInputElement).value;
       get_history(pateintID, 0, this);
     }
     catch (err) {
-      alert("add fail.");
+      console.log(err)
+      alert("get fail.");
     }
   }
 
@@ -139,7 +142,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 2, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -152,7 +155,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 3, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -165,7 +168,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 4, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -178,7 +181,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 5, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -191,7 +194,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 6, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -204,7 +207,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 7, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -217,7 +220,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 8, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -230,7 +233,7 @@ export class RecordHistoryComponent implements OnInit {
       get_history(pateintID, 9, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 }

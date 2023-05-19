@@ -88,7 +88,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 0, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -107,7 +107,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 2, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -117,7 +117,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 3, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -127,7 +127,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 4, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -137,7 +137,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 5, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -147,7 +147,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 6, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -157,7 +157,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 7, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -167,7 +167,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 8, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 
@@ -177,7 +177,7 @@ export class PatientHistoryComponent implements OnInit {
       get_history(pateintID, 9, this);
     }
     catch (err) {
-      alert("add fail.");
+      alert("get fail.");
     }
   }
 }
