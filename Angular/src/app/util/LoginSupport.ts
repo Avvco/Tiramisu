@@ -41,7 +41,7 @@ export async function loginPatient(loginData: any, component: any) {
       let res = await sendDataToDataBase(loginData);
       if (res.status === 200) {
         alert("Login patient success.")
-        //setUserName(loginData.userName);
+        setUserName(loginData.userName);
         component.router.navigate(['../user/patient-record']);
       }
       else {
