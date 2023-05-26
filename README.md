@@ -1,9 +1,11 @@
 # Tiramisu
 
+Graduation Project 2023, NDHU CSIE
+
 ## Installation
 
 ``` bash
-git clone --recursive https://github.com/Avvco/Tiramisu.git 
+git clone https://github.com/Avvco/Tiramisu.git 
 ```
 
 then
